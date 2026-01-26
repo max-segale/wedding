@@ -12,7 +12,14 @@
 	"pages_build_output_dir": "./dist",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "wedding_guests",
+			"database_name": "wedding-guests",
+			"database_id": "38668cd4-08b0-442e-b162-952ffc5208c9"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
