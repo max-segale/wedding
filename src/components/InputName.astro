@@ -1,0 +1,30 @@
+---
+const { isPrimary, class: className, ...rest } = Astro.props;
+const label = `Guest ${isPrimary ? 'One' : 'Two'}`;
+---
+
+<label>
+  {label} {!isPrimary && (<i>Optional</i>)}
+  <input class={className} type="text" name='names' placeholder="First and Last Name" required={isPrimary} {...rest} />
+</label>
+
+<style>
+  label {
+    display: block;
+  }
+
+  i {
+    color: #666;
+  }
+
+  input {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    text-indent: 0.5rem;
+    color: #000;
+
+    &::placeholder {
+      color: #666;
+    }
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+import Navigation from './Navigation.astro';
+---
+
+<div class="top-banner">
+  <header>
+    <a href="#top">Alex + Max Wedding</a>
+  </header>
+  <Navigation type="Main" />
+</div>
+
+<style>
+  .top-banner {
+    position: sticky;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-end;
+    background: rgb(255 255 255 / 0.5);
+    padding: 1rem;
+    text-align: center;
+    backdrop-filter: blur(1rem);
+    min-height: var(--headerHeight);
+  }
+
+  header {
+    margin: 0 0 1rem;
+    font-weight: 700;
+  }
+</style>

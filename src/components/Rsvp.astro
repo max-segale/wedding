@@ -1,0 +1,113 @@
+---
+import Section from './Section.astro';
+import InputName from './InputName.astro';
+import InputMeal from './InputMeal.astro';
+import InputAttend from './InputAttend.astro';
+---
+
+<Section id="rsvp">
+  <h2>RSVP</h2>
+  <form>
+    <InputName class="input-item" isPrimary />
+    <InputMeal class="input-item" isPrimary />
+    <InputName class="input-item" />
+    <InputMeal class="input-item" />
+    <InputAttend class="full-width" isYes />
+    <InputAttend class="full-width" />
+    <button class="full-width" type="submit">Respond</button>
+  </form>
+</Section>
+
+<style>
+  form {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    align-items: end;
+    justify-content: stretch;
+    gap: 1rem 0.5rem;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .input-item,
+  button {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    line-height: 1;
+    appearance: none;
+  }
+
+  .input-item {
+    background: #fff;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    border: 0;
+    margin: 0 auto;
+    padding: 0;
+    background: #725dfe;
+    color: #fff;
+  }
+</style>
+
+<script>
+  import { actions } from 'astro:actions';
+
+  function handleFormInput(event: Event) {
+    const form = event.currentTarget as HTMLFormElement;
+    const input = event.target as HTMLInputElement | HTMLSelectElement;
+    if (!form || !input) return;
+    const formData = new FormData(form);
+    const nameInputs = form.elements.namedItem('names') as RadioNodeList;
+    const mealInputs = form.elements.namedItem('meals') as RadioNodeList;
+    const isAttending = formData.get('attend') === 'yes';
+    const { name, value } = input;
+    if (name === 'names') {
+      const nameIndex = [...nameInputs].findIndex(nameInput => nameInput === input);
+      const namesMeal = mealInputs[nameIndex];
+      namesMeal.required = !!value && isAttending;
+    } else if (name === 'attend') {
+      mealInputs.forEach((input, index) => {
+        if (isAttending) {
+          if (nameInputs[index].value) input.required = true;
+        } else {
+          input.required = false;
+        }
+      });
+    }
+  }
+
+  async function handleFormSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const isAttending = formData.get('attend') === 'yes';
+    if (!isAttending) {
+      const denyConfirmed = confirm("Are you sure you can't attend?");
+      if (!denyConfirmed) return;
+    }
+    const { data, error } = await actions.rsvp(formData);
+    if (error) {
+      console.error(error);
+    } else if (data.isAttending) {
+      console.log(data.guestNames, data.guestMeals, 'Confirmed');
+    } else {
+      console.log(data.guestNames, 'Denied');
+    }
+  }
+
+  const form = document.querySelector('form');
+  form?.addEventListener('submit',  handleFormSubmit);
+  form?.addEventListener('input', handleFormInput);
+
+</script>

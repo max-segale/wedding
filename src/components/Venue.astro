@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import shawneePhoto from '../assets/shawnee-inn.jpg';
+import Section from './Section.astro';
+
+const street = '100 Shawnee Inn Dr';
+const city = 'Shawnee on Delaware, PA 18356';
+const url = `https://www.google.com/maps/search/?api=1&query=${street},${city}`;
+---
+
+<Section id="venue">
+  <h2>Venue</h2>
+  <h3>The Shawnee Inn &amp; Golf Resort</h3>
+  <p>Located on the bank of the Delaware river in the The Delaware Water Gap National Recreation Area, the Shawnee Inn is a historic landmark with beautiful grounds and plenty of activities.</p>
+  <p>Featuring a a 27-hole championship golf course, access to fishing and boating, multiple on-site restaurants and a craft brewery with live music.</p>
+  <p><em>All events and activities for the weekend will be taking place at the Shawnee inn.</em></p>
+  <p>
+    <a href={url} target="_blank">{street}<br />{city}</a>
+  </p>
+  <p>
+    <a href="https://www.shawneeinn.com" target="_blank">shawneeinn.com</a>
+  </p>
+  <Image class="image" src={shawneePhoto} alt="" />
+</Section>
+
+<style>
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

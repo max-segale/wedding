@@ -1,0 +1,30 @@
+---
+const { id } = Astro.props;
+---
+
+<section id={id}>
+  <div class="container">
+    <slot />
+    <hr />
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 2rem 1rem;
+    scroll-margin-top: var(--headerHeight);
+
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: var(--containerWidth);
+  }
+
+  hr {
+    margin: 4rem 3rem 0;
+    height: 0;
+    border: 0;
+    border-top: 1px solid grey;
+  }
+</style>

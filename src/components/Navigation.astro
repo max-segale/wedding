@@ -1,0 +1,42 @@
+---
+const { type } = Astro.props;
+const navLabel = (type ? `${type} ` : '') + 'navigation';
+const navItems = [
+  { name: 'Our Story', link: '#about' },
+  { name: 'Venue', link: '#venue' },
+  { name: 'Schedule', link: '#schedule' },
+  { name: 'Lodging', link: '#lodging' },
+  { name: 'Activities', link: '#activities' },
+  { name: 'FAQ', link: '#faq' },
+  { name: 'RSVP', link: '#rsvp' },
+];
+---
+
+<nav aria-label={navLabel}>
+  <ul>
+    {navItems.map((item, index) => (
+      <li>
+        <a href={item.link}>{item.name}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+  }
+
+  li {
+    text-align: center;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+</style>

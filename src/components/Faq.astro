@@ -1,0 +1,21 @@
+---
+import Section from './Section.astro';
+import Question from './Question.astro';
+
+const faqItems = [
+  {
+    question: 'Can I bring my children',
+    answer: 'No',
+  },
+];
+---
+
+<Section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <ul>
+    {faqItems.map(item => (
+      <Question {...item} />
+    ))}
+  </ul>
+</Section>
+

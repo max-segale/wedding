@@ -1,0 +1,22 @@
+---
+const { isPrimary, class: className, ...rest } = Astro.props;
+const label = `Meal ${isPrimary ? 'One' : 'Two'}`;
+---
+
+<select class={className} name="meals" aria-label={label} {...rest}>
+  <option value="" disabled selected>Choose Meal</option>
+  <option>Beef</option>
+  <option>Chicken</option>
+  <option>Fish</option>
+</select>
+
+<style>
+  select {
+    padding: 0 0 0 0.5rem;
+    color: #666;
+
+    &[required] {
+      color: #000;
+    }
+  }
+</style>

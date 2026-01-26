@@ -1,0 +1,28 @@
+---
+const { isYes, class: className, ...rest } = Astro.props;
+const value = isYes ? 'yes' : 'no';
+const label = isYes ? 'Yes, I will be attending.' : "No, unfortunately I can't attend."
+---
+
+<label class={className} {...rest}>
+  <input type="radio" name="attend" value={value} required checked={isYes} />
+  <span>{label}</span>
+</label>
+
+<style>
+  label {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  input {
+    margin: 0;
+  }
+
+  span {
+    display: block;
+    margin: 0 0 0 0.5rem;
+  }
+</style>
