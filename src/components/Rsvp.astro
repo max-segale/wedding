@@ -98,7 +98,7 @@ import InputAttend from './InputAttend.astro';
     }
     const { data, error } = await actions.rsvp(formData);
     if (error) {
-      console.error(error);
+      console.error('PLEASE TRY AGAIN', error);
     } else if (data.isAttending) {
       console.log(data.guestNames, data.guestMeals, 'Confirmed');
     } else {
