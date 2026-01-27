@@ -14,9 +14,9 @@ const navItems = [
 
 <nav aria-label={navLabel}>
   <ul>
-    {navItems.map((item, index) => (
+    {navItems.map(({ link, name }) => (
       <li>
-        <a href={item.link}>{item.name}</a>
+        <a href={link}>{name}</a>
       </li>
     ))}
   </ul>

@@ -1,33 +1,67 @@
 ---
 import Section from './Section.astro';
+const schedule = [
+  {
+    day : 'Friday, September 11th',
+    events: [
+      {
+        name: 'River Trip',
+        time: '3:00pm',
+        description: 'We will be kicking off the weekend with a float down the Delaware river.',
+      },
+      {
+        name: 'Welcome Party',
+        time: '7:00pm',
+        description: 'Get the party started with familiar faces at the ShawneeCraft Brewery.',
+      },
+    ],
+  },
+  {
+    day : 'Saturday, September 12th',
+    events: [
+      {
+        name: 'Wedding Ceremony',
+        time: '3:00pm',
+        description: 'Join us on the bank of for a beautify outdoor wedding ceremony.',
+      },
+      {
+        name: 'Cocktail Hour',
+        time: '4:00pm',
+        description: 'Hangout under the river-side pavilion and enjoy some drinks and good vibes.',
+      },
+      {
+        name: 'Wedding Reception',
+        time: '5:00pm',
+        description: 'We move the party inside to the Worthington Ballroom for dinner and dancing.',
+      },
+      {
+        name: 'After Party',
+        time: '10:00pm',
+        description: 'Walk back down to ShawneeCraf Brewery to keep the good times rolling.',
+      },
+    ],
+  },
+];
 ---
 
 <Section id="schedule">
   <h2>Schedule</h2>
-  <h3>Friday, September 11th</h3>
-  <h4>River Trip</h4>
-  <p>
-    <b>3:00pm</b>
-  </p>
-  <h4>Welcome Party</h4>
-  <p>
-    <b>7:00pm</b>
-  </p>
-  <h3>Saturday, September 12th</h3>
-  <h4>Wedding Ceremony</h4>
-  <p>
-    <b>3:00pm</b>
-  </p>
-  <h4>Cocktail Hour</h4>
-  <p>
-    <b>4:00pm</b>
-  </p>
-  <h4>Wedding Reception</h4>
-  <p>
-    <b>5:00pm</b>
-  </p>
-  <h4>After Party</h4>
-  <p>
-    <b>10:00pm</b>
-  </p>
+  <p>All events and activities for the weekend will be taking place at the Shawnee inn.</p>
+  {schedule.map(({ day, events }) => (
+    <div class="day">
+      <h3>{day}</h3>
+      {events.map(({ name, time, description }) => (
+        <div class="event">
+          <h4><strong>{name}</strong> at {time}</h4>
+          {description && (<p>{description}</p>)}
+        </div>
+      ))}
+    </div>
+  ))}
 </Section>
+
+<style>
+  h3 {
+    text-decoration: underline;
+  }
+</style>
