@@ -3,19 +3,25 @@ import Section from './Section.astro';
 import InputName from './InputName.astro';
 import InputMeal from './InputMeal.astro';
 import InputAttend from './InputAttend.astro';
+
+const RsvpOpen = false;
 ---
 
 <Section id="rsvp">
   <h2>RSVP</h2>
-  <form>
-    <InputName class="input-item" isPrimary />
-    <InputMeal class="input-item" isPrimary />
-    <InputName class="input-item" />
-    <InputMeal class="input-item" />
-    <InputAttend class="full-width" isYes />
-    <InputAttend class="full-width" />
-    <button class="full-width" type="submit">Respond</button>
-  </form>
+  {RsvpOpen ? (
+    <form>
+      <InputName class="input-item" isPrimary />
+      <InputMeal class="input-item" isPrimary />
+      <InputName class="input-item" />
+      <InputMeal class="input-item" />
+      <InputAttend class="full-width" isYes />
+      <InputAttend class="full-width" />
+      <button class="full-width" type="submit">Respond</button>
+    </form>
+  ) : (
+    <p>Check back soon to RSVP online once invitations have been sent.</p>
+  )}
 </Section>
 
 <style>

@@ -47,6 +47,7 @@ const schedule = [
 <Section id="schedule">
   <h2>Schedule</h2>
   <p>All events and activities for the weekend will be taking place at the Shawnee inn.</p>
+  <p><em>These event times are not finalized yet so check back once the invitaitons have been sent.</em></p>
   {schedule.map(({ day, events }) => (
     <div class="day">
       <h3>{day}</h3>
@@ -61,6 +62,10 @@ const schedule = [
 </Section>
 
 <style>
+  .day {
+    margin-top: 1rem;
+  }
+
   h3 {
     text-decoration: underline;
   }
