@@ -47,21 +47,10 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     text-align: left;
     font-family: system-ui, -apple-system, sans-serif;
     color: #000;
-    background: #fcd1b5;
+    background: linear-gradient(0deg, #fcc2b5, #fcd1b5 50%);
+    background-attachment: fixed;
     font-size: 18px;
     line-height: 1;
-
-    &::after {
-      content: '';
-      display: block;
-      position: fixed;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: linear-gradient(0deg, rgba(255, 77, 0, 0.25), transparent 50%);
-    }
 
     @media (min-width: 992px) {
       font-size: 20px;
