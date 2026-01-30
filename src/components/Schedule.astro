@@ -7,7 +7,7 @@ const schedule = [
       {
         name: 'River Trip',
         time: '12:00pm',
-        description: 'We will be kicking off the weekend with a float down the Delaware river.',
+        description: 'We will be kicking off the weekend with a group float down the Delaware River.',
       },
       {
         name: 'Welcome Party',
@@ -22,7 +22,7 @@ const schedule = [
       {
         name: 'Wedding Ceremony',
         time: '3:00pm',
-        description: 'Join us on the bank of for a beautify outdoor wedding ceremony.',
+        description: 'Join us on the banks of the Delaware River of for a beautiful outdoor wedding ceremony.',
       },
       {
         name: 'Cocktail Hour',
@@ -37,7 +37,7 @@ const schedule = [
       {
         name: 'After Party',
         time: '10:00pm',
-        description: 'Walk back down to ShawneeCraft Brewery to keep the good times rolling.',
+        description: 'Walk down to ShawneeCraft Brewery to keep the good times rolling.',
       },
     ],
   },
@@ -46,11 +46,11 @@ const schedule = [
 
 <Section id="schedule">
   <h2>Schedule</h2>
-  <p>All events and activities for the weekend will be taking place at the Shawnee inn.</p>
+  <p>All scheduled events for the weekend will be taking place at the Shawnee inn.</p>
   <p><em>These event times are not finalized yet so check back once the invitaitons have been sent.</em></p>
   {schedule.map(({ day, events }) => (
     <div class="day">
-      <h3>{day}</h3>
+      <h3 class="date">{day}</h3>
       {events.map(({ name, time, description }) => (
         <div class="event">
           <h4><strong>{name}</strong> at {time}</h4>
@@ -63,10 +63,16 @@ const schedule = [
 
 <style>
   .day {
+    border-left: 1px solid rgb(0 0 0 / 0.8);
+    padding: 0 0 0 0.5rem;
+  }
+
+  .date {
     margin-top: 1rem;
   }
 
-  h3 {
-    text-decoration: underline;
+  .event {
+    border-top: 1px solid rgb(0 0 0 / 0.2);
+    padding-top: 0.5rem;
   }
 </style>
