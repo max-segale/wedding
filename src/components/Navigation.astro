@@ -11,6 +11,7 @@ const navItems = [
   //{ name: 'Activities', link: '#activities' },
   { name: 'FAQ', link: '#faq' },
   { name: 'RSVP', link: '#rsvp' },
+  { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
 ];
 ---
 
@@ -24,9 +25,9 @@ const navItems = [
   )}
   <div class="menu">
     <ul>
-      {navItems.map(({ link, name }) => (
+      {navItems.map(({ name, link, external }) => (
         <li>
-          <a href={link}>{name}</a>
+          <a href={link} {...external ? { target: '_blank'} : {}}>{name}</a>
         </li>
       ))}
     </ul>
@@ -59,10 +60,11 @@ const navItems = [
     gap: 0;
     width: 2rem;
     height: 2rem;
-    background: rgb(255 255 255 / 0.8);
+    background: rgb(0 0 0 / 0.8);
     border: 0;
     border-radius: 0.25rem;
-    padding: 0.25rem
+    padding: 0.25rem;
+    cursor: pointer;
   }
 
   .btn-line {
@@ -73,7 +75,7 @@ const navItems = [
     height: 0.25rem;
     margin: 0 auto;
     border-radius: 0.125rem;
-    background: #000;
+    background: rgb(255 255 255 / 0.8);
     transition: transform 500ms ease, width 500ms ease;
 
     &:first-child {
@@ -88,9 +90,10 @@ const navItems = [
   .header {
     .menu {
       position: absolute;
-      right: .25rem;
+      right: 0;
       top: 100%;
       max-height: 0;
+      margin-top: .5rem;
       border-radius: 0.5rem;
       background: rgba(255, 122, 122, 0.25);
       backdrop-filter: blur(1rem);
@@ -99,21 +102,17 @@ const navItems = [
     }
 
     ul {
-      padding: .25rem .75rem;
+      max-height: calc(100dvh - var(--headerHeight) - 1rem);
+      padding: .5rem;
       flex-flow: column nowrap;
       align-items: stretch;
       justify-content: flex-start;
-      gap: 0;
+      gap: .5rem;
+      overflow: auto;
     }
 
     li {
-      border-top: 1px solid rgb(0 0 0 / 0.2);
-      padding: 0.5rem 0;
       text-align: left;
-
-      &:first-child {
-        border-top: 0;
-      }
     }
 
     a {
@@ -122,11 +121,12 @@ const navItems = [
       font-weight: 700;
       padding: .5rem 1rem;
       border-radius: .5rem;
+      background: rgb(255 255 255 / 0.4);
     }
 
     &.open {
       .menu {
-        max-height: calc(100dvh - var(--headerHeight) - .25rem);
+        max-height: calc(100dvh - var(--headerHeight) - 1rem);
       }
 
       .btn-line {
