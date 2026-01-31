@@ -4,9 +4,21 @@ import Question from './Question.astro';
 
 const faqItems = [
   {
+    question: 'Will any transportation be provided?',
+    answer: 'No, all events and activities for the weekend will be taking place at the Shawnee Inn. Once you arrive you can hang up your car keys for the weekend and have a good time.',
+  },
+  {
+    question: "What if I can't stay at the Shawnee Inn for two nights?",
+    answer: 'The Shawnee Inn does have a two night minimum stay on weekends. We understand that staying for two nights will not be possible for everyone, but there are plenty of other lodging options near by, such as hotels and Airbnbs. If you are staying off-site you should not have any trouble getting an Uber or taxi.',
+  },
+  {
     question: 'Can I bring my children to the wedding?',
     answer: 'No, we kindly ask that parents do not bring their children to the wedding ceremony or reception.',
   },
+  {
+    question: 'Can I bring my dog to the Shawnee Inn?',
+    answer: 'No, unfortunately the Shawnee Inn does not allow pets',
+  }
 ];
 ---
 
@@ -14,8 +26,17 @@ const faqItems = [
   <h2>Frequently Asked Questions</h2>
   <ul>
     {faqItems.map(item => (
-      <Question {...item} />
+      <li>
+        <Question {...item} />
+      </li>
     ))}
   </ul>
 </Section>
 
+<style>
+  li {
+    margin-top: 1rem;
+    border-top: 1px solid rgb(0 0 0 / 0.2);
+    padding-top: 1rem;
+  }
+</style>

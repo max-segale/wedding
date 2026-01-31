@@ -5,14 +5,13 @@ const schedule = [
     day : 'Friday, September 11th',
     events: [
       {
-        name: 'River Trip',
-        time: '12:00pm',
-        description: 'We will be kicking off the weekend with a group float down the Delaware River.',
+        name: 'Daytime Outdoor Activies',
+        description: 'If you golf, this is a great day to book a tee time. We will also be organizing a lazy river paddle board party down the Delaware. More details to come soon.',
       },
       {
-        name: 'Welcome Party',
+        name: 'Welcome Cocktails',
         time: '7:00pm',
-        description: 'Get the party started with familiar faces at The Gem & Keystone Tavern.',
+        description: "Let's get this party started with a joyful meet and greet with all our family and friends. Location to be determined.",
       },
     ],
   },
@@ -31,13 +30,13 @@ const schedule = [
       },
       {
         name: 'Wedding Reception',
-        time: '5:00pm',
+        time: '5:30pm',
         description: 'We move the party inside to the Worthington Ballroom for dinner and dancing.',
       },
       {
         name: 'After Party',
         time: '10:00pm',
-        description: 'Walk down to ShawneeCraft Brewery to keep the good times rolling.',
+        description: 'Walk down to ShawneeCraft Brewery to keep the good times rolling. Enjoy a craft beer and lounge around the fire pits.',
       },
     ],
   },
@@ -53,7 +52,7 @@ const schedule = [
       <h3 class="date">{day}</h3>
       {events.map(({ name, time, description }) => (
         <div class="event">
-          <h4><strong>{name}</strong> at {time}</h4>
+          <h4><strong>{name}</strong>{time && (` at ${time}`)}</h4>
           {description && (<p>{description}</p>)}
         </div>
       ))}

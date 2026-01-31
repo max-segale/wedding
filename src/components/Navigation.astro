@@ -14,7 +14,7 @@ const navItems = [
 ];
 ---
 
-<nav id={navId} class:list={[{ header: isHeader, open: true }]} aria-label={navLabel}>
+<nav id={navId} class:list={[{ header: isHeader }]} aria-label={navLabel}>
   {isHeader && (
     <button class="menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls={navId} aria-expanded="false">
       <span class="btn-line"></span>
