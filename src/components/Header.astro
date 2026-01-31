@@ -4,7 +4,7 @@ import Navigation from './Navigation.astro';
 
 <div class="top-banner">
   <header>
-    <a href="#top">Alex + Max Wedding</a>
+    <a href="#top">Alex ♡ Max</a>
   </header>
   <Navigation type="Main" />
 </div>
@@ -15,19 +15,36 @@ import Navigation from './Navigation.astro';
     left: 0;
     top: 0;
     width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    justify-content: flex-end;
-    background: rgb(252 209 181 / 0.5);
-    padding: 1rem;
-    text-align: center;
-    backdrop-filter: blur(1rem);
     min-height: var(--headerHeight);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: -1;
+      left: .25rem;
+      top: .25rem;
+      width: calc(100% - .5rem);
+      height: calc(100% - .5rem);
+      background: rgba(255, 122, 122, 0.25);
+      backdrop-filter: blur(1rem);
+      border-radius: .5rem;
+      overflow: hidden;
+    }
   }
 
   header {
-    margin: 0 0 1rem;
+    font-size: 1.2rem;
     font-weight: 700;
+  }
+
+  a {
+    text-decoration: none;
+    white-space: nowrap;
   }
 </style>
