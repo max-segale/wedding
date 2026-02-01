@@ -14,18 +14,11 @@ import Navigation from './Navigation.astro';
 <style>
   .top-banner {
     position: sticky;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     padding: 0 1rem;
-
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      z-index: -1;
-    }
 
     &::before {
       content: '';

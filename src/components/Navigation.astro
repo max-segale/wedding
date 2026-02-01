@@ -40,7 +40,7 @@ const navItems = [
     flex-flow: row wrap;
     align-items: baseline;
     justify-content: center;
-    gap: .5rem 1rem;
+    gap: 1rem 2rem;
   }
 
   li {
@@ -99,7 +99,7 @@ const navItems = [
       backdrop-filter: blur(2rem);
       overflow: hidden;
       opacity: 0;
-      transition: max-height 500ms ease, opacity 500ms linear;
+      transition: max-height 500ms ease-out, opacity 500ms linear;
     }
 
     ul {
@@ -159,14 +159,18 @@ const navItems = [
   const menuNav = document.querySelector('nav');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  function handleMenuToggle() {
+  function toggleNavMenu(openMenu: boolean = false) {
+    menuNav?.classList.toggle('open', openMenu);
+    menuBtn?.setAttribute('aria-expanded', openMenu ? 'true' : 'false');
+  }
+
+  function handleMenuToggle({ target }: Event) {
     const isOpen = menuNav?.classList.contains('open');
-    menuNav?.classList.toggle('open', !isOpen);
-    menuBtn?.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+    toggleNavMenu(!isOpen);
   }
 
   function handleNavSelect({ target }: Event) {
-    handleMenuToggle();
+    toggleNavMenu();
   }
 
   menuBtn?.addEventListener('click', handleMenuToggle);
