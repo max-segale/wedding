@@ -27,7 +27,7 @@ const navItems = [
     <ul>
       {navItems.map(({ name, link, external }) => (
         <li>
-          <a href={link} {...external ? { target: '_blank'} : {}}>{name}</a>
+          <a class="nav-link" href={link} {...external ? { target: '_blank'} : {}}>{name}</a>
         </li>
       ))}
     </ul>
@@ -40,7 +40,7 @@ const navItems = [
     flex-flow: row wrap;
     align-items: baseline;
     justify-content: center;
-    gap: 0.5rem 1rem;
+    gap: .5rem 1rem;
   }
 
   li {
@@ -60,10 +60,10 @@ const navItems = [
     gap: 0;
     width: 2rem;
     height: 2rem;
-    background: rgb(0 0 0 / 0.8);
+    background: rgb(0 0 0 / .8);
     border: 0;
-    border-radius: 0.25rem;
-    padding: 0.25rem;
+    border-radius: .25rem;
+    padding: .25rem;
     cursor: pointer;
   }
 
@@ -72,10 +72,10 @@ const navItems = [
     grid-row: 1;
     display: block;
     width: 100%;
-    height: 0.25rem;
+    height: .25rem;
     margin: 0 auto;
-    border-radius: 0.125rem;
-    background: rgb(255 255 255 / 0.8);
+    border-radius: .125rem;
+    background: rgb(255 255 255 / .8);
     transition: transform 500ms ease, width 500ms ease;
 
     &:first-child {
@@ -94,11 +94,12 @@ const navItems = [
       top: 100%;
       max-height: 0;
       margin-top: .5rem;
-      border-radius: 0.5rem;
-      background: rgba(255, 122, 122, 0.25);
-      backdrop-filter: blur(1rem);
+      border-radius: .5rem;
+      background: rgb(255 154 112 / .5);
+      backdrop-filter: blur(2rem);
       overflow: hidden;
-      transition: max-height 500ms ease;
+      opacity: 0;
+      transition: max-height 500ms ease, opacity 500ms linear;
     }
 
     ul {
@@ -121,11 +122,18 @@ const navItems = [
       font-weight: 700;
       padding: .5rem 1rem;
       border-radius: .5rem;
-      background: rgb(255 255 255 / 0.4);
+      background: rgb(255 255 255 / .6);
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: rgb(255 255 255 / .8);
+      }
     }
 
     &.open {
       .menu {
+        opacity: 1;
         max-height: calc(100dvh - var(--headerHeight) - 1rem);
       }
 
@@ -147,13 +155,22 @@ const navItems = [
 </style>
 
 <script>
+  const menuBtn = document.querySelector('.menu-btn');
+  const menuNav = document.querySelector('nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+
   function handleMenuToggle() {
     const isOpen = menuNav?.classList.contains('open');
     menuNav?.classList.toggle('open', !isOpen);
     menuBtn?.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
   }
 
-  const menuBtn = document.querySelector('.menu-btn');
-  const menuNav = document.querySelector('nav');
+  function handleNavSelect({ target }: Event) {
+    handleMenuToggle();
+  }
+
   menuBtn?.addEventListener('click', handleMenuToggle);
+  navLinks?.forEach(link => {
+    link.addEventListener('click', handleNavSelect);
+  });
 </script>
