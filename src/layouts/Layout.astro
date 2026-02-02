@@ -21,10 +21,6 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     --headerHeight: 4rem;
     --containerWidth: 576px;
 
-    @media (width >= 992px) {
-      --containerWidth: 768px;
-    }
-
     @media (width >= 1024px) {
       --containerWidth: 992px;
     }
@@ -45,6 +41,11 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     margin: 0;
     padding: 0;
     width: 100%;
+    font-size: 18px;
+
+    @media (width >= 1024px) {
+      font-size: 20px;
+    }
   }
 
   html {
@@ -52,17 +53,10 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
   }
 
   body {
-    text-align: left;
-    font-family: system-ui, -apple-system, sans-serif;
-    color: #000;
     background: #fcd1b5;
-    background-attachment: fixed;
-    font-size: 18px;
-    line-height: 1;
-
-    @media (width >= 992px) {
-      font-size: 20px;
-    }
+    color: #333;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: left;
   }
 
   h1, h2, h3, h4, h5 {

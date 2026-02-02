@@ -65,7 +65,7 @@ const navItems = [
       text-decoration: none;
       font-weight: 700;
       padding: .5rem 1rem;
-      border-radius: .5rem;
+      border-radius: .75rem;
       background: rgb(255 255 255 / .6);
 
       &:hover,
@@ -83,13 +83,18 @@ const navItems = [
         align-items: center;
         justify-content: center;
         gap: 0;
-        width: 2rem;
-        height: 2rem;
-        background: rgb(0 0 0 / .8);
+        width: 2.5rem;
+        height: 2.5rem;
+        background: rgb(0 0 0 / .5);
         border: 0;
-        border-radius: .25rem;
-        padding: .25rem;
+        border-radius: .75rem;
+        padding: .5rem;
         cursor: pointer;
+        transition: transform 100ms ease;
+
+        &:active {
+          transform: scale(.9);
+        }
       }
 
       .btn-line {
@@ -104,11 +109,11 @@ const navItems = [
         transition: transform 500ms ease, width 500ms ease;
 
         &:first-child {
-          transform: translateY(-200%);
+          transform: translateY(-250%);
         }
 
         &:last-child {
-          transform: translateY(200%);
+          transform: translateY(250%);
         }
       }
 
@@ -118,9 +123,9 @@ const navItems = [
         top: 100%;
         max-height: 0;
         margin-top: .5rem;
-        border-radius: .5rem;
+        border-radius: 1rem;
         background: rgb(255 154 112 / .5);
-        backdrop-filter: blur(2rem);
+        backdrop-filter: blur(.5rem);
         overflow: hidden;
         opacity: 0;
         transition: max-height 500ms ease-out, opacity 500ms linear;
