@@ -47,20 +47,31 @@ const schedule = [
   <h2>Schedule</h2>
   <p>All scheduled events for the weekend will be taking place at the Shawnee inn.</p>
   <p><em>These event times are not finalized yet so check back once the invitaitons have been sent.</em></p>
-  {schedule.map(({ day, events }) => (
-    <div class="day">
-      <h3 class="date">{day}</h3>
-      {events.map(({ name, time, description }) => (
-        <div class="event">
-          <h4><strong>{name}</strong>{time && (` at ${time}`)}</h4>
-          {description && (<p>{description}</p>)}
-        </div>
-      ))}
-    </div>
-  ))}
+  <div class="grid">
+    {schedule.map(({ day, events }) => (
+      <div class="day">
+        <h3 class="date">{day}</h3>
+        {events.map(({ name, time, description }) => (
+          <div class="event">
+            <h4><strong>{name}</strong>{time && (` at ${time}`)}</h4>
+            {description && (<p>{description}</p>)}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
 </Section>
 
 <style>
+  .grid {
+    display: grid;
+    gap: 1rem;
+
+    @media (width >= 1024px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   .day {
     border-left: 1px solid rgb(0 0 0 / .8);
     padding: 0 0 0 .5rem;

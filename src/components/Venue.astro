@@ -11,20 +11,32 @@ const url = `https://www.google.com/maps/search/?api=1&query=${street},${city}`;
 <Section id="venue">
   <h2>Venue</h2>
   <h3>The Shawnee Inn &amp; Golf Resort</h3>
-  <p>
-    <a href={url} target="_blank">{street}<br />{city}</a>
-  </p>
-  <p>Located along the Delaware River in the The Delaware Water Gap National Recreation Area, the Shawnee Inn is a historic landmark with beautiful grounds and plenty of activities.</p>
-  <p>Featuring a 27-hole championship golf course, tennis, pickleball, volleyball, pool, spa, archery, fishing, boating, swimming, multiple on-site restaurants, and a craft brewery with live music.</p>
-  <Image class="image" src={shawneePhoto} alt="" />
+  <div class="grid">
+    <div>
+      <p>
+        <a href={url} target="_blank">{street}<br />{city}</a>
+      </p>
+      <p>Located along the Delaware River in the The Delaware Water Gap National Recreation Area, the Shawnee Inn is a historic landmark with beautiful grounds and plenty of activities.</p>
+      <p>Featuring a 27-hole championship golf course, tennis, pickleball, volleyball, pool, spa, archery, fishing, boating, swimming, multiple on-site restaurants, and a craft brewery with live music.</p>
+    </div>
+    <Image class="image" src={shawneePhoto} alt="" />
+  </div>
 </Section>
 
 <style>
+  .grid {
+    display: grid;
+    gap: 1rem;
+
+    @media (width >= 1024px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
   .image {
     display: block;
     width: 100%;
     height: auto;
-    margin: 1rem auto 0;
     border-radius: 1rem;
   }
 </style>

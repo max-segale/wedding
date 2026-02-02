@@ -51,69 +51,13 @@ const navItems = [
     color: #000;
   }
 
-  .menu-btn {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    width: 2rem;
-    height: 2rem;
-    background: rgb(0 0 0 / .8);
-    border: 0;
-    border-radius: .25rem;
-    padding: .25rem;
-    cursor: pointer;
-  }
-
-  .btn-line {
-    grid-column: 1;
-    grid-row: 1;
-    display: block;
-    width: 100%;
-    height: .25rem;
-    margin: 0 auto;
-    border-radius: .125rem;
-    background: rgb(255 255 255 / .8);
-    transition: transform 500ms ease, width 500ms ease;
-
-    &:first-child {
-      transform: translateY(-200%);
-    }
-
-    &:last-child {
-      transform: translateY(200%);
-    }
-  }
-
   .header {
-    .menu {
-      position: absolute;
-      right: 0;
-      top: 100%;
-      max-height: 0;
-      margin-top: .5rem;
-      border-radius: .5rem;
-      background: rgb(255 154 112 / .5);
-      backdrop-filter: blur(2rem);
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 500ms ease-out, opacity 500ms linear;
+    .menu-btn {
+      display: none;
     }
 
     ul {
-      max-height: calc(100dvh - var(--headerHeight) - 1rem);
-      padding: .5rem;
-      flex-flow: column nowrap;
-      align-items: stretch;
-      justify-content: flex-start;
-      gap: .5rem;
-      overflow: auto;
-    }
-
-    li {
-      text-align: left;
+      gap: 1rem;
     }
 
     a {
@@ -131,23 +75,89 @@ const navItems = [
       }
     }
 
-    &.open {
-      .menu {
-        opacity: 1;
-        max-height: calc(100dvh - var(--headerHeight) - 1rem);
+    @media (width < 1024px) {
+      .menu-btn {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        width: 2rem;
+        height: 2rem;
+        background: rgb(0 0 0 / .8);
+        border: 0;
+        border-radius: .25rem;
+        padding: .25rem;
+        cursor: pointer;
       }
 
       .btn-line {
-        &:first-child {
-          transform: rotate(45deg);
-        }
+        grid-column: 1;
+        grid-row: 1;
+        display: block;
+        width: 100%;
+        height: .25rem;
+        margin: 0 auto;
+        border-radius: .125rem;
+        background: rgb(255 255 255 / .8);
+        transition: transform 500ms ease, width 500ms ease;
 
-        &:nth-child(2) {
-          width: 0;
+        &:first-child {
+          transform: translateY(-200%);
         }
 
         &:last-child {
-          transform: rotate(-45deg);
+          transform: translateY(200%);
+        }
+      }
+
+      .menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        max-height: 0;
+        margin-top: .5rem;
+        border-radius: .5rem;
+        background: rgb(255 154 112 / .5);
+        backdrop-filter: blur(2rem);
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 500ms ease-out, opacity 500ms linear;
+      }
+
+      ul {
+        max-height: calc(100dvh - var(--headerHeight) - 1rem);
+        padding: .5rem;
+        flex-flow: column nowrap;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: .5rem;
+        overflow: auto;
+      }
+
+      li {
+        text-align: left;
+      }
+
+      &.open {
+        .menu {
+          opacity: 1;
+          max-height: calc(100dvh - var(--headerHeight) - 1rem);
+        }
+
+        .btn-line {
+          &:first-child {
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(2) {
+            width: 0;
+          }
+
+          &:last-child {
+            transform: rotate(-45deg);
+          }
         }
       }
     }

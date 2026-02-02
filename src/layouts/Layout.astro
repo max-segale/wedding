@@ -21,8 +21,16 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     --headerHeight: 4rem;
     --containerWidth: 576px;
 
-    @media (min-width: 992px) {
+    @media (width >= 992px) {
       --containerWidth: 768px;
+    }
+
+    @media (width >= 1024px) {
+      --containerWidth: 992px;
+    }
+
+    @media (width >= 1200px) {
+      --containerWidth: 1024px;
     }
   }
 
@@ -52,7 +60,7 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     font-size: 18px;
     line-height: 1;
 
-    @media (min-width: 992px) {
+    @media (width >= 992px) {
       font-size: 20px;
     }
   }
