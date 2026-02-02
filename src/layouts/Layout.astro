@@ -18,15 +18,11 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
 
 <style is:global>
   :root {
-    --headerHeight: 4rem;
-    --containerWidth: 576px;
+    --headerHeight: 3.5rem;
+    --containerWidth: 36rem;
 
-    @media (width >= 1024px) {
-      --containerWidth: 992px;
-    }
-
-    @media (width >= 1200px) {
-      --containerWidth: 1024px;
+    @media (width >= 64rem) {
+      --containerWidth: 62rem;
     }
   }
 
@@ -41,11 +37,6 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     margin: 0;
     padding: 0;
     width: 100%;
-    font-size: 18px;
-
-    @media (width >= 1024px) {
-      font-size: 20px;
-    }
   }
 
   html {
@@ -55,6 +46,7 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
   body {
     background: #fcd1b5;
     color: #333;
+    padding-top: var(--headerHeight);
     font-family: system-ui, -apple-system, sans-serif;
     text-align: left;
   }
