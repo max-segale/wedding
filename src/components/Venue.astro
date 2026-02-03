@@ -5,7 +5,8 @@ import Section from './Section.astro';
 
 const street = '100 Shawnee Inn Dr';
 const city = 'Shawnee on Delaware, PA 18356';
-const url = `https://www.google.com/maps/search/?api=1&query=${street},${city}`;
+const encodedAddress = encodeURIComponent(`${street}, ${city}`);
+const url = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
 ---
 
 <Section id="venue">

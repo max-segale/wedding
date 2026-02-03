@@ -86,6 +86,11 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     line-height: 1.4;
   }
 
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   a {
     text-decoration: underline;
     color: inherit;
@@ -97,3 +102,7 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     padding: 0;
   }
 </style>
+
+<script>
+  document.body.addEventListener('touchstart', () => {});
+</script>
