@@ -67,11 +67,16 @@ const navItems = [
       padding: .5rem 1rem;
       border-radius: .75rem;
       background: rgb(255 255 255 / .6);
+      transition: background-color 250ms linear;
 
       &:hover,
       &:focus,
       &:active {
         background: rgb(255 255 255 / .8);
+      }
+
+      &.active {
+        background: rgb(255 255 255);
       }
     }
 
@@ -170,26 +175,26 @@ const navItems = [
 </style>
 
 <script>
-  const menuBtn = document.querySelector('.menu-btn');
-  const menuNav = document.querySelector('nav');
-  const navLinks = document.querySelectorAll('.nav-link');
+  const menuNav = document.querySelector('nav.header');
+  const menuBtn = menuNav?.querySelector('button.menu-btn');
+  const navLinks = document.querySelectorAll('a.nav-link');
 
-  function toggleNavMenu(openMenu: boolean = false) {
+  const toggleNavMenu = (openMenu: boolean = false) => {
     menuNav?.classList.toggle('open', openMenu);
     menuBtn?.setAttribute('aria-expanded', openMenu ? 'true' : 'false');
   }
 
-  function handleMenuToggle({ target }: Event) {
+  const handleMenuToggle = ({ target }: Event) => {
     const isOpen = menuNav?.classList.contains('open');
     toggleNavMenu(!isOpen);
   }
 
-  function handleNavSelect({ target }: Event) {
+  const handleNavSelect = ({ target }: Event) => {
     toggleNavMenu();
   }
 
   menuBtn?.addEventListener('click', handleMenuToggle);
-  navLinks?.forEach(link => {
+  navLinks.forEach(link => {
     link.addEventListener('click', handleNavSelect);
   });
 </script>

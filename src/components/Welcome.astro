@@ -29,25 +29,43 @@ import Section from './Section.astro';
   }
 
   .photo {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 24rem;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     margin: 2rem auto 0;
     overflow: hidden;
+    animation: scaleIn 1s ease-out;
   }
 
   .image {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: auto;
     height: 100%;
+    animation: scaleOut 1s ease-out;
   }
 
   h1 {
     margin-bottom: 2rem;
+  }
+
+  @keyframes scaleIn {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes scaleOut {
+    0% {
+      transform: scale(3);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>

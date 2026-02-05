@@ -27,3 +27,26 @@ const { id } = Astro.props;
     border-top: .1rem solid rgb(0 0 0 / .1);
   }
 </style>
+
+<script>
+  const sections = document.querySelectorAll('section');
+
+  const observerCallback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach(({ target, isIntersecting}) => {
+      const navLink = document.querySelector(`nav.header a[href="#${target.id}"]`);
+      target.classList.toggle('active', isIntersecting);
+      navLink?.classList.toggle('active', isIntersecting);
+    });
+  };
+
+  const observerOptions = {
+    rootMargin: '-50% 0px -50% 0px',
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+</script>
