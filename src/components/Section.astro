@@ -1,11 +1,14 @@
 ---
 const { id } = Astro.props;
+const isHero = id === 'welcome';
 ---
 
-<section id={id}>
+<section id={id} class:list={[{ hero: isHero }]}>
   <div class="container">
     <slot />
-    <hr />
+    {!isHero && (
+      <hr />
+    )}
   </div>
 </section>
 
@@ -13,10 +16,21 @@ const { id } = Astro.props;
   section {
     padding: 2rem 1rem;
     scroll-margin-top: var(--headerHeight);
+
+    &.hero {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100dvh - var(--headerHeight));
+      background: linear-gradient(0deg, rgba(255, 0, 72, 0.2), transparent);
+      text-align: center;
+    }
   }
 
   .container {
     margin: 0 auto;
+    width: 100%;
     max-width: var(--containerWidth);
   }
 
