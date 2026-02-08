@@ -1,15 +1,21 @@
 ---
 const { id } = Astro.props;
 const isHero = id === 'welcome';
+const isRsvp = id === 'rsvp';
+const isGallery = id ==='gallery';
 ---
 
-<section id={id} class:list={[{ hero: isHero }]}>
-  <div class="container">
+<section id={id} class:list={[{ hero: isHero, gallery: isGallery }]}>
+  {isGallery ? (
     <slot />
-    {!isHero && (
-      <hr />
-    )}
-  </div>
+  ) : (
+    <div class="container">
+      <slot />
+      {!isHero && !isRsvp &&  (
+        <hr />
+      )}
+    </div>
+  )}
 </section>
 
 <style>
@@ -26,6 +32,11 @@ const isHero = id === 'welcome';
       padding-top: var(--headerHeight);
       background: linear-gradient(0deg, rgba(255, 0, 72, 0.2), transparent);
       text-align: center;
+    }
+
+    &.gallery {
+      margin: 2rem 0;
+      padding: 0;
     }
   }
 

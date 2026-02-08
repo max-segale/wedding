@@ -67,7 +67,7 @@ const navItems = [
       padding: .5rem 1rem;
       border-radius: .75rem;
       background: rgb(255 255 255 / .6);
-      transition: background-color 250ms linear;
+      transition: background-color .25s linear;
 
       &:hover,
       &:focus,
@@ -95,7 +95,7 @@ const navItems = [
         border-radius: .75rem;
         padding: .5rem;
         cursor: pointer;
-        transition: transform 50ms linear;
+        transition: transform .1s linear;
 
         &:active {
           transform: scale(.9);
@@ -111,7 +111,7 @@ const navItems = [
         margin: 0 auto;
         border-radius: .125rem;
         background: rgb(255 255 255 / .8);
-        transition: transform 500ms ease, width 500ms ease;
+        transition: transform .5s ease, width 500ms ease;
 
         &:first-child {
           transform: translateY(-250%);
@@ -133,7 +133,7 @@ const navItems = [
         backdrop-filter: blur(.5rem);
         overflow: hidden;
         opacity: 0;
-        transition: max-height 500ms ease-out, opacity 500ms linear;
+        transition: max-height .5s ease-out, opacity .5s linear;
       }
 
       ul {
@@ -184,12 +184,12 @@ const navItems = [
     menuBtn?.setAttribute('aria-expanded', openMenu ? 'true' : 'false');
   }
 
-  const handleMenuToggle = ({ target }: Event) => {
+  const handleMenuToggle = (event: Event) => {
     const isOpen = menuNav?.classList.contains('open');
     toggleNavMenu(!isOpen);
   }
 
-  const handleNavSelect = ({ target }: Event) => {
+  const handleNavSelect = (event: Event) => {
     toggleNavMenu();
   }
 

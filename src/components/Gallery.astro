@@ -1,0 +1,79 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+
+const photoItems = [
+  { file: 'lake-george.jpeg', caption: 'Lake George hike' },
+  { file: 'ski-mt.jpeg', caption: 'Our first ski trip in the Catskills' },
+  { file: 'costa-rica-volcano.jpeg', caption: 'Arenal Volcano in Costa Rica', size: 'tall' },
+  { file: 'costa-rica-scuba.jpeg', caption: 'Scuba divign in Costa Rica', size: 'large' },
+  { file: 'key-west-sunset.jpeg', caption: 'Sunset cruise' },
+  { file: 'plaza.jpeg', caption: 'All cleaned up' },
+  { file: 'adk-hike.jpeg', caption: 'Adirondack hike', size: 'wide' },
+  { file: 'key-west-point.jpeg', caption: 'Key West southernmost point' },
+  { file: 'chickens.jpeg', caption: 'Family photo with our chicken flock' },
+  { file: 'holiday-party.jpeg', caption: 'Family engagement celebration' },
+  { file: 'mountain-fog.jpeg', caption: 'Storm at the top of a mountin' },
+  { file: 'lake-mohawk.jpeg', caption: 'Lake Mohawk wedding' },
+  { file: 'key-west-bikes.jpeg', caption: 'Biking around Key West' },
+];
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,jpg,png,gif}');
+---
+
+<Section id="gallery">
+  <div class="grid">
+    {photoItems.map(({ file, caption, size }, index) => (
+      <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View image">
+        <Image class="photo" src={images[`../assets/${file}`]()} alt={caption || ''} />
+      </button>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-flow: dense;
+
+    @media (width >= 64rem) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .gallery-item {
+    display: block;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &.wide,
+    &.large {
+      grid-column: span 2;
+    }
+
+    &.tall,
+    &.large {
+      grid-row: span 2;
+    }
+
+    &.wide {
+      aspect-ratio: 2 / 1;
+    }
+
+    &.tall {
+      aspect-ratio: 1 / 2;
+    }
+  }
+
+  .photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
