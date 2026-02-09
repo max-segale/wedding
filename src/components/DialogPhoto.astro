@@ -4,7 +4,9 @@ import ButtonMenu from './ButtonMenu.astro';
 
 <dialog class="dialog">
   <figure class="dialog-container">
-    <ButtonMenu class="close" label="Close image" />
+    <div class="dialog-row end">
+      <ButtonMenu class="close" label="Close image" />
+    </div>
     <div class="dialog-view">
       <img class="dialog-image" />
     </div>
@@ -24,20 +26,16 @@ import ButtonMenu from './ButtonMenu.astro';
     max-height: 100dvh;
     margin: 0;
     border: 0;
-    padding: 1rem;
+    padding: 1rem 0;
     background: transparent;
-    opacity: 0;
-    transition: opacity .25s linear;
 
     &::backdrop {
       background: rgb(0 0 0 / 0);
       backdrop-filter: blur(0);
-      transition: background-color .25s linear, backdrop-filter .25s linear;
+      transition: background-color .25s linear, backdrop-filter .5s linear;
     }
 
     &.is-open {
-      opacity: 1;
-
       &::backdrop {
         background: rgb(0 0 0 / .5);
         backdrop-filter: blur(.5rem);
@@ -52,7 +50,7 @@ import ButtonMenu from './ButtonMenu.astro';
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    gap: 1rem;
+    gap: .5rem;
     margin: 0;
     padding: 0;
   }
@@ -84,6 +82,11 @@ import ButtonMenu from './ButtonMenu.astro';
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    padding: 0 1rem;
+
+    &.end {
+      justify-content: flex-end;
+    }
   }
 
   .image-caption {
