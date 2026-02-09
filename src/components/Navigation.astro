@@ -1,27 +1,24 @@
 ---
-const { type } = Astro.props;
-const navLabel = (type ? `${type} ` : '') + 'navigation';
-const isHeader = type === 'Main';
-const navId = isHeader ? 'header-nav' : 'footer-nav';
+import ButtonMenu from './ButtonMenu.astro';
+
+const { isMain } = Astro.props;
+const navId = isMain ? 'header-nav' : 'footer-nav';
+const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
 const navItems = [
-  //{ name: 'Our Story', link: '#about' },
   { name: 'Venue', link: '#venue' },
   { name: 'Schedule', link: '#schedule' },
   { name: 'Lodging', link: '#lodging' },
-  //{ name: 'Activities', link: '#activities' },
   { name: 'FAQ', link: '#faq' },
   { name: 'RSVP', link: '#rsvp' },
   { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
 ];
 ---
 
-<nav id={navId} class:list={[{ header: isHeader }]} aria-label={navLabel}>
-  {isHeader && (
-    <button class="menu-btn" type="button" aria-label="Toggle navigation menu" aria-controls={navId} aria-expanded="false">
-      <span class="btn-line"></span>
-      <span class="btn-line"></span>
-      <span class="btn-line"></span>
-    </button>
+<nav id={navId} class:list={[{ header: isMain }]} aria-label={navLabel}>
+  {isMain && (
+    <div class="menu-btn">
+      <ButtonMenu class="menu" label="Toggle navigation menu" controls={navId} expanded="false" />
+    </div>
   )}
   <div class="menu">
     <ul>
@@ -52,10 +49,6 @@ const navItems = [
   }
 
   .header {
-    .menu-btn {
-      display: none;
-    }
-
     ul {
       gap: 1rem;
     }
@@ -80,48 +73,7 @@ const navItems = [
       }
     }
 
-    @media (width < 64rem) {
-      .menu-btn {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-        width: 2.5rem;
-        height: 2.5rem;
-        background: rgb(0 0 0 / .5);
-        border: 0;
-        border-radius: .75rem;
-        padding: .5rem;
-        cursor: pointer;
-        transition: transform .1s linear;
-
-        &:active {
-          transform: scale(.9);
-        }
-      }
-
-      .btn-line {
-        grid-column: 1;
-        grid-row: 1;
-        display: block;
-        width: 100%;
-        height: .25rem;
-        margin: 0 auto;
-        border-radius: .125rem;
-        background: rgb(255 255 255 / .8);
-        transition: transform .5s ease, width 500ms ease;
-
-        &:first-child {
-          transform: translateY(-250%);
-        }
-
-        &:last-child {
-          transform: translateY(250%);
-        }
-      }
-
+    @media (width < 48rem) {
       .menu {
         position: absolute;
         right: 0;
@@ -155,20 +107,12 @@ const navItems = [
           opacity: 1;
           max-height: calc(100dvh - var(--headerHeight) - 1rem);
         }
+      }
+    }
 
-        .btn-line {
-          &:first-child {
-            transform: rotate(45deg);
-          }
-
-          &:nth-child(2) {
-            width: 0;
-          }
-
-          &:last-child {
-            transform: rotate(-45deg);
-          }
-        }
+    @media (width >= 48rem) {
+      .menu-btn {
+        display: none;
       }
     }
   }
@@ -176,25 +120,23 @@ const navItems = [
 
 <script>
   const menuNav = document.querySelector('nav.header');
-  const menuBtn = menuNav?.querySelector('button.menu-btn');
+  const menuBtn = menuNav?.querySelector('button.menu');
   const navLinks = document.querySelectorAll('a.nav-link');
 
   const toggleNavMenu = (openMenu: boolean = false) => {
     menuNav?.classList.toggle('open', openMenu);
+    menuBtn?.classList.toggle('open', openMenu);
     menuBtn?.setAttribute('aria-expanded', openMenu ? 'true' : 'false');
   }
 
-  const handleMenuToggle = (event: Event) => {
+  menuBtn?.addEventListener('click', () => {
     const isOpen = menuNav?.classList.contains('open');
     toggleNavMenu(!isOpen);
-  }
+  });
 
-  const handleNavSelect = (event: Event) => {
-    toggleNavMenu();
-  }
-
-  menuBtn?.addEventListener('click', handleMenuToggle);
   navLinks.forEach(link => {
-    link.addEventListener('click', handleNavSelect);
+    link.addEventListener('click', () => {
+      toggleNavMenu();
+    });
   });
 </script>
