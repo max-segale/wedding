@@ -24,13 +24,15 @@ import Section from './Section.astro';
     <Image class="image" src={shawneeRiverPhoto} alt="Shawnee Inn" />
   </div>
   <h3>Other Options</h3>
-  <p>If you can't stay at the Shawnee Inn, there are plenty of other hotels in the area. You will be responsible for your own travel if you are staying off-site.</p>
+  <p>If you can't stay at the Shawnee Inn, there are plenty of other hotels in the area.<br />
+    <em>You will be responsible for your own transportation if you are staying off-site.</em>
+  </p>
   <ul>
     <li>
       <strong>Staybridge Suites</strong> is located in East Stroudsburg, just a couple miles from the Shawnee Inn.
     </li>
     <li>
-      <strong>The Penn Stroud</strong> is located on Main St in Stroudsburg, which is a fun downtown area to walk around.
+      <strong>The Penn Stroud</strong> is located on Main St. in Stroudsburg, which is a fun downtown area to walk around.
     </li>
   </ul>
 </Section>
@@ -53,6 +55,10 @@ import Section from './Section.astro';
     height: 100%;
     object-fit: cover;
     object-position: center;
+
+    @media (width >= 64rem) {
+      aspect-ratio: 2 / 1;
+    }
   }
 
   ul {

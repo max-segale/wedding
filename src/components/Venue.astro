@@ -45,5 +45,9 @@ const url = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
     height: 100%;
     object-fit: cover;
     object-position: 100% 50%;
+
+    @media (width >= 64rem) {
+      aspect-ratio: 2 / 1;
+    }
   }
 </style>
