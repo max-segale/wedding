@@ -1,14 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import shawneeRoomPhoto from '../assets/shawnee-room.jpeg';
-import shawneeGlampPhoto from '../assets/shawnee-glamping.jpeg';
+import shawneeRiverPhoto from '../assets/shawnee-river.jpeg';
 import Section from './Section.astro';
 ---
 
 <Section id="lodging">
   <h2>Lodging</h2>
   <div class="grid">
-    <div class="info">
+    <div>
       <h3>The Shawnee Inn &amp; Golf Resort</h3>
       <p>We encourage guest to stay Friday and Saturday night at the Shawnee Inn, so they can have a full weekend of fun with us!</p>
       <p>The Shawnee Inn offers a wide varienty of accomodations for your stay, including historic Main Inn rooms, multi-room cottages, river-side glamping sites, and more.</p>
@@ -22,19 +21,16 @@ import Section from './Section.astro';
         </em>
       </p>
     </div>
-    <div class="photo">
-      <Image class="image" src={shawneeRoomPhoto} alt="Shawnee Inn room" />
-    </div>
-    <div class="photo">
-      <Image class="image" src={shawneeGlampPhoto} alt="Shawnee Inn glamping site" />
-    </div>
+    <Image class="image" src={shawneeRiverPhoto} alt="Shawnee Inn" />
   </div>
   <h3>Other Options</h3>
-  <p>If you can't stay at the Shawnee Inn, here are some other lodging options in the area:</p>
+  <p>If you can't stay at the Shawnee Inn, there are plenty of other hotels in the area. You will be responsible for your own travel if you are staying off-site.</p>
   <ul>
-    <li><strong>The Penn Stroud</strong> is located on Main St in Stroudsburg, which is a fun downtown area to walk around.</li>
     <li>
-      <strong>Pocono Inn &amp; Banquet</strong> is the most budget friendly hotels and is located just a couple miles from the Shawnee Inn.
+      <strong>Staybridge Suites</strong> is located in East Stroudsburg, just a couple miles from the Shawnee Inn.
+    </li>
+    <li>
+      <strong>The Penn Stroud</strong> is located on Main St in Stroudsburg, which is a fun downtown area to walk around.
     </li>
   </ul>
 </Section>
@@ -48,21 +44,6 @@ import Section from './Section.astro';
 
     @media (width >= 48rem) {
       grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .info {
-    @media (width >= 48rem) {
-      grid-row: span 2;
-    }
-  }
-
-  .photo {
-    aspect-ratio: 2 / 1;
-    overflow: hidden;
-
-    @media (width >= 48rem) {
-      grid-column: 2;
     }
   }
 
