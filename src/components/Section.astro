@@ -1,11 +1,11 @@
 ---
-const { id } = Astro.props;
+const { id, class: className } = Astro.props;
 const isHero = id === 'welcome';
 const isRsvp = id === 'rsvp';
 const isGallery = id ==='gallery';
 ---
 
-<section id={id} class:list={[{ hero: isHero, gallery: isGallery }]}>
+<section {id} class={className}>
   {isGallery ? (
     <slot />
   ) : (
@@ -16,6 +16,9 @@ const isGallery = id ==='gallery';
       )}
     </div>
   )}
+  {isHero && (
+    <div class="background"></div>
+  )}
 </section>
 
 <style>
@@ -24,6 +27,8 @@ const isGallery = id ==='gallery';
     scroll-margin-top: var(--headerHeight);
 
     &.hero {
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
@@ -52,6 +57,20 @@ const isGallery = id ==='gallery';
     height: 0;
     border: 0;
     border-top: .1rem solid rgb(0 0 0 / .1);
+  }
+
+  .background {
+    position: absolute;
+    z-index: -2;
+    left: 50%;
+    top: 0;
+    width: 100%;
+    min-width: 32rem;
+    height: 100%;
+    transform: translateX(-50%);
+    background:
+      url(../assets/flowers-left.png) no-repeat 0% 100%/auto 100%,
+      url(../assets/flowers-right.png) no-repeat 100% 100%/auto 100%;
   }
 </style>
 

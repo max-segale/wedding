@@ -21,7 +21,7 @@ const photoItems = [
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,jpg,png,gif}');
 ---
 
-<Section id="gallery">
+<Section id="gallery" class="gallery">
   <div class="grid">
     {photoItems.map(({ file, caption, size }, index) => (
       <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View image">
