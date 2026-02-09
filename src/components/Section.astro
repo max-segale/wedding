@@ -43,6 +43,12 @@ const isGallery = id ==='gallery';
       margin: 2rem 0;
       padding: 0;
     }
+
+    &.active {
+      .background {
+        width: 100%;
+      }
+    }
   }
 
   .container {
@@ -64,13 +70,14 @@ const isGallery = id ==='gallery';
     z-index: -2;
     left: 50%;
     top: 0;
-    width: 100%;
+    width: 200%;
     min-width: 32rem;
     height: 100%;
     transform: translateX(-50%);
     background:
       url(../assets/flowers-left.png) no-repeat 0% 100%/auto 100%,
       url(../assets/flowers-right.png) no-repeat 100% 100%/auto 100%;
+    transition: width 1s ease-out;
   }
 </style>
 

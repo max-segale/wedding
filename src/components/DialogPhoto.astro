@@ -32,7 +32,7 @@ import ButtonMenu from './ButtonMenu.astro';
     &::backdrop {
       background: rgb(0 0 0 / 0);
       backdrop-filter: blur(0);
-      transition: background-color .25s linear, backdrop-filter .5s linear;
+      transition: background-color .5s linear, backdrop-filter .5s linear;
     }
 
     &.is-open {
@@ -68,7 +68,7 @@ import ButtonMenu from './ButtonMenu.astro';
     object-fit: contain;
     object-position: center;
     opacity: 0;
-    transition: opacity .125s linear;
+    transition: opacity .25s linear;
 
     &.is-loaded {
       opacity: 1;
@@ -151,6 +151,13 @@ import ButtonMenu from './ButtonMenu.astro';
   dialogPhoto.addEventListener('keydown', ({ key }: KeyboardEvent) => {
     if (key === 'ArrowRight') nextItem();
     if (key === 'ArrowLeft') prevItem();
+  });
+
+  dialogPhoto.addEventListener('click', ({ target }: MouseEvent) => {
+    const tag = (target as HTMLElement)?.tagName;
+    if (tag !== 'BUTTON' && tag !== 'IMG') {
+      dialogPhoto.close();
+    }
   });
 
   photoGallery.addEventListener('click', ({ target }: MouseEvent) => {
