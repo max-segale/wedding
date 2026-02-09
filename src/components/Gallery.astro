@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Section from './Section.astro';
 
 const photoItems = [
-  { file: 'lake-george.jpeg', caption: 'Lake George hike' },
+  { file: 'peekskill-boat.jpeg', caption: 'Peekskill boat ride' },
   { file: 'ski-mt.jpeg', caption: 'Our first ski trip in the Catskills' },
   { file: 'costa-rica-volcano.jpeg', caption: 'Arenal Volcano in Costa Rica', size: 'tall' },
   { file: 'costa-rica-scuba.jpeg', caption: 'Scuba divign in Costa Rica', size: 'large' },
@@ -37,7 +37,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,j
     grid-template-columns: repeat(3, 1fr);
     grid-auto-flow: dense;
 
-    @media (width >= 64rem) {
+    @media (width >= 48rem) {
       grid-template-columns: repeat(6, 1fr);
     }
   }
