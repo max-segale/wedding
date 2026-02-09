@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import shawneePhoto from '../assets/shawnee-inn.jpg';
+import shawneeInnPhoto from '../assets/shawnee-inn.jpg';
 import Section from './Section.astro';
 
 const street = '100 Shawnee Inn Dr';
@@ -17,10 +17,15 @@ const url = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
       <p>
         <a href={url} target="_blank">{street}<br />{city}</a>
       </p>
-      <p>Located along the Delaware River in the The Delaware Water Gap National Recreation Area, the Shawnee Inn is a historic landmark with beautiful grounds and plenty of activities.</p>
-      <p>Featuring a 27-hole championship golf course, tennis, pickleball, volleyball, pool, spa, archery, fishing, boating, swimming, multiple on-site restaurants, and a craft brewery with live music.</p>
+      <p>The Shawnee Inn is a historic landmark resort with 250 beautiful acres along the Delaware River, situated in the The Delaware Water Gap National Recreation Area.</p>
+      <p>The Shawnee Inn has plenty of amenities and activities, including a 27-hole championship golf course, tennis, pickleball, volleyball, pool, spa, archery, fishing, boating, swimming, multiple on-site restaurants, and a craft brewery with live music.</p>
+      <p>
+        <em>For more info about the Shawnee Inn visit
+          <a href="https://www.shawneeinn.com" target="_blnak">shawneeinn.com</a>
+        </em>
+      </p>
     </div>
-    <Image class="image" src={shawneePhoto} alt="" />
+    <Image class="image" src={shawneeInnPhoto} alt="Shawnee Inn" />
   </div>
 </Section>
 
