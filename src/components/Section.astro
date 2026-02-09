@@ -1,22 +1,19 @@
 ---
 const { id, class: className } = Astro.props;
-const isHero = id === 'welcome';
-const isRsvp = id === 'rsvp';
-const isGallery = id ==='gallery';
 ---
 
 <section {id} class={className}>
-  {isGallery ? (
+  {id === 'gallery' ? (
     <slot />
   ) : (
     <div class="container">
       <slot />
-      {!isHero && !isRsvp &&  (
+      {id !== 'welcome' && id !== 'rsvp' && (
         <hr />
       )}
     </div>
   )}
-  {isHero && (
+  {id === 'welcome' && (
     <div class="background"></div>
   )}
 </section>
@@ -75,9 +72,13 @@ const isGallery = id ==='gallery';
     height: 100%;
     transform: translateX(-50%);
     background:
-      url(../assets/flowers-left.png) no-repeat 0% 100%/auto 100%,
-      url(../assets/flowers-right.png) no-repeat 100% 100%/auto 100%;
+      url(../assets/flowers-left.png) no-repeat 0% 50%/auto 100%,
+      url(../assets/flowers-right.png) no-repeat 100% 50%/auto 100%;
     transition: width 1s ease-out;
+
+    @media (width >= 64rem) {
+      height: 125%;
+    }
   }
 </style>
 

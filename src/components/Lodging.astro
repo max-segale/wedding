@@ -10,9 +10,11 @@ import Section from './Section.astro';
   <div class="grid">
     <div class="info">
       <h3>The Shawnee Inn &amp; Golf Resort</h3>
-      <p>We encourage guest to stay Friday and Saturday night at the Shawnee Inn, so they can have a full weekend of fun with us! Featuring historic Main Inn rooms, multi-room cottages, glamping sites, and more, The Shawnee Inn offers a wide varienty of accomodations for your stay.</p>
-      <p>To make your reservation call the inn at
-        <a href="tel:+15704244000">(570)424-4000</a>. Mention our wedding for 10% off your room!
+      <p>We encourage guest to stay Friday and Saturday night at the Shawnee Inn, so they can have a full weekend of fun with us!</p>
+      <p>The Shawnee Inn offers a wide varienty of accomodations for your stay, including historic Main Inn rooms, multi-room cottages, river-side glamping sites, and more.</p>
+      <p>Call the inn at
+        <a href="tel:+15704244000">(570)424-4000</a> to make your reservation.
+        <strong>Mention our wedding for a 10% discount on your room!</strong>
       </p>
       <p>
         <em>To view all the different accomodation options visit
@@ -27,6 +29,14 @@ import Section from './Section.astro';
       <Image class="image" src={shawneeGlampPhoto} alt="Shawnee Inn glamping site" />
     </div>
   </div>
+  <h3>Other Options</h3>
+  <p>If you can't stay at the Shawnee Inn, here are some other lodging options in the area:</p>
+  <ul>
+    <li><strong>The Penn Stroud</strong> is located on Main St in Stroudsburg, which is a fun downtown area to walk around.</li>
+    <li>
+      <strong>Pocono Inn &amp; Banquet</strong> is the most budget friendly hotels and is located just a couple miles from the Shawnee Inn.
+    </li>
+  </ul>
 </Section>
 
 <style>
@@ -34,6 +44,7 @@ import Section from './Section.astro';
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-bottom: 1rem;
 
     @media (width >= 48rem) {
       grid-template-columns: 1fr 1fr;
@@ -61,5 +72,15 @@ import Section from './Section.astro';
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  ul {
+    list-style: disc;
+    list-style-position: outside;
+    margin-left: 1rem;
+  }
+
+  li {
+    margin-top: .5rem;
   }
 </style>
