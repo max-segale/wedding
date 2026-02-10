@@ -9,25 +9,35 @@ const photoItems = [
   { file: 'costa-rica-volcano.jpeg', caption: 'Arenal Volcano in Costa Rica', size: 'tall' },
   { file: 'costa-rica-scuba.jpeg', caption: 'Scuba diving in Costa Rica', size: 'large' },
   { file: 'key-west-sunset.jpeg', caption: 'Sunset cruise in Key West' },
-  { file: 'plaza.jpeg', caption: 'Dressed sharp at the Plaza in NYC' },
+  { file: 'plaza.jpeg', caption: 'Dressed sharp at the Plaza in NYC', size: 'tall' },
   { file: 'adk-hike.jpeg', caption: 'Lake George hike', size: 'wide' },
-  { file: 'key-west-point.jpeg', caption: 'Southernmost point in Key West' },
+  { file: 'key-west-point.jpeg', caption: 'Southernmost point in Key West', size: 'large' },
+  { file: 'flower-field.jpeg', caption: 'Among the wild flowers' },
+  { file: 'backpack-kiss.jpeg', caption: 'Backpacking love', size: 'large' },
+  { file: 'pond-skim.jpeg', caption: 'Post pond skim', size: 'tall' },
   { file: 'chickens.jpeg', caption: 'Family photo with our chickens' },
   { file: 'holiday-party.jpeg', caption: 'Engagement celebration' },
-  { file: 'mountain-fog.jpeg', caption: 'ADK backpacking adventures' },
-  { file: 'lake-mohawk.jpeg', caption: 'Lake Mohawk wedding' },
   { file: 'key-west-bikes.jpeg', caption: 'Biking around Key West' },
+  { file: 'pumpkins.jpeg', caption: 'Getting autumnal' },
+  { file: 'drinks.jpeg', caption: 'Having fun', size: 'top' },
+  { file: 'lake-rock.jpeg', caption: 'Saranac Lake camping', },
+  { file: 'saranac-sunset.jpeg', caption: 'Sunrise on Saranac Lake', size: 'row' },
 ];
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,jpg,png,gif}');
 ---
 
 <Section id="gallery" class="gallery">
   <div class="grid">
-    {photoItems.map(({ file, caption, size }, index) => (
-      <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View image">
-        <Image class="photo" src={images[`../assets/${file}`]()} alt={caption || ''} />
-      </button>
-    ))}
+    {photoItems.map(({ file, caption, size }, index) => {
+      if (!images[`../assets/${file}`]) {
+        throw new Error(`${file} not found`);
+      }
+      return (
+        <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View image">
+          <Image class="photo" src={images[`../assets/${file}`]()} alt={caption || ''} />
+        </button>
+      );
+    })}
   </div>
 </Section>
 
@@ -38,7 +48,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,j
     grid-auto-flow: dense;
 
     @media (width >= 48rem) {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 
@@ -66,6 +76,29 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpeg,j
 
     &.tall {
       aspect-ratio: 1 / 2;
+    }
+
+    &.md-tall {
+      @media (width >= 48rem) {
+        grid-row: span 2;
+        aspect-ratio: 1 / 2;
+      }
+    }
+
+    &.row {
+      grid-column: span 3;
+      aspect-ratio: 3 / 1;
+
+      @media (width >= 48rem) {
+        grid-column: span 2;
+        aspect-ratio: 2 / 1;
+      }
+    }
+
+    &.top {
+      .photo {
+        object-position: 50% 0;
+      }
     }
   }
 
