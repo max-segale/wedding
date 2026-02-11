@@ -1,5 +1,5 @@
 ---
-const { id, class: className } = Astro.props;
+const { id, title, class: className } = Astro.props;
 ---
 
 <section {id} class={className}>
@@ -7,6 +7,7 @@ const { id, class: className } = Astro.props;
     <slot />
   ) : (
     <div class="container">
+      {title && (<h2 class="title">{title}</h2>)}
       <slot />
       {id !== 'welcome' && id !== 'rsvp' && (
         <hr />
@@ -55,9 +56,16 @@ const { id, class: className } = Astro.props;
     padding: 2rem 0;
   }
 
+  .title {
+    margin-bottom: 1rem;
+    border-bottom: .1rem solid rgb(0 0 0 / 0.2);
+    padding-bottom: .25rem;
+  }
+
   hr {
-    margin: 4rem 3rem 0;
+    width: 50%;
     height: 0;
+    margin: 4rem auto 0;
     border: 0;
     border-top: .1rem solid rgb(0 0 0 / .1);
   }
@@ -99,7 +107,7 @@ const { id, class: className } = Astro.props;
   };
 
   const observerOptions = {
-    rootMargin: '-50% 0px -50% 0px',
+    rootMargin: '-50% 0% -50% 0%',
     threshold: 0,
   };
 

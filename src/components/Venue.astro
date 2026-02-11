@@ -9,12 +9,11 @@ const encodedAddress = encodeURIComponent(`${street}, ${city}`);
 const url = 'https://www.google.com/maps/search/?api=1&query=' + encodedAddress;
 ---
 
-<Section id="venue">
-  <h2>Venue</h2>
+<Section id="venue" title="Venue">
   <h3>The Shawnee Inn &amp; Golf Resort</h3>
   <div class="grid">
     <div>
-      <p>The Shawnee Inn is a historic landmark resort on 250 beautiful acres along the Delaware River, situated in the The Delaware Water Gap National Recreation Area.</p>
+      <p>The Shawnee Inn is a historic landmark resort on 250 acres along the Delaware River, situated in the The Delaware Water Gap National Recreation Area.</p>
       <p>
         <a href={url} target="_blank">{street}<br />{city}</a>
       </p>
