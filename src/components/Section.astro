@@ -67,7 +67,7 @@ const { id, class: className } = Astro.props;
     z-index: -2;
     left: 50%;
     top: 0;
-    width: 200%;
+    width: 250%;
     min-width: 32rem;
     height: 100%;
     transform: translateX(-50%);
@@ -76,7 +76,12 @@ const { id, class: className } = Astro.props;
       url(../assets/flowers-right.png) no-repeat 100% 50%/auto 100%;
     transition: width 1s ease-out;
 
+    @media (width >= 48rem) {
+      width: 175%;
+    }
+
     @media (width >= 64rem) {
+      width: 150%;
       height: 125%;
     }
   }
