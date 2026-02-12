@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import paddleBoardPhoto from '../assets/paddle-board.jpeg';
 import golfPhoto from '../assets/shawnee-golf.jpeg';
+import minsiPhoto from '../assets/mt-minsi.jpeg';
 import Section from './Section.astro';
 
 ---
@@ -26,16 +27,22 @@ import Section from './Section.astro';
     <a href="https://www.shawneeinn.com/spa-poconos-pa" target="_blank">Book your spa service here</a>.
   </p>
   <h2 class="title">Dining</h2>
-  <p>Enjoy Shawnee's multiple on-site restaurants including:</p>
+  <p>Enjoy Shawnee's multiple on-site restaurants:</p>
   <ul>
     <li>
-      <a href="https://www.shawneeinn.com/poconos-restaurants/delaware-pa-restaurants" target="_blank">The River Room</a>
+      <p>
+        <a href="https://www.shawneeinn.com/poconos-restaurants/delaware-pa-restaurants" target="_blank">The River Room</a>
+      </p>
     </li>
     <li>
-      <a href="https://www.shawneeinn.com/poconos-restaurants/the-gem-and-keystone-tavern" target="_blank">The Gem and Keystone Tavern</a>
+      <p>
+        <a href="https://www.shawneeinn.com/poconos-restaurants/the-gem-and-keystone-tavern" target="_blank">The Gem and Keystone Tavern</a>
+      </p>
     </li>
     <li>
-      <a href="https://www.shawneecraft.com" target="_blank">ShawneeCraft Brewery + Pizza</a>
+      <p>
+        <a href="https://www.shawneecraft.com" target="_blank">ShawneeCraft Brewery + Pizza</a>
+      </p>
     </li>
   </ul>
   <h2 class="title">Other Activities at Shawnee</h2>
@@ -52,21 +59,24 @@ import Section from './Section.astro';
     <a href="https://www.shawneeinn.com/things-to-do-in-the-poconos" target="_blank">shawneeinn.com/things-to-do-in-the-poconos</a>
   </p>
   <h2 class="title">Nearby Sites to See</h2>
-  <ul>
-    <li>
-      <p>Columcille Megalithe Park: Columcille is a Celtic inspired outdoor sanctuary offering wooded walking paths and 90+ megalith settings featuring a trlithon, menhirs, and stone buildings.  It's like our own little Stonehenge right here in the Poconos!</p>
+  <div class="row">
+    <ul>
+      <li>
+        <p>Columcille Megalithe Park: Columcille is a Celtic inspired outdoor sanctuary offering wooded walking paths and 90+ megalith settings featuring a trlithon, menhirs, and stone buildings.  It's like our own little Stonehenge right here in the Poconos!</p>
 
-    </li>
-    <li>
-      <p>Hike to the top of Mt. Tamany (NJ side of the Delaware Water Gap).  This is a  rigorous hike featuring waterfalls and a rewarding vista at the top!</p>
-    </li>
-    <li>
-      <p>Hike to the top of Mt. Minsi (PA side of the Delaware Water Gap).  This hike is not as challenging as Mt. Tamany, but still offers good views of the gap and a small waterfall.</p>
-    </li>
-    <li>
-      <p>If you'd like to see the local sites or do some shopping, check out the towns of Delaware Water Gap or Stroudsburg just a few minutes drive away.</p>
-    </li>
-  </ul>
+      </li>
+      <li>
+        <p>Hike to the top of Mt. Tamany (NJ side of the Delaware Water Gap).  This is a  rigorous hike featuring waterfalls and a rewarding vista at the top!</p>
+      </li>
+      <li>
+        <p>Hike to the top of Mt. Minsi (PA side of the Delaware Water Gap).  This hike is not as challenging as Mt. Tamany, but still offers good views of the gap and a small waterfall.</p>
+      </li>
+      <li>
+        <p>If you'd like to see the local sites or do some shopping, check out the towns of Delaware Water Gap or Stroudsburg just a few minutes drive away.</p>
+      </li>
+    </ul>
+    <Image class="image" src={minsiPhoto} alt="View from Mt. Minsi" />
+  </div>
 </Section>
 
 <style>

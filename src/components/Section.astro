@@ -22,7 +22,6 @@ const { id, title, class: className } = Astro.props;
 <style>
   section {
     padding: 0 1rem;
-    background: #fcd1b5;
     scroll-margin-top: var(--headerHeight);
 
     &.hero {
@@ -72,7 +71,7 @@ const { id, title, class: className } = Astro.props;
   }
 
   .background {
-    position: fixed;
+    position: absolute;
     z-index: -2;
     left: 50%;
     top: 0;
