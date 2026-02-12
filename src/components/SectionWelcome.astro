@@ -5,22 +5,31 @@ import Section from './Section.astro';
 ---
 
 <Section id="welcome" class="hero">
-  <h1>Alexandra Lozier <span class="name-break">&amp;</span> Maxwell Segale</h1>
-  <h2>September 12th 2026</h2>
-  <h3>Shawnee on Delaware, PA</h3>
+  <div>
+    <h1>Alexandra Lozier <span class="name-break">&amp;</span> Maxwell Segale</h1>
+  </div>
+  <div>
+    <h2>September 12th 2026</h2>
+  </div>
+  <div>
+    <h3>Shawnee on Delaware, PA</h3>
+  </div>
   <div class="photo">
     <Image class="image" src={engagementPhoto} alt="Engagement photo" priority />
   </div>
 </Section>
 
 <style>
-  h1 {
+  h1, h2, h3 {
     display: inline-block;
-    position: relative;
-    margin-bottom: 2rem;
     border-radius: 1rem;
     padding: 0 .5rem;
     backdrop-filter: blur(2rem);
+  }
+
+  h1 {
+    position: relative;
+    margin-bottom: 2rem;
   }
 
   .name-break {

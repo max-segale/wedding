@@ -5,11 +5,12 @@ const { isMain } = Astro.props;
 const navId = isMain ? 'header-nav' : 'footer-nav';
 const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
 const navItems = [
-  { name: 'Venue', link: '#venue' },
-  { name: 'Schedule', link: '#schedule' },
-  { name: 'Lodging', link: '#lodging' },
-  { name: 'FAQ', link: '#faq' },
-  { name: 'RSVP', link: '#rsvp' },
+  { name: 'Venue', link: '/#venue' },
+  { name: 'Schedule', link: '/#schedule' },
+  { name: 'Lodging', link: '/#lodging' },
+  { name: 'FAQ', link: '/#faq' },
+  { name: 'RSVP', link: '/#rsvp' },
+  { name: 'Activities', link: '/activities' },
   { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
 ];
 ---
@@ -73,7 +74,7 @@ const navItems = [
       }
     }
 
-    @media (width < 48rem) {
+    @media (width < 64rem) {
       .menu {
         position: absolute;
         right: 0;

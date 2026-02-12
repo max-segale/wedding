@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import paddleBoardPhoto from '../assets/paddle-board.jpeg';
+import golfPhoto from '../assets/shawnee-golf.jpeg';
+import Section from './Section.astro';
+
+---
+
+<Section id="activities">
+  <h1>Weekend Activities</h1>
+  <p>Friday morning + afternoon are great times to enjoy the many activities that Shawnee has to offer!</p>
+  <h2>Paddle Board Party</h2>
+  <p>On Friday afternoon, join us for a paddle board party on the Delaware! We will be shuttling up river and floating back down to Shawnee. It's our favorite way to relax, soak in some sunshine, go for a swim and enjoy the natural beauty of the Delaware Water Gap! Just bring your bathing suit, sunscreen, and some snacks. If you have a paddle board, kayak, or an inner tube, you are welcome to bring it. If not, let us know. Transportation will be provided. Exact time TBD. RSVP to the paddleboard party with your wedding invitation.  (Coming soon!)</p>
+  <Image class="image" src={paddleBoardPhoto} alt="Paddle Board Party" />
+  <hr>
+  <h2>Golf</h2>
+  <p>Challenge your game on a course shaped by a legend and embraced by nature. Set on a picturesque island along the Delaware River, the historic 27-hole course—crafted by famed architect A.W. Tillinghast—has been home to championship moments and generations of golf enthusiasts alike. <a href="https://www.shawneeinn.com/golf-resorts-pa" target="_blank">Book a tee time here</a>.</p>
+  <Image class="image" src={golfPhoto} alt="Golf course" />
+  <hr>
+  <h2>Spa</h2>
+  <p>Named one of the best spa in the Poconos, Spa Shawnee and Salon offers a wellspring of relaxation. It's a great time to treat yourself to a massage or a facial! <a href="https://www.shawneeinn.com/spa-poconos-pa" target="_blank">Book your spa service here</a>.</p>
+  <hr>
+  <h2>Dining</h2>
+  <p>Enjoy Shawnee's multiple on-site restaurants including:</p>
+  <ul>
+    <li>
+      <a href="https://www.shawneeinn.com/poconos-restaurants/delaware-pa-restaurants" target="_blank">The River Room</a>
+    </li>
+    <li>
+      <a href="https://www.shawneeinn.com/poconos-restaurants/the-gem-and-keystone-tavern" target="_blank">The Gem and Keystone Tavern</a>
+    </li>
+    <li>
+      <a href="https://www.shawneecraft.com" target="_blank">ShawneeCraft Brewery + Pizza</a>
+    </li>
+  </ul>
+  <hr>
+  <h3>Other Activities at Shawnee</h3>
+  <ul>
+    <li>Indoor pool + hot tub</li>
+    <li>Fitness Center</li>
+    <li>Axe throwing</li>
+    <li>Archery</li>
+    <li>Tennis + pickleball</li>
+    <li>Volleyball</li>
+  </ul>
+  <p>Check out a full list of activies availble at the Shawnee inn by visiting
+    <a href="https://www.shawneeinn.com/things-to-do-in-the-poconos" target="_blank">shawneeinn.com/things-to-do-in-the-poconos</a>
+  </p>
+  <hr>
+  <h2>Nearby Sites to See</h2>
+  <ul>
+    <li>Columcille Megalithe Park: Columcille is a Celtic inspired outdoor sanctuary offering wooded walking paths and 90+ megalith settings featuring a trlithon, menhirs, and stone buildings.  It's like our own little Stonehenge right here in the Poconos!</li>
+    <li>Hike to the top of Mt. Tamany (NJ side of the Delaware Water Gap).  This is a  rigorous hike featuring waterfalls and a rewarding vista at the top!</li>
+    <li>Hike to the top of Mt. Minsi (PA side of the Delaware Water Gap).  This hike is not as challenging as Mt. Tamany, but still offers good views of the gap and a small waterfall.</li>
+    <li>If you'd like to see the local sites or do some shopping, check out the towns of Delaware Water Gap or Stroudsburg just a few minutes drive away.</li>
+  </ul>
+</Section>
+
+<style>
+  .image {
+    display: block;
+    max-width: 32rem;
+    height: auto;
+    margin: 0 auto;
+    float: right;
+  }
+</style>
