@@ -3,17 +3,13 @@ const { id, title, class: className } = Astro.props;
 ---
 
 <section {id} class={className}>
-  {id === 'gallery' ? (
+  <div class="container">
+    {title && (<h2 class="title">{title}</h2>)}
     <slot />
-  ) : (
-    <div class="container">
-      {title && (<h2 class="title">{title}</h2>)}
-      <slot />
-      {id !== 'welcome' && id !== 'rsvp' && (
-        <hr />
-      )}
-    </div>
-  )}
+    {id !== 'welcome' && id !== 'rsvp' && (
+      <hr />
+    )}
+  </div>
   {id === 'welcome' && (
     <div class="background"></div>
   )}
@@ -35,11 +31,6 @@ const { id, title, class: className } = Astro.props;
       padding-top: var(--headerHeight);
       background: linear-gradient(0deg, rgba(255, 0, 72, 0.2), transparent);
       text-align: center;
-    }
-
-    &.gallery {
-      margin: 2rem 0;
-      padding: 0;
     }
 
     &.active {
