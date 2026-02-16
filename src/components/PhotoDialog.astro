@@ -133,9 +133,10 @@ import ButtonMenu from './ButtonMenu.astro';
     dialogPhoto.classList.add('is-open');
   };
 
-  const prevItem = () => {
-    itemIndex = (itemIndex - 1 + galleryItems.length) % galleryItems.length;
-    showPhoto();
+  const closePhoto = () => {
+    dialogPhoto.classList.remove('is-open');
+    dialogImage.classList.remove('is-loaded');
+    dialogPhoto.close();
   };
 
   const nextItem = () => {
@@ -143,15 +144,16 @@ import ButtonMenu from './ButtonMenu.astro';
     showPhoto();
   };
 
-  btnPrev.addEventListener('click', prevItem);
+  const prevItem = () => {
+    itemIndex = (itemIndex - 1 + galleryItems.length) % galleryItems.length;
+    showPhoto();
+  };
+
+  btnClose.addEventListener('click', closePhoto);
 
   btnNext.addEventListener('click', nextItem);
 
-  btnClose.addEventListener('click', () => {
-    dialogPhoto.classList.remove('is-open');
-    dialogImage.classList.remove('is-loaded');
-    dialogPhoto.close();
-  });
+  btnPrev.addEventListener('click', prevItem);
 
   dialogPhoto.addEventListener('keydown', ({ key }: KeyboardEvent) => {
     if (key === 'ArrowRight') nextItem();
@@ -161,7 +163,7 @@ import ButtonMenu from './ButtonMenu.astro';
   dialogPhoto.addEventListener('click', ({ target }: MouseEvent) => {
     const tag = (target as HTMLElement)?.tagName;
     if (tag !== 'BUTTON' && tag !== 'IMG') {
-      dialogPhoto.close();
+      closePhoto();
     }
   });
 
