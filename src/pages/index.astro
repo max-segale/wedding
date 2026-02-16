@@ -1,28 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import SectionWelcome from '../components/SectionWelcome.astro';
 import SectionVenue from '../components/SectionVenue.astro';
 import SectionSchedule from '../components/SectionSchedule.astro';
 import SectionLodging from '../components/SectionLodging.astro';
 import SectionFaq from '../components/SectionFaq.astro';
 import SectionRsvp from '../components/SectionRsvp.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
-import Footer from '../components/Footer.astro';
-import PhotoDialog from '../components/PhotoDialog.astro';
 ---
 
 <Layout>
-  <Header />
-  <main>
-    <SectionWelcome />
-    <SectionVenue />
-    <SectionSchedule />
-    <SectionLodging />
-    <SectionFaq />
-    <SectionRsvp />
-    <PhotoGallery />
-  </main>
-  <Footer />
-  <PhotoDialog />
+  <SectionWelcome />
+  <SectionVenue />
+  <SectionSchedule />
+  <SectionLodging />
+  <SectionFaq />
+  <SectionRsvp />
 </Layout>

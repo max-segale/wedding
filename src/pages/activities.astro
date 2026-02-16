@@ -1,18 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
 import SectionActivities from '../components/SectionActivities.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
-import Footer from '../components/Footer.astro';
-import PhotoDialog from '../components/PhotoDialog.astro';
 ---
 
-<Layout>
-  <Header />
-  <main>
-    <SectionActivities />
-    <PhotoGallery />
-  </main>
-  <Footer />
-  <PhotoDialog />
+<Layout title="Activities">
+  <SectionActivities />
 </Layout>

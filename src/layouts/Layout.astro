@@ -1,18 +1,30 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import PhotoDialog from '../components/PhotoDialog.astro';
+
 const { title } = Astro.props;
 const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
 ---
+
 <!doctype html>
 <html lang="en-US">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{ pageTitle }</title>
   </head>
   <body>
-    <slot />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <PhotoGallery />
+    <Footer />
+    <PhotoDialog />
   </body>
 </html>
 
