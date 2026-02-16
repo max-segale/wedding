@@ -91,12 +91,25 @@ const { id, title, class: className } = Astro.props;
 
 <script>
   const sections = document.querySelectorAll('section');
+  const navLinks = [...document.querySelectorAll('nav.header a')] as HTMLAnchorElement[];
+
+  const findNavLink = (sectionId: string) => {
+    for (const link of navLinks) {
+      if (link.href.includes(sectionId)) {
+        return link;
+      }
+    }
+  };
+
+  const showActiveSection = (section: Element, isActive: boolean) => {
+    const navLink = findNavLink(section.id);
+    section.classList.toggle('active', isActive);
+    navLink?.classList.toggle('active', isActive);
+  };
 
   const observerCallback = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(({ target, isIntersecting}) => {
-      const navLink = document.querySelector(`nav.header a[href="#${target.id}"]`);
-      target.classList.toggle('active', isIntersecting);
-      navLink?.classList.toggle('active', isIntersecting);
+    entries.forEach(({ target, isIntersecting }) => {
+      showActiveSection(target, isIntersecting);
     });
   };
 
