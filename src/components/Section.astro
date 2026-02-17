@@ -92,6 +92,7 @@ const { id, title, class: className } = Astro.props;
 <script>
   const sections = document.querySelectorAll('section');
   const navLinks = [...document.querySelectorAll('nav.header a')] as HTMLAnchorElement[];
+  const sectionLinks = new Map();
 
   const findNavLink = (sectionId: string) => {
     for (const link of navLinks) {
@@ -102,7 +103,7 @@ const { id, title, class: className } = Astro.props;
   };
 
   const showActiveSection = (section: Element, isActive: boolean) => {
-    const navLink = findNavLink(section.id);
+    const navLink = sectionLinks.get(section.id);
     section.classList.toggle('active', isActive);
     navLink?.classList.toggle('active', isActive);
   };
@@ -121,6 +122,8 @@ const { id, title, class: className } = Astro.props;
   const observer = new IntersectionObserver(observerCallback, observerOptions);
 
   sections.forEach(section => {
+    const navLink = findNavLink(section.id);
+    sectionLinks.set(section.id, navLink);
     observer.observe(section);
   });
 </script>
