@@ -1,0 +1,46 @@
+---
+const { positive } = Astro.props;
+const value = positive ? 'yes' : 'no';
+const label = positive ? 'Yes, I will be attending.' : "No, unfortunately I can't attend."
+---
+
+<label>
+  <input type="radio" name="attend" value={value} required />
+  <span>{label}</span>
+</label>
+
+<style>
+  label {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    border: .1rem solid rgb(255 255 255 / .8);
+    padding: .5rem;
+
+    &:first-of-type {
+      border-radius: .5rem .5rem 0 0;
+      border-bottom: 0;
+    }
+
+    &:last-of-type {
+      border-radius: 0 0 .5rem .5rem;
+      border-top: 0;
+    }
+  }
+
+  input {
+    margin: 0;
+
+    &:checked {
+      + span {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  span {
+    display: block;
+    margin: 0 0 0 .5rem;
+  }
+</style>

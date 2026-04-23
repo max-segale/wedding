@@ -1,0 +1,163 @@
+---
+import RsvpGuest from './RsvpGuest.astro';
+import RsvpAttend from './RsvpAttend.astro';
+import RsvpInput from './RsvpInput.astro';
+---
+
+<form name="rsvp">
+  <RsvpGuest primary />
+  <RsvpGuest />
+  <fieldset>
+    <legend>Attending</legend>
+    <RsvpAttend positive />
+    <RsvpAttend />
+  </fieldset>
+  <RsvpInput class="input-item" name="contact" type="email" label="Contact Info" placeholder="Email address" showLabel />
+  <button type="submit">Respond</button>
+</form>
+
+<style>
+  form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem .5rem;
+    background: rgb(255 154 112 / .5);
+    border-radius: 1rem;
+    padding: 1rem;
+
+    @media (width >= 48rem) {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    :global(legend),
+    :global(label > span:first-child) {
+      display: block;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    :global(em) {
+      font-weight: 300;
+    }
+  }
+
+  .input-item {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    line-height: 1;
+    appearance: none;
+    background-color: rgb(255 255 255 / 0.8);
+    border: 0;
+
+    &:not(:required) {
+      &:placeholder-shown,
+      &:has(option[value=""]:checked) {
+        background: rgb(255 255 255 / 0.6);
+      }
+    }
+
+    &:disabled {
+      opacity: 1;
+    }
+
+    /*&:-internal-autofill-selected {
+      background-color: rgb(255 255 255 / 0.8) !important;
+    }
+
+    &:invalid {
+      background: red;
+    }*/
+  }
+
+  button {
+    display: block;
+    min-height: 3rem;
+    border-radius: .5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1;
+    appearance: none;
+    border: .1rem solid #000;
+    padding: 0;
+    background: #bae8ac;
+    color: #000;
+    transition: transform .1s linear;
+
+    &:active:not(:disabled) {
+      transform: scale(.9);
+    }
+
+    @media (width >= 48rem) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<script>
+  import { actions, isInputError } from 'astro:actions';
+
+  const rsvpForm = document.querySelector('form[name="rsvp"]') as HTMLFormElement;
+  const nameInputs = rsvpForm.elements.namedItem('names') as RadioNodeList;
+  const mealInputs = rsvpForm.elements.namedItem('meals') as RadioNodeList;
+  let isAttending: boolean = false;
+
+  const inputHandlers: any = {
+    names: (input: HTMLInputElement) => {
+      const nameIndex = [...nameInputs].findIndex(nameInput => nameInput === input);
+      mealInputs[nameIndex].required = !!input.value && isAttending;
+    },
+    attend: (input: HTMLInputElement) => {
+      isAttending = input.value === 'yes';
+      mealInputs.forEach((input, index) => {
+        input.required = isAttending && !!nameInputs[index].value;
+      });
+    },
+  };
+
+  const handleFormInput = (event: Event) => {
+    const input = event.target as HTMLInputElement | HTMLSelectElement;
+    inputHandlers[input.name]?.(input);
+    input.setCustomValidity?.('');
+    input.reportValidity?.();
+  }
+
+  const handleFormSubmit = async (event: SubmitEvent) => {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const submitBtn = event.submitter as HTMLButtonElement;
+    if (!isAttending) {
+      const denyConfirmed = confirm("Are you sure you can't attend?");
+      if (!denyConfirmed) return;
+    }
+    try {
+      submitBtn.disabled = true;
+      const formData = new FormData(form);
+      const { data, error } = await actions.rsvp(formData);
+      if (error) throw error;
+      for (let i = 0; i < form.elements.length; i++) {
+        (form.elements[i] as HTMLFormElement).disabled = true;
+      }
+      // Do something
+    } catch (error: any) {
+      submitBtn.disabled = false;
+      console.error(error);
+      if (isInputError(error)) {
+        for (const name in error.fields) {
+          const errorInput = form.elements.namedItem(name) as HTMLInputElement;
+          const errorMessages = error.fields[name]?.join(', ');
+          if (errorMessages) {
+            errorInput.setCustomValidity?.(errorMessages);
+            errorInput.reportValidity?.();
+          }
+        }
+      }
+    }
+  }
+
+  rsvpForm.addEventListener('submit',  handleFormSubmit);
+  rsvpForm.addEventListener('input', handleFormInput);
+</script>

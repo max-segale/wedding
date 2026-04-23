@@ -1,0 +1,21 @@
+---
+const { class: className, options, label, placeholder, ...rest } = Astro.props;
+---
+
+<select class={className} aria-label={label} {...rest}>
+  <option value="" disabled selected>{placeholder}</option>
+  {options.map(([value, description]: [string, string]) => (
+    <option {value}>{description}</option>
+  ))}
+</select>
+
+<style>
+  select {
+    padding: 0 0 0 .5rem;
+    color: #666;
+
+    &[required] {
+      color: #333;
+    }
+  }
+</style>

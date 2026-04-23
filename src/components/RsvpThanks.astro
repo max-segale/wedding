@@ -1,0 +1,20 @@
+---
+const rsvpData = Astro.cookies.get('rsvp')?.value;
+
+const message = rsvpData ?
+  'We are so excited for you to join us for our special day.' :
+  'Sorry you cannot attend, but thanks for letting us know.';
+---
+
+<div>
+  <h3>Thank You</h3>
+  <p>{message}</p>
+</div>
+
+<style>
+  div {
+    background: rgb(255 154 112 / .5);
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+</style>
