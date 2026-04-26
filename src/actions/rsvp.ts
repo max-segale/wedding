@@ -3,15 +3,30 @@ import { z } from 'astro/zod';
 import { env } from 'cloudflare:workers';
 import { Resend } from 'resend';
 
-const resend = new Resend('re_HV6cwCnf_GS79TPuvPSXBmLQL3dJeM1xj');
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
-const sendEmail = (toEmail: string, guestNames: any) => {
-  resend.emails.send({
-    from: 'info@alexmax.love',
-    to: toEmail,
-    subject: "You're Confirmed",
-    html: `<p>Thanks ${guestNames} on sending your <strong>new email</strong>!</p>`
-  });
+const sendEmail = async (toEmail: string, guestNames: any) => {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'info@alexmax.love',
+      to: toEmail,
+      template: {
+        id: 'rsvp-confirmation',
+        variables: {
+          first_name: 'Maxwell Segale',
+          venue_address: 'here',
+          venue_name: 'Shawnee',
+          wedding_date: '2026-09-12',
+          wedding_website_url: 'alexmax.love',
+          dress_code: 'formal',
+        },
+      },
+    });
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const storeData = async (dataRows: any) => {
@@ -36,16 +51,13 @@ export const rsvp = defineAction({
     names: z.array(z.string()),
     meals: z.array(z.string()),
     requests: z.array(z.string()),
-    attend: z.string(),
+    attend: z.string().transform(value => value === 'yes'),
     contact: z.email().optional(),
   }),
-  handler: async ({names, meals, requests, attend, contact}, context) => {
-    const ctxRequest = context?.request || {};
-    const cfObj = ctxRequest.cf || {};
-    const userAgent = ctxRequest.headers?.get('user-agent');
-    const { city, region, country } = cfObj;
+  handler: async ({ names, meals, requests, attend, contact }, { request, cookies }) => {
+    const userAgent = request?.headers?.get('user-agent');
+    const { city, region, country } = request?.cf as any;
     const guid = crypto.randomUUID();
-    const attending = attend === 'yes';
     const date = new Date().toISOString();
     const guestNames = names.filter(Boolean);
     const guestData = guestNames.map((name, index) => (
@@ -54,7 +66,7 @@ export const rsvp = defineAction({
         guest_meal: meals[index] || '',
         guest_note: requests[index] || null,
         guest_email: (index < 1 && contact) ? contact : null,
-        is_attending: attending,
+        is_attending: attend,
         group_id: guid,
         response_date: date,
         user_location: (index < 1) ? `${city}, ${region}, ${country}` : null,
@@ -64,9 +76,15 @@ export const rsvp = defineAction({
 
     await storeData(guestData);
 
-    if (attending && contact) sendEmail(contact, guestNames);
+    if (attend && contact) await sendEmail(contact, guestNames);
 
-    context.cookies.set('rsvp', guid, {
+    const rsvpData = {
+      group: guid,
+      names: guestNames,
+      attend,
+    };
+
+    cookies?.set('rsvp', JSON.stringify(rsvpData), {
       path: '/',
       httpOnly: true,
       secure: true,
@@ -74,10 +92,6 @@ export const rsvp = defineAction({
       maxAge: 60 * 60 * 24 * 365,
     });
 
-    return {
-      id: guid,
-      names: guestNames,
-      attending,
-    };
+    return rsvpData;
   },
 });

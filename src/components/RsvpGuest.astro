@@ -5,16 +5,16 @@ import RsvpSelect from './RsvpSelect.astro';
 const { primary, ...rest } = Astro.props;
 const label = `Guest ${primary ? 'One' : 'Two'}`;
 const options = [
- ['Beef', 'Steak'],
- ['Chicken', 'Grilled Chicken'],
- ['Fish', 'Salmon'],
+ ['beef', 'Steak'],
+ ['chicken', 'Chicken'],
+ ['fish', 'Salmon'],
 ];
 ---
 
 <fieldset>
   <legend>{label} {!primary && (<em>Optional</em>)}</legend>
   <div class="grid">
-    <RsvpInput class="input-item full-width" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} {...rest} />
+    <RsvpInput class="input-item full-width" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} autocomplete={primary ? 'name' : 'off'} {...rest} />
     <RsvpSelect class="input-item" name="meals" label=`${label} Meal` placeholder="Choose Meal" {options} {...rest} />
     <RsvpInput class="input-item" name="requests" label=`${label} Request` placeholder="Dietary restrictions" {...rest} />
   </div>

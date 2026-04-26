@@ -7,9 +7,19 @@ const rsvpData = Astro.cookies.get('rsvp')?.value;
 ---
 
 <Section id="rsvp" title="RSVP">
-  {rsvpData ? (
-    <RsvpThanks />
-  ) : (
-    <RsvpForm />
-  )}
+  <div class="box">
+    {rsvpData ? (
+      <RsvpThanks />
+    ) : (
+      <RsvpForm />
+    )}
+  </div>
 </Section>
+
+<style>
+  .box {
+    background: rgb(255 154 112 / .5);
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+</style>

@@ -21,9 +21,6 @@ import RsvpInput from './RsvpInput.astro';
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem .5rem;
-    background: rgb(255 154 112 / .5);
-    border-radius: 1rem;
-    padding: 1rem;
 
     @media (width >= 48rem) {
       grid-template-columns: 1fr 1fr;
@@ -98,7 +95,8 @@ import RsvpInput from './RsvpInput.astro';
 </style>
 
 <script>
-  import { actions, isInputError } from 'astro:actions';
+  import { z } from 'astro/zod';
+  import { actions, isInputError, type ActionInputError } from 'astro:actions';
 
   const rsvpForm = document.querySelector('form[name="rsvp"]') as HTMLFormElement;
   const nameInputs = rsvpForm.elements.namedItem('names') as RadioNodeList;
@@ -116,6 +114,31 @@ import RsvpInput from './RsvpInput.astro';
         input.required = isAttending && !!nameInputs[index].value;
       });
     },
+  };
+
+  const showErrors = (error: z.ZodError | ActionInputError, form: HTMLFormElement) => {
+    if (!error || !form) return;
+
+    // ActionInputError uses 'fieldErrors', ZodError uses 'issues'
+    const issues = 'fieldErrors' in error
+    ? Object.entries(error.fieldErrors).flatMap(([name, messages]) =>
+        (messages || []).map(message => ({ path: [name], message }))
+      )
+    : error.issues || [];
+
+    issues.forEach(({ path, message = '' }) => {
+      const name = String(path[0]);
+      const index = Number(path[1]);
+      const inputItems = form.elements.namedItem(name);
+      if (!inputItems) return;
+      const errorInput = index > -1 && inputItems instanceof RadioNodeList
+        ? inputItems[index]
+        : inputItems;
+      if (errorInput instanceof HTMLInputElement) {
+        errorInput.setCustomValidity?.(message);
+        errorInput.reportValidity?.();
+      }
+    });
   };
 
   const handleFormInput = (event: Event) => {
@@ -138,23 +161,13 @@ import RsvpInput from './RsvpInput.astro';
       const formData = new FormData(form);
       const { data, error } = await actions.rsvp(formData);
       if (error) throw error;
-      for (let i = 0; i < form.elements.length; i++) {
-        (form.elements[i] as HTMLFormElement).disabled = true;
-      }
-      // Do something
+      const response = await fetch('/partials/thanks');
+      const html = await response.text();
+      if (form.parentElement) form.parentElement.innerHTML = html;
     } catch (error: any) {
       submitBtn.disabled = false;
       console.error(error);
-      if (isInputError(error)) {
-        for (const name in error.fields) {
-          const errorInput = form.elements.namedItem(name) as HTMLInputElement;
-          const errorMessages = error.fields[name]?.join(', ');
-          if (errorMessages) {
-            errorInput.setCustomValidity?.(errorMessages);
-            errorInput.reportValidity?.();
-          }
-        }
-      }
+      if (isInputError(error)) showErrors(error, form);
     }
   }
 
