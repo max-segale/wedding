@@ -95,8 +95,7 @@ import RsvpInput from './RsvpInput.astro';
 </style>
 
 <script>
-  import { z } from 'astro/zod';
-  import { actions, isInputError, type ActionInputError } from 'astro:actions';
+  import { actions, isInputError } from 'astro:actions';
 
   const rsvpForm = document.querySelector('form[name="rsvp"]') as HTMLFormElement;
   const nameInputs = rsvpForm.elements.namedItem('names') as RadioNodeList;
@@ -116,17 +115,10 @@ import RsvpInput from './RsvpInput.astro';
     },
   };
 
-  const showErrors = (error: z.ZodError | ActionInputError, form: HTMLFormElement) => {
+  const showErrors = (error: any, form: HTMLFormElement) => {
     if (!error || !form) return;
 
-    // ActionInputError uses 'fieldErrors', ZodError uses 'issues'
-    const issues = 'fieldErrors' in error
-    ? Object.entries(error.fieldErrors).flatMap(([name, messages]) =>
-        (messages || []).map(message => ({ path: [name], message }))
-      )
-    : error.issues || [];
-
-    issues.forEach(({ path, message = '' }) => {
+    error.issues?.forEach(({ path, message }: { path: (string | number)[], message: string }) => {
       const name = String(path[0]);
       const index = Number(path[1]);
       const inputItems = form.elements.namedItem(name);
