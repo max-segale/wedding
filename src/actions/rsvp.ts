@@ -6,22 +6,24 @@ import { Resend } from 'resend';
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 const sendEmail = async (toEmail: string, guestNames: any) => {
-  try {
-    const { data, error } = await resend.emails.send({
-      from: 'info@alexmax.love',
-      to: toEmail,
-      template: {
-        id: 'rsvp-confirmation',
-        variables: {
-          first_name: 'Maxwell Segale',
-          venue_address: 'here',
-          venue_name: 'Shawnee',
-          wedding_date: '2026-09-12',
-          wedding_website_url: 'alexmax.love',
-          dress_code: 'formal',
-        },
+  const firstName = guestNames[0].split(' ')[0];
+  const options = {
+    from: 'info@alexmax.love',
+    to: toEmail,
+    template: {
+      id: 'rsvp-confirmation',
+      variables: {
+        first_name: firstName,
+        venue_address: '100 Shawnee Inn Dr. Shawnee on Delaware, PA 18356',
+        venue_name: 'Shawnee Inn',
+        wedding_date: '9/12/2026',
+        wedding_website_url: 'alexmax.love',
+        dress_code: 'formal',
       },
-    });
+    },
+  };
+  try {
+    const { data, error } = await resend.emails.send(options);
     if (error) throw error;
     return data;
   } catch (error) {
@@ -50,11 +52,11 @@ export const rsvp = defineAction({
   input: z.object({
     names: z.array(z.string()),
     meals: z.array(z.string()),
-    requests: z.array(z.string()),
+    restrictions: z.array(z.string()),
     attend: z.string().transform(value => value === 'yes'),
     contact: z.email().optional(),
   }),
-  handler: async ({ names, meals, requests, attend, contact }, { request, cookies }) => {
+  handler: async ({ names, meals, restrictions, attend, contact }, { request, cookies }) => {
     const userAgent = request?.headers?.get('user-agent');
     const { city, region, country } = request?.cf as any;
     const guid = crypto.randomUUID();
@@ -64,10 +66,10 @@ export const rsvp = defineAction({
       {
         guest_name: name,
         guest_meal: meals[index] || '',
-        guest_note: requests[index] || null,
-        guest_email: (index < 1 && contact) ? contact : null,
+        guest_diet: restrictions[index] || null,
         is_attending: attend,
         group_id: guid,
+        group_email: (index < 1 && contact) ? contact : null,
         response_date: date,
         user_location: (index < 1) ? `${city}, ${region}, ${country}` : null,
         user_agent: (index < 1) ? userAgent : null,
