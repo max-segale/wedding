@@ -32,6 +32,10 @@ const label = positive ? 'Yes, I will be attending.' : "No, unfortunately I can'
   input {
     margin: 0;
 
+    &[value="no"] {
+      accent-color: #ff0000;
+    }
+
     &:checked {
       + span {
         text-decoration: underline;

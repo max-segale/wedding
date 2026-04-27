@@ -13,7 +13,7 @@ import RsvpInput from './RsvpInput.astro';
     <RsvpAttend />
   </fieldset>
   <RsvpInput class="input-item" name="contact" type="email" label="Contact Info" placeholder="Email address" showLabel />
-  <button type="submit">Respond</button>
+  <button type="submit">Submit Response</button>
 </form>
 
 <style>
@@ -61,26 +61,25 @@ import RsvpInput from './RsvpInput.astro';
       opacity: 1;
     }
 
-    /*&:-internal-autofill-selected {
+    &:-internal-autofill-selected {
       background-color: rgb(255 255 255 / 0.8) !important;
     }
-
-    &:invalid {
-      background: red;
-    }*/
   }
 
   button {
+    grid-column: 1 / -1;
     display: block;
+    width: 100%;
+    margin: 0 auto;
     min-height: 3rem;
     border-radius: .5rem;
     font-weight: 700;
     font-size: 1rem;
     line-height: 1;
     appearance: none;
-    border: .1rem solid #000;
+    border: 0;
     padding: 0;
-    background: #bae8ac;
+    background: #94ffb9;
     color: #000;
     transition: transform .1s linear;
 
@@ -88,8 +87,8 @@ import RsvpInput from './RsvpInput.astro';
       transform: scale(.9);
     }
 
-    @media (width >= 48rem) {
-      grid-column: 1 / -1;
+    @media (width >= 32rem) {
+      max-width: 50%;
     }
   }
 </style>

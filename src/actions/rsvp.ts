@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
-const sendEmail = async (toEmail: string, guestNames: any) => {
+const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: string[], guestRestrictions: string[]) => {
   const firstName = guestNames[0].split(' ')[0];
   const options = {
     from: 'info@alexmax.love',
@@ -14,8 +14,9 @@ const sendEmail = async (toEmail: string, guestNames: any) => {
       id: 'rsvp-confirmation',
       variables: {
         first_name: firstName,
+        full_names: guestNames.join(' and '),
         venue_address: '100 Shawnee Inn Dr. Shawnee on Delaware, PA 18356',
-        venue_name: 'Shawnee Inn',
+        venue_name: 'Shawnee Inn and Golf Resort',
         wedding_date: '9/12/2026',
         wedding_website_url: 'alexmax.love',
         dress_code: 'formal',
@@ -78,7 +79,7 @@ export const rsvp = defineAction({
 
     await storeData(guestData);
 
-    if (attend && contact) await sendEmail(contact, guestNames);
+    if (attend && contact) await sendEmail(contact, guestNames, meals, restrictions);
 
     const rsvpData = {
       group: guid,

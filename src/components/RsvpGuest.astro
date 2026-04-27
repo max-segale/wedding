@@ -14,7 +14,7 @@ const options = [
 <fieldset>
   <legend>{label} {!primary && (<em>Optional</em>)}</legend>
   <div class="grid">
-    <RsvpInput class="input-item full-width" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} autocomplete={primary ? 'name' : 'off'} {...rest} />
+    <RsvpInput class="input-item full-width" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} pattern={primary && '\\S.*|.*\\S'} autocomplete={primary ? 'name' : 'off'} {...rest} />
     <RsvpSelect class="input-item" name="meals" label=`${label} Meal` placeholder="Choose Meal" {options} {...rest} />
     <RsvpInput class="input-item" name="restrictions" label=`${label} Request` placeholder="Dietary restrictions" {...rest} />
   </div>
