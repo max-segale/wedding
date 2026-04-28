@@ -7,6 +7,15 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: string[], guestRestrictions: string[]) => {
   const firstName = guestNames[0].split(' ')[0];
+  const tableRows = guestNames.map((name, index) => {
+    return `
+      <tr>
+        <td>${name}</td>
+        <td>${guestMeals[index] || ''}</td>
+        <td>${guestRestrictions[index] || ''}</td>
+      </tr>
+    `;
+  }).join('');
   const options = {
     from: 'info@alexmax.love',
     to: toEmail,
@@ -14,12 +23,7 @@ const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: stri
       id: 'rsvp-confirmation',
       variables: {
         first_name: firstName,
-        full_names: guestNames.join(' and '),
-        venue_address: '100 Shawnee Inn Dr. Shawnee on Delaware, PA 18356',
-        venue_name: 'Shawnee Inn and Golf Resort',
-        wedding_date: '9/12/2026',
-        wedding_website_url: 'alexmax.love',
-        dress_code: 'formal',
+        table_rows: tableRows,
       },
     },
   };
