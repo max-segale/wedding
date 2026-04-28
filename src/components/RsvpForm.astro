@@ -46,9 +46,10 @@ import RsvpInput from './RsvpInput.astro';
     border-radius: .5rem;
     font-size: 1rem;
     line-height: 1;
-    appearance: none;
     background-color: rgb(255 255 255 / 0.8);
     border: 0;
+    overflow: hidden;
+    appearance: none;
 
     &:not(:required) {
       &:placeholder-shown,
@@ -152,7 +153,11 @@ import RsvpInput from './RsvpInput.astro';
       if (error) throw error;
       const response = await fetch('/partials/thanks');
       const html = await response.text();
-      if (form.parentElement) form.parentElement.innerHTML = html;
+      const formContainer = form.parentElement;
+      if (formContainer) {
+        formContainer.innerHTML = html;
+        formContainer.scrollIntoView?.();
+      }
     } catch (error: any) {
       submitBtn.disabled = false;
       console.error(error);
