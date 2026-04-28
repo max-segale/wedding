@@ -69,26 +69,24 @@ import RsvpInput from './RsvpInput.astro';
   button {
     grid-column: 1 / -1;
     display: block;
-    width: 100%;
-    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
     min-height: 3rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+    border: 0;
     border-radius: .5rem;
     font-weight: 700;
     font-size: 1rem;
     line-height: 1;
-    appearance: none;
-    border: 0;
-    padding: 0;
     background: #94ffb9;
-    color: #000;
+    background: rgb(0 0 0 / .5);
+    color: #fff;
+    appearance: none;
     transition: transform .1s linear;
 
     &:active:not(:disabled) {
       transform: scale(.9);
-    }
-
-    @media (width >= 32rem) {
-      max-width: 50%;
     }
   }
 </style>
