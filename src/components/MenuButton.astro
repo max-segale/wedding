@@ -3,7 +3,7 @@ const { class: className, type = 'button', label, controls, expanded } = Astro.p
 ---
 
 <button class={className} {type} aria-label={label} aria-controls={controls} aria-expanded={expanded}>
-  {className === 'menu' && (<span class="middle"></span>)}
+  {className === 'nav' && (<span></span>)}
 </button>
 
 <style>
@@ -21,7 +21,7 @@ const { class: className, type = 'button', label, controls, expanded } = Astro.p
     cursor: pointer;
     transition: transform .1s linear;
 
-    .middle,
+    span,
     &::before,
     &::after {
       content: '';
@@ -34,9 +34,9 @@ const { class: className, type = 'button', label, controls, expanded } = Astro.p
       transform-origin: 50% 50%;
     }
 
-    &.menu,
+    &.nav,
     &.close {
-      .middle,
+      span,
       &::before,
       &::after {
         grid-column: 1;
@@ -44,10 +44,10 @@ const { class: className, type = 'button', label, controls, expanded } = Astro.p
       }
     }
 
-    &.menu {
+    &.nav {
       background: rgb(0 0 0 / .5);
 
-      .middle,
+      span,
       &::before,
       &::after {
         background: rgb(255 255 255 / .8);
@@ -63,7 +63,7 @@ const { class: className, type = 'button', label, controls, expanded } = Astro.p
       }
 
       &.open {
-        .middle {
+        span {
           width: 0;
         }
 

@@ -1,5 +1,5 @@
 ---
-import ButtonMenu from './ButtonMenu.astro';
+import MenuButton from './MenuButton.astro';
 
 const { isMain } = Astro.props;
 const navId = isMain ? 'header-nav' : 'footer-nav';
@@ -18,7 +18,7 @@ const navItems = [
 <nav id={navId} class:list={[{ header: isMain }]} aria-label={navLabel}>
   {isMain && (
     <div class="menu-btn">
-      <ButtonMenu class="menu" label="Toggle navigation menu" controls={navId} expanded="false" />
+      <MenuButton class="nav" label="Toggle navigation menu" controls={navId} expanded="false" />
     </div>
   )}
   <div class="menu">
@@ -121,7 +121,7 @@ const navItems = [
 
 <script>
   const menuNav = document.querySelector('nav.header');
-  const menuBtn = menuNav?.querySelector('button.menu');
+  const menuBtn = menuNav?.querySelector('button.nav');
   const navLinks = document.querySelectorAll('a.nav-link');
 
   const toggleNavMenu = (openMenu: boolean = false) => {
