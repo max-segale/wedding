@@ -3,11 +3,14 @@ import Section from './Section.astro';
 import RsvpForm from './RsvpForm.astro';
 import RsvpThanks from './RsvpThanks.astro';
 
+const { primary } = Astro.props;
 const rsvpData = Astro.cookies.get('rsvp')?.value;
 ---
 
-<Section id="rsvp" title="RSVP">
-  <p>Please fill out the form below to let us know if you will be attending our wedding. Please choose a meal option for each guest that will be attending, and let us know if you have any dietary restrictions.</p>
+<Section id="rsvp" title="RSVP" {primary}>
+  {!rsvpData && (
+    <p>Please fill out the form below to let us know if you will be attending our wedding. Please choose a meal option for each guest that will be attending, and let us know if you have any dietary restrictions.</p>
+  )}
   <div class="box">
     {rsvpData ? (
       <RsvpThanks />

@@ -1,10 +1,11 @@
 ---
-const { id, title, class: className } = Astro.props;
+const { class: className, id, title, primary } = Astro.props;
+const Heading = primary ? 'h1' : 'h2';
 ---
 
 <section {id} class={className}>
   <div class="container">
-    {title && (<h2 class="title">{title}</h2>)}
+    {title && (<Heading class="title">{title}</Heading>)}
     <slot />
     {id !== 'welcome' && id !== 'rsvp' && (
       <hr />
