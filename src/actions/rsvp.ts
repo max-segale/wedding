@@ -41,7 +41,7 @@ const storeData = async (dataRows: any) => {
   )).join(', ');
   const sqlStatement = `INSERT INTO guests (${tableCols}) VALUES ${placeholderRows}`;
   const allValues = valueRows.flat();
-  const db = env.wedding;
+  const db = env.DB;
   await db
     .prepare(sqlStatement)
     .bind(...allValues)

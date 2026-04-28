@@ -19,7 +19,7 @@
 	},
 	"d1_databases": [
 		{
-			"binding": "wedding",
+			"binding": "DB",
 			"database_name": "wedding",
 			"database_id": "c4c80732-a720-44cc-be0f-174339f8ff8e"
 		}
