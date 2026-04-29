@@ -7,15 +7,10 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: string[], guestRestrictions: string[]) => {
   const firstName = guestNames[0].split(' ')[0];
-  const tableRows = guestNames.map((name, index) => {
-    return `
-      <tr>
-        <td>${name}</td>
-        <td>${guestMeals[index] || ''}</td>
-        <td>${guestRestrictions[index] || ''}</td>
-      </tr>
-    `;
-  }).join('');
+  const guestsDetails = guestNames.map((name, index) => (
+      `${name}, ${guestMeals[index]} ${guestRestrictions[index] || ''}`
+    ))
+    .join('<br>');
   const options = {
     from: 'info@alexmax.love',
     to: toEmail,
@@ -23,7 +18,7 @@ const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: stri
       id: 'rsvp-confirmation',
       variables: {
         first_name: firstName,
-        table_rows: tableRows,
+        guests_details: guestsDetails,
       },
     },
   };
