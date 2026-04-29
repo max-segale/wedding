@@ -1,0 +1,50 @@
+---
+const { class: className, type = "checkbox", name, value, label, required, ...rest } = Astro.props;
+---
+
+<label class={className} {...rest}>
+  <input {type} {name} {value} {required} />
+  <span>{label}</span>
+</label>
+
+<style>
+  label {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    border: .1rem solid rgb(255 255 255 / .8);
+    border-radius: .5rem;
+    padding: .5rem;
+
+    &:first-of-type:not(:last-of-type) {
+      border-radius: .5rem .5rem 0 0;
+      border-bottom: 0;
+    }
+
+    & + &:last-of-type {
+      border-radius: 0 0 .5rem .5rem;
+      border-top: 0;
+    }
+  }
+
+  input {
+    margin: 0;
+
+    &[value="no"] {
+      accent-color: #ff0000;
+    }
+
+    &:checked {
+      + span {
+        font-weight: 700;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  span {
+    display: block;
+    margin: 0 0 0 .5rem;
+  }
+</style>

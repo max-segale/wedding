@@ -59,9 +59,10 @@ export const rsvp = defineAction({
     meals: z.array(z.string()),
     restrictions: z.array(z.string()),
     attend: z.string().transform(value => value === 'yes'),
+    paddle: z.boolean().optional(),
     contact: z.email().optional(),
   }),
-  handler: async ({ names, meals, restrictions, attend, contact }, { request, cookies }) => {
+  handler: async ({ names, meals, restrictions, attend, contact, paddle }, { request, cookies }) => {
     const userAgent = request?.headers?.get('user-agent');
     const { city, region, country } = request?.cf as any;
     const guid = crypto.randomUUID();
@@ -73,6 +74,7 @@ export const rsvp = defineAction({
         guest_meal: meals[index] || '',
         guest_diet: restrictions[index] || null,
         is_attending: attend,
+        is_paddle: paddle,
         group_id: guid,
         group_email: (index < 1 && contact) ? contact : null,
         response_date: date,
