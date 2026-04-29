@@ -14,7 +14,7 @@ import RsvpCheckbox from './RsvpCheckbox.astro';
     <RsvpAttend />
   </fieldset>
   <RsvpInput class="input-item" name="contact" type="email" label="Contact Info" placeholder="Email address" showLabel />
-  <RsvpCheckbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon" />
+  <RsvpCheckbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon." />
   <button type="submit">Submit Response</button>
 </form>
 
@@ -140,8 +140,6 @@ import RsvpCheckbox from './RsvpCheckbox.astro';
   const handleFormInput = (event: Event) => {
     const input = event.target as HTMLInputElement | HTMLSelectElement;
     inputHandlers[input.name]?.(input);
-    input.setCustomValidity?.('');
-    input.reportValidity?.();
   }
 
   const handleFormSubmit = async (event: SubmitEvent) => {
@@ -167,7 +165,11 @@ import RsvpCheckbox from './RsvpCheckbox.astro';
     } catch (error: any) {
       submitBtn.disabled = false;
       console.error(error);
-      if (isInputError(error)) showErrors(error, form);
+      if (isInputError(error)) {
+        showErrors(error, form);
+      } else {
+        alert('An error has occurred, please try again.');
+      }
     }
   }
 
