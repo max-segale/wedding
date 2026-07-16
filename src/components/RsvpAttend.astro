@@ -3,7 +3,9 @@ import RsvpCheckbox from './RsvpCheckbox.astro';
 
 const { positive } = Astro.props;
 const value = positive ? 'yes' : 'no';
-const label = positive ? 'Yes, I will be attending.' : "No, unfortunately I can't attend."
+const label = positive ?
+  `Yes, I will be attending the wedding.` :
+  `No, unfortunately I can't attend.`;
 ---
 
 <RsvpCheckbox type="radio" name="attend" {value} {label} required />

@@ -22,7 +22,7 @@ const { class: className, type = "checkbox", name, value, label, required, ...re
       border-bottom: 0;
     }
 
-    & + &:last-of-type {
+    &:first-of-type:not(:last-of-type) + &:last-of-type {
       border-radius: 0 0 .5rem .5rem;
       border-top: 0;
     }
