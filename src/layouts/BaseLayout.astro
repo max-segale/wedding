@@ -1,8 +1,5 @@
 ---
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
-import PhotoDialog from '../components/PhotoDialog.astro';
 
 const { title } = Astro.props;
 const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
@@ -20,12 +17,7 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
   </head>
   <body>
     <Header />
-    <main>
-      <slot />
-    </main>
-    <PhotoGallery />
-    <Footer />
-    <PhotoDialog />
+    <slot />
   </body>
 </html>
 

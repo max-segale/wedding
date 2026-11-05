@@ -1,0 +1,17 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import PhotoDialog from '../components/PhotoDialog.astro';
+
+const { title } = Astro.props;
+---
+
+<BaseLayout {title}>
+  <main>
+    <slot />
+  </main>
+  <PhotoGallery />
+  <Footer />
+  <PhotoDialog />
+</BaseLayout>
