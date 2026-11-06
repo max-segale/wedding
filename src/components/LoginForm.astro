@@ -1,0 +1,18 @@
+---
+import '../styles/form.css';
+import { actions } from 'astro:actions';
+import Input from './Input.astro';
+
+const url = new URL(Astro.request.url);
+const actionResult = Astro.getActionResult(actions.login);
+const next = actionResult?.data?.next ?? url.searchParams.get('next') ?? '/';
+const showError = actionResult?.data?.authenticated === false
+  || Boolean(actionResult?.error);
+---
+
+{showError && <p class="error" role="alert">That password did not work. Please try again.</p>}
+<form method="post" action={actions.login}>
+  <input type="hidden" name="next" value={next} />
+  <Input class="input-item full-width" name="password" type="password" label="Password" placeholder="Password" autocomplete="none" required autofocus/>
+  <button type="submit">Continue</button>
+</form>

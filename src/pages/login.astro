@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionLogin from '../components/SectionLogin.astro';
+import { actions } from 'astro:actions';
+
+const actionResult = Astro.getActionResult(actions.login);
+if (actionResult?.data?.authenticated) {
+  return Astro.redirect(actionResult.data.next);
+}
 ---
 
 <BaseLayout title="Enter Password">
