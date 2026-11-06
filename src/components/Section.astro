@@ -7,7 +7,7 @@ const Heading = primary ? 'h1' : 'h2';
   <div class="container">
     {title && (<Heading class="title">{title}</Heading>)}
     <slot />
-    {id !== 'welcome' && id !== 'rsvp' && (
+    {id !== 'welcome' && (
       <hr />
     )}
   </div>
@@ -41,6 +41,12 @@ const Heading = primary ? 'h1' : 'h2';
 
     &:first-of-type {
       padding-top: var(--headerHeight);
+    }
+
+    &:last-of-type {
+      hr {
+        display: none;
+      }
     }
   }
 
