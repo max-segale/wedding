@@ -2,7 +2,7 @@
 import Input from './Input.astro';
 import Select from './Select.astro';
 
-const { primary, ...rest } = Astro.props;
+const { primary } = Astro.props;
 const label = `Guest ${primary ? 'One' : 'Two'}`;
 const options = [
  ['steak', 'Grilled flat iron steak with carmelized onion and port wine jus'],
@@ -14,9 +14,9 @@ const options = [
 <fieldset>
   <legend>{label} {!primary && (<em>Optional</em>)}</legend>
   <div class="grid">
-    <Input class="input-item" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} pattern={primary && '\\S.*|.*\\S'} autocomplete={primary ? 'name' : 'off'} {...rest} />
-    <Select class="input-item" name="meals" label=`${label} Meal` placeholder="Choose Meal" {options} {...rest} />
-    <Input class="input-item" name="restrictions" label=`${label} Request` placeholder="Dietary restrictions" {...rest} />
+    <Input class="input-item" name="names" label=`${label} Name` placeholder="First and Last Name" required={primary} pattern={primary && '\\S.*|.*\\S'} autocomplete={primary ? 'name' : 'off'} />
+    <Select class="input-item" name="meals" label=`${label} Meal` placeholder="Choose Meal" {options} />
+    <Input class="input-item" name="restrictions" label=`${label} Request` placeholder="Dietary restrictions" />
   </div>
 </fieldset>
 

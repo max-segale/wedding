@@ -1,8 +1,8 @@
 ---
-const { class: className, type = "checkbox", name, value, label, required, ...rest } = Astro.props;
+const { class: className, type = "checkbox", name, value, label, required } = Astro.props;
 ---
 
-<label class={className} {...rest}>
+<label class={className}>
   <input {type} {name} {value} {required} />
   <span>{label}</span>
 </label>

@@ -1,4 +1,5 @@
 ---
+import '../styles/form.css';
 import RsvpGuest from './RsvpGuest.astro';
 import RsvpAttend from './RsvpAttend.astro';
 import Input from './Input.astro';
@@ -18,86 +19,6 @@ import Checkbox from './Checkbox.astro';
   <Checkbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon." />
   <button type="submit">Submit Response</button>
 </form>
-
-<style>
-  form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem .5rem;
-
-    @media (width >= 48rem) {
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    :global(legend),
-    :global(label > span:first-child) {
-      display: block;
-      font-weight: 700;
-      margin-bottom: .5rem;
-    }
-
-    :global(em) {
-      font-weight: 300;
-    }
-  }
-
-  .full-width {
-    grid-column: 1 / -1;
-  }
-
-  .input-item {
-    display: block;
-    width: 100%;
-    min-height: 3rem;
-    border-radius: .5rem;
-    font-size: 1rem;
-    line-height: 1;
-    background-color: rgb(255 255 255 / 0.8);
-    border: 0;
-    overflow: hidden;
-    appearance: none;
-
-    &:not(:required) {
-      &:placeholder-shown,
-      &:has(option[value=""]:checked) {
-        background: rgb(255 255 255 / 0.6);
-      }
-    }
-
-    &:disabled {
-      opacity: 1;
-    }
-
-    &:-internal-autofill-selected {
-      background-color: rgb(255 255 255 / 0.8) !important;
-    }
-  }
-
-  button {
-    grid-column: 1 / -1;
-    display: block;
-    width: auto;
-    max-width: 100%;
-    min-height: 3rem;
-    margin: 0 auto;
-    padding: 0 2rem;
-    border: 0;
-    border-radius: .5rem;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1;
-    background: #94ffb9;
-    background: rgb(0 0 0 / .5);
-    color: #fff;
-    appearance: none;
-    transition: transform .1s linear;
-
-    &:active:not(:disabled) {
-      transform: scale(.9);
-    }
-  }
-</style>
 
 <script>
   import { actions, isInputError } from 'astro:actions';
