@@ -1,5 +1,5 @@
 ---
-import RsvpCheckbox from './RsvpCheckbox.astro';
+import Checkbox from './Checkbox.astro';
 
 const { positive } = Astro.props;
 const value = positive ? 'yes' : 'no';
@@ -8,4 +8,4 @@ const label = positive ?
   `No, unfortunately I can't attend.`;
 ---
 
-<RsvpCheckbox type="radio" name="attend" {value} {label} required />
+<Checkbox type="radio" name="attend" {value} {label} required />

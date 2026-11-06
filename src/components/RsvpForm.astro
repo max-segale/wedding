@@ -2,7 +2,7 @@
 import RsvpGuest from './RsvpGuest.astro';
 import RsvpAttend from './RsvpAttend.astro';
 import Input from './Input.astro';
-import RsvpCheckbox from './RsvpCheckbox.astro';
+import Checkbox from './Checkbox.astro';
 ---
 
 <form name="rsvp">
@@ -14,8 +14,8 @@ import RsvpCheckbox from './RsvpCheckbox.astro';
     <RsvpAttend />
   </fieldset>
   <Input class="input-item" name="contact" type="email" label="Contact Info" placeholder="Email address" showLabel />
-  <RsvpCheckbox class="full-width" name="preparty" label="I will also be attending the welcome party on Friday evening." />
-  <RsvpCheckbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon." />
+  <Checkbox class="full-width" name="preparty" label="I will also be attending the welcome party on Friday evening." />
+  <Checkbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon." />
   <button type="submit">Submit Response</button>
 </form>
 
