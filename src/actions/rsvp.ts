@@ -3,9 +3,8 @@ import { z } from 'astro/zod';
 import { env } from 'cloudflare:workers';
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: string[], guestRestrictions: string[]) => {
+  const resend = new Resend(env.RESEND_API_KEY);
   const firstName = guestNames[0].split(' ')[0];
   const guestsDetails = guestNames.map((name, index) => (
       `${name}, ${guestMeals[index]} ${guestRestrictions[index] || ''}`
