@@ -5,9 +5,10 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "wedding",
-	"compatibility_date": "2025-09-27",
+	"compatibility_date": "2026-02-19",
 	"compatibility_flags": [
-		"nodejs_compat"
+		"nodejs_compat",
+		"disable_nodejs_process_v2"
 	],
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
