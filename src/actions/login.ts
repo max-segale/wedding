@@ -1,19 +1,11 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { env } from 'cloudflare:workers';
 import { z } from 'astro/zod';
+import { createSession } from '../scripts/session';
 
-const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7;
 const encoder = new TextEncoder();
 
-const sessionKey = password => crypto.subtle.importKey(
-  'raw',
-  encoder.encode(password),
-  { name: 'HMAC', hash: 'SHA-256' },
-  false,
-  ['sign', 'verify'],
-);
-
-const safeReturnTo = value => {
+const safeReturnTo = (value: string | undefined) => {
   if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//')) return '/';
   try {
     const url = new URL(value, 'https://wedding.invalid');
@@ -27,11 +19,6 @@ const safeReturnTo = value => {
     return '/';
   }
 };
-
-const toBase64Url = (bytes: ArrayBuffer) => btoa(String.fromCharCode(...new Uint8Array(bytes)))
-  .replaceAll('+', '-')
-  .replaceAll('/', '_')
-  .replace(/=+$/, '');
 
 const passwordMatches = async (suppliedPassword: string, expectedPassword: string) => {
   const [suppliedHash, expectedHash] = await Promise.all([
@@ -47,20 +34,6 @@ const passwordMatches = async (suppliedPassword: string, expectedPassword: strin
   return difference === 0;
 };
 
-const createSession = async (password: string) => {
-  const expiresAt = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
-  const payload = String(expiresAt);
-  const signature = await crypto.subtle.sign(
-    'HMAC',
-    await sessionKey(password),
-    encoder.encode(payload),
-  );
-  return {
-    token: `${payload}.${toBase64Url(signature)}`,
-    maxAge: SESSION_TTL_SECONDS,
-  };
-};
-
 export const login = defineAction({
   accept: 'form',
   input: z.object({
@@ -70,7 +43,6 @@ export const login = defineAction({
   handler: async ({ password, next }, { cookies }) => {
     const expectedPassword = env.SITE_PASSWORD;
     if (!expectedPassword) {
-      console.error('SITE_PASSWORD Cloudflare secret is not configured.');
       throw new ActionError({
         code: 'SERVICE_UNAVAILABLE',
         message: 'Site password protection is not configured.',
