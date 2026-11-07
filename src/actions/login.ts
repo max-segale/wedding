@@ -82,7 +82,7 @@ export const login = defineAction({
     }
 
     const session = await createSession(expectedPassword);
-    cookies.set('site_session', session.token, {
+    cookies.set('auth_token', session.token, {
       path: '/',
       maxAge: session.maxAge,
       httpOnly: true,
