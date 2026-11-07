@@ -13,17 +13,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const response = await next();
 
-  if (response.status >= 300 && response.status < 400) {
+  try {
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow, noimageindex');
     return response;
+  } catch (error) {
+    const newHeaders = new Headers(response.headers);
+    newHeaders.set('X-Robots-Tag', 'noindex, nofollow, noimageindex');
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: newHeaders,
+    });
   }
-
-  const newHeaders = new Headers(response.headers);
-
-  newHeaders.set('X-Robots-Tag', 'noindex, nofollow, noimageindex');
-
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: newHeaders,
-  });
 });
