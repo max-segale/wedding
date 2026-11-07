@@ -1,10 +1,10 @@
 ---
-const { class: className, name, label, placeholder, type = 'text', required = false, showLabel } = Astro.props;
+const { class: className, label, type = 'text', required = false, showLabel, ...rest } = Astro.props;
 const Wrapper = showLabel ? 'label' : Fragment;
 ---
 
 <Wrapper>{showLabel && (<span>{label} {!required && (<em>Optional</em>)}</span>)}
-  <input class={className} {name} {type} {placeholder} {required} aria-label={!showLabel ? label : null} />
+  <input class={className} {type} {required} aria-label={!showLabel ? label : null} {...rest} />
 </Wrapper>
 
 <style>

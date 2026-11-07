@@ -8,11 +8,19 @@ const actionResult = Astro.getActionResult(actions.login);
 const next = actionResult?.data?.next ?? url.searchParams.get('next') ?? '/';
 const showError = actionResult?.data?.authenticated === false
   || Boolean(actionResult?.error);
+const errorMsg = `Wrong password. Please try again.`;
 ---
 
-{showError && <p class="error" role="alert">That password did not work. Please try again.</p>}
 <form method="post" action={actions.login}>
   <input type="hidden" name="next" value={next} />
-  <Input class="input-item full-width" name="password" type="password" label="Password" placeholder="Password" autocomplete="none" required autofocus/>
+  {showError && <span id="password-error" class="error-msg" role="alert">{errorMsg}</span>}
+  <Input class="input-item full-width" name="password" type="password" label="Password" placeholder="Password" autocomplete="none" required autofocus {...showError && { 'aria-invalid': true, 'aria-describedby': 'password-error' }} />
   <button type="submit">Continue</button>
 </form>
+
+<style>
+  .error-msg {
+    display: block;
+    font-weight: 700;
+  }
+</style>
