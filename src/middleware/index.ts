@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { defineMiddleware } from 'astro:middleware';
-import { verifySession } from '../lib/session';
+import { verifySession } from '@/lib/session';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, redirect } = context;

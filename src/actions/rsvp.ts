@@ -1,6 +1,6 @@
+import { env } from 'cloudflare:workers';
 import { defineAction } from 'astro:actions';
 import { z } from 'astro/zod';
-import { env } from 'cloudflare:workers';
 import { Resend } from 'resend';
 
 const sendEmail = async (toEmail: string, guestNames: string[], guestMeals: string[], guestRestrictions: string[]) => {

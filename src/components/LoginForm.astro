@@ -1,7 +1,7 @@
 ---
-import '../styles/form.css';
 import { actions } from 'astro:actions';
-import Input from './Input.astro';
+import '@/styles/form.css';
+import Input from '@/components/Input.astro';
 
 const url = new URL(Astro.request.url);
 const actionResult = Astro.getActionResult(actions.login);

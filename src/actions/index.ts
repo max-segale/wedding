@@ -1,5 +1,5 @@
-import { login } from './login';
-import { rsvp } from './rsvp';
+import { login } from '@/actions/login';
+import { rsvp } from '@/actions/rsvp';
 
 export const server = {
   login,

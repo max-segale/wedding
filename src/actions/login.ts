@@ -1,7 +1,7 @@
-import { ActionError, defineAction } from 'astro:actions';
 import { env } from 'cloudflare:workers';
+import { ActionError, defineAction } from 'astro:actions';
 import { z } from 'astro/zod';
-import { createSession } from '../lib/session';
+import { createSession } from '@/lib/session';
 
 const encoder = new TextEncoder();
 

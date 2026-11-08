@@ -1,7 +1,7 @@
 ---
-import Section from './Section.astro';
-import RsvpForm from './RsvpForm.astro';
-import RsvpThanks from './RsvpThanks.astro';
+import Section from '@/components/Section.astro';
+import RsvpForm from '@/components/RsvpForm.astro';
+import RsvpThanks from '@/components/RsvpThanks.astro';
 
 const { primary } = Astro.props;
 const rsvpData = Astro.cookies.get('rsvp')?.value;

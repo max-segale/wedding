@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionLogin from '../components/SectionLogin.astro';
 import { actions } from 'astro:actions';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionLogin from '@/components/SectionLogin.astro';
 
 const actionResult = Astro.getActionResult(actions.login);
 if (actionResult?.data?.authenticated) {
