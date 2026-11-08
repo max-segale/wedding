@@ -1,20 +1,22 @@
 import { env } from 'cloudflare:workers';
 import { defineMiddleware } from 'astro:middleware';
-import { verifySession } from './scripts/session';
+import { verifySession } from '../lib/session';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, redirect } = context;
 
-  const token = cookies.get('auth_token')?.value;
-  const password = env.SITE_PASSWORD;
-  const hasValidSession = token && password
-    ? await verifySession(token, password)
-    : false;
+  if (!import.meta.env.DEV) {
+    const token = cookies.get('auth_token')?.value;
+    const password = env.SITE_PASSWORD;
+    const hasValidSession = token && password
+      ? await verifySession(token, password)
+      : false;
 
-  const notLoginPage = url.pathname !== '/login';
+    const isLoginPage = url.pathname === '/login';
 
-  if (notLoginPage && !hasValidSession) {
-    return redirect('/login');
+    if (!isLoginPage && !hasValidSession) {
+      return redirect('/login');
+    }
   }
 
   const response = await next();
