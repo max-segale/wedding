@@ -1,17 +1,19 @@
 ---
 import MenuButton from '@/components/MenuButton.astro';
 
-const { isMain } = Astro.props;
+const { isAfter, isMain } = Astro.props;
 const navId = isMain ? 'header-nav' : 'footer-nav';
 const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
-const navItems = [
-  { name: 'Venue', link: '/#venue' },
-  { name: 'Schedule', link: '/#schedule' },
-  { name: 'Lodging', link: '/#lodging' },
-  { name: 'FAQ', link: '/#faq' },
-  { name: 'RSVP', link: '/rsvp' },
-  { name: 'Activities', link: '/activities' },
-  { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
+const navItems = isAfter ? [
+    { name: 'Photos', link: '/photos' }
+  ] : [
+    { name: 'Venue', link: '/#venue' },
+    { name: 'Schedule', link: '/#schedule' },
+    { name: 'Lodging', link: '/#lodging' },
+    { name: 'FAQ', link: '/#faq' },
+    { name: 'RSVP', link: '/rsvp' },
+    { name: 'Activities', link: '/activities' },
+    { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
 ];
 ---
 
@@ -74,7 +76,7 @@ const navItems = [
       }
     }
 
-    @media (width < 64rem) {
+    @media (width < 48rem) {
       .menu {
         position: absolute;
         right: 0;
@@ -111,7 +113,7 @@ const navItems = [
       }
     }
 
-    @media (width >= 64rem) {
+    @media (width >= 48rem) {
       .menu-btn {
         display: none;
       }

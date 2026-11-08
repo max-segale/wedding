@@ -1,18 +1,25 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
 import SectionWelcome from '@/components/SectionWelcome.astro';
+import SectionThanks from '@/components/SectionThanks.astro';
 import SectionVenue from '@/components/SectionVenue.astro';
 import SectionSchedule from '@/components/SectionSchedule.astro';
 import SectionLodging from '@/components/SectionLodging.astro';
 import SectionFaq from '@/components/SectionFaq.astro';
 import SectionRsvp from '@/components/SectionRsvp.astro';
+
+const isAfter = true;
 ---
 
-<MainLayout>
+<MainLayout {isAfter}>
   <SectionWelcome />
-  <SectionVenue />
-  <SectionSchedule />
-  <SectionLodging />
-  <SectionFaq />
-  <SectionRsvp />
+  {isAfter ? (
+    <SectionThanks />
+  ) : (
+    <SectionVenue />
+    <SectionSchedule />
+    <SectionLodging />
+    <SectionFaq />
+    <SectionRsvp />
+  )}
 </MainLayout>

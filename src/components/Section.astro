@@ -45,6 +45,12 @@ const Heading = primary ? 'h1' : 'h2';
       }
     }
 
+    &.wide {
+      .container {
+        max-width: none;
+      }
+    }
+
     &:first-of-type {
       padding-top: var(--headerHeight);
     }

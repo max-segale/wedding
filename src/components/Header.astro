@@ -1,13 +1,13 @@
 ---
 import Navigation from '@/components/Navigation.astro';
 
-const { showNav } = Astro.props;
+const { isAfter, showNav } = Astro.props;
 ---
 
 <header>
   <div class="container">
     <a href="/#">Alex ♡ Max</a>
-    {showNav && (<Navigation isMain />)}
+    {showNav && (<Navigation {isAfter} isMain />)}
   </div>
 </header>
 
