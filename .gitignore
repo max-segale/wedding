@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 # vscode settings
 .vscode/
+
+# image files
+src/assets/
