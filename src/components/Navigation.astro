@@ -1,20 +1,10 @@
 ---
 import MenuButton from '@/components/MenuButton.astro';
+import { navItems, type NavItem } from '@/data/navigation';
 
-const { isAfter, isMain } = Astro.props;
+const { isMain } = Astro.props;
 const navId = isMain ? 'header-nav' : 'footer-nav';
 const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
-const navItems = isAfter ? [
-    { name: 'Photos', link: '/photos' }
-  ] : [
-    { name: 'Venue', link: '/#venue' },
-    { name: 'Schedule', link: '/#schedule' },
-    { name: 'Lodging', link: '/#lodging' },
-    { name: 'FAQ', link: '/#faq' },
-    { name: 'RSVP', link: '/rsvp' },
-    { name: 'Activities', link: '/activities' },
-    { name: 'Registry', link: 'https://withjoy.com/alex-and-max-sep-26/registry', external: true },
-];
 ---
 
 <nav id={navId} class:list={[{ header: isMain }]} aria-label={navLabel}>
@@ -25,7 +15,7 @@ const navItems = isAfter ? [
   )}
   <div class="menu">
     <ul>
-      {navItems.map(({ name, link, external }) => (
+      {navItems.map(({ name, link, external }: NavItem) => (
         <li>
           <a class="nav-link" href={link} target={external ? '_blank' : null}>{name}</a>
         </li>

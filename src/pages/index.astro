@@ -1,4 +1,5 @@
 ---
+import { IS_AFTER } from '@/data/constants';
 import MainLayout from '@/layouts/MainLayout.astro';
 import SectionWelcome from '@/components/SectionWelcome.astro';
 import SectionThanks from '@/components/SectionThanks.astro';
@@ -7,13 +8,11 @@ import SectionSchedule from '@/components/SectionSchedule.astro';
 import SectionLodging from '@/components/SectionLodging.astro';
 import SectionFaq from '@/components/SectionFaq.astro';
 import SectionRsvp from '@/components/SectionRsvp.astro';
-
-const isAfter = true;
 ---
 
-<MainLayout {isAfter}>
+<MainLayout>
   <SectionWelcome />
-  {isAfter ? (
+  {IS_AFTER ? (
     <SectionThanks />
   ) : (
     <SectionVenue />

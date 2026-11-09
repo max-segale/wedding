@@ -2,7 +2,7 @@
 import '@/styles/base.css';
 import Header from '@/components/Header.astro';
 
-const { title, isAfter, showNav } = Astro.props;
+const { title, showNav } = Astro.props;
 const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
 ---
 
@@ -21,7 +21,7 @@ const pageTitle = (title ? `${title} | ` : '') + 'Alex + Max Wedding 2026';
     </script>
   </head>
   <body>
-    <Header {isAfter} {showNav} />
+    <Header {showNav} />
     <slot />
   </body>
 </html>
