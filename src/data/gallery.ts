@@ -4,7 +4,50 @@ export interface PhotoItem {
   size?: string;
 }
 
-export const photoItems: PhotoItem[] = [
+export const weddingPhotos: PhotoItem[] = [
+  {
+    file: 'first-kiss.jpeg',
+    caption: 'Kiss the bride',
+    size: 'tall',
+  },
+  {
+    file: 'pre-paddle.jpeg',
+    caption: 'Paddle board pre-party',
+  },
+  {
+    file: 'groom-mom.jpeg',
+    caption: 'Max and mom',
+  },
+  {
+    file: 'bride-aisle.jpeg',
+    caption: 'Here comes the bride',
+  },
+  {
+    file: 'tie-knot.jpeg',
+    caption: 'Tying the knot',
+    size: 'large',
+  },
+  {
+    file: 'first-dip.jpeg',
+    caption: 'Again',
+  },
+  {
+    file: 'couple-riverside.jpeg',
+    caption: 'Riverside cocktail hour',
+  },
+  {
+    file: 'first-dance.jpeg',
+    caption: 'First dance',
+    size: 'large',
+  },
+  {
+    file: 'after-party.jpeg',
+    caption: 'After party',
+    size: 'tall',
+  },
+];
+
+export const footerPhotos: PhotoItem[] = [
   {
     file: 'peekskill-boat.jpeg',
     caption: 'Peekskill boat ride',
