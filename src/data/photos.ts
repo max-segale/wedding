@@ -1,8 +1,16 @@
+import type { ImageMetadata } from 'astro';
+
 export interface PhotoItem {
   file: string;
   caption?: string;
   size?: string;
 }
+
+export const photoCollections = {
+  engaged: import.meta.glob<{ default: ImageMetadata }>('/src/assets/engaged/*'),
+  wedding: import.meta.glob<{ default: ImageMetadata }>('/src/assets/wedding/*'),
+  booth: import.meta.glob<{ default: ImageMetadata }>('/src/assets/booth/*'),
+};
 
 export const weddingPhotos: PhotoItem[] = [
   {
