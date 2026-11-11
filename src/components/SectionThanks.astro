@@ -1,7 +1,25 @@
 ---
+import { Image } from 'astro:assets';
 import Section from '@/components/Section.astro';
+import groupPhoto from '@/assets/wedding/group-stairs.jpg';
 ---
 
 <Section id="thanks" title="Thank You">
   <p>Thank you for attending our wedding</p>
+  <a href="/photos">View Photos</a>
+  <div class="photo">
+    <Image class="image" src={groupPhoto} alt="Group photo" />
+  </div>
 </Section>
+
+<style>
+  .photo {
+    width: 100%;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>

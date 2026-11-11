@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import MenuButton from '@/components/MenuButton.astro';
+import { photoCollections } from '@/data/photos';
+
+const { category } = Astro.props;
+const imageFiles = photoCollections[category as keyof typeof photoCollections];
+const images = await Promise.all(
+  Object.values(imageFiles).map(importFn => importFn().then(module => module.default))
+);
+---
+
+<div class="photo-slideshow">
+  <div class="photos">
+    {
+      images.map((img, index) => (
+        <div class:list={['slide', { active: index === 0 }]} aria-hidden={index !== 0}>
+          <Image
+            src={img}
+            alt="Photo booth"
+            width={768}
+            loading="eager"
+          />
+        </div>
+      ))
+    }
+  </div>
+  <div class="controls">
+    <div class="play-btn">
+      <MenuButton class="play" label="Play photos" disabled />
+    </div>
+    <div class="prev-btn">
+      <MenuButton class="prev" label="Previous photo" disabled />
+    </div>
+    <div class="next-btn">
+      <MenuButton class="next" label="Next photo" disabled />
+    </div>
+  </div>
+</div>
+
+<style>
+  .photo-slideshow {
+    max-width: 48rem;
+    margin: 0 auto;
+
+    &:not(.ready) .photos {
+      visibility: hidden;
+    }
+  }
+
+  .photos {
+    display: grid;
+    width: 100%;
+    background: rgb(129, 26, 33);
+    overflow: hidden;
+  }
+
+  .slide {
+    grid-row: 1;
+    grid-column: 1;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
+
+    &.active {
+      z-index: 1;
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .controls {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-top: .5rem;
+  }
+
+  .play-btn {
+    margin-right: auto;
+  }
+
+  .play {
+    &::before,
+    &::after {
+      grid-column: 1;
+      grid-row: 1;
+      width: 0;
+      height: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      transform: none;
+    }
+
+    &::before {
+      border-top: .4rem solid transparent;
+      border-bottom: .4rem solid transparent;
+      border-left: .65rem solid currentColor;
+    }
+
+    &::after {
+      display: none;
+    }
+
+    &.playing {
+      &::before,
+      &::after {
+        display: block;
+        width: .18rem;
+        height: 1rem;
+        background: currentColor;
+      }
+
+      &::before {
+        transform: translateX(-.2rem);
+      }
+
+      &::after {
+        transform: translateX(.2rem);
+      }
+    }
+  }
+</style>
+
+<script>
+  const slideshow = document.querySelector('.photo-slideshow');
+  const slides = slideshow?.querySelectorAll('.slide');
+  const images = slideshow?.querySelectorAll('.slide img');
+  const playButton = slideshow?.querySelector<HTMLButtonElement>('.play');
+  const prevButton = slideshow?.querySelector<HTMLButtonElement>('.prev');
+  const nextButton = slideshow?.querySelector<HTMLButtonElement>('.next');
+  const slideInterval = 250;
+
+  if (slides && images && playButton && prevButton && nextButton) {
+    let activeIndex = 0;
+    let interval: number | undefined;
+
+    const showSlide = (index: number) => {
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === index;
+        slide.classList.toggle('active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+      activeIndex = index;
+    };
+
+    const stopPlayback = () => {
+      if (interval === undefined) return;
+
+      window.clearInterval(interval);
+      interval = undefined;
+      playButton.classList.remove('playing');
+      playButton.setAttribute('aria-label', 'Play photos');
+    };
+
+    const startPlayback = () => {
+      if (interval !== undefined) return;
+
+      interval = window.setInterval(() => {
+        showSlide((activeIndex + 1) % slides.length);
+      }, slideInterval);
+      playButton.classList.add('playing');
+      playButton.setAttribute('aria-label', 'Pause photos');
+    };
+
+    const imageLoads = [...images].map((image) => {
+      if (image.complete) {
+        return Promise.resolve(image.naturalWidth > 0);
+      }
+
+      return new Promise<boolean>((resolve) => {
+        image.addEventListener('load', () => resolve(true), { once: true });
+        image.addEventListener('error', () => resolve(false), { once: true });
+      });
+    });
+
+    Promise.all(imageLoads).then((loadedImages) => {
+      if (loadedImages.some((loaded) => !loaded)) {
+        console.error('Unable to load all photo slideshow images.');
+        playButton.setAttribute('aria-label', 'Photos unavailable');
+        return;
+      }
+
+      slideshow.classList.add('ready');
+      prevButton.disabled = slides.length < 2;
+      nextButton.disabled = slides.length < 2;
+      if (slides.length < 2) return;
+      playButton.disabled = false;
+      startPlayback();
+    });
+
+    playButton.addEventListener('click', () => {
+      if (interval !== undefined) {
+        stopPlayback();
+        return;
+      }
+
+      startPlayback();
+    });
+
+    prevButton.addEventListener('click', () => {
+      stopPlayback();
+      showSlide((activeIndex - 1 + slides.length) % slides.length);
+    });
+
+    nextButton.addEventListener('click', () => {
+      stopPlayback();
+      showSlide((activeIndex + 1) % slides.length);
+    });
+  }
+</script>

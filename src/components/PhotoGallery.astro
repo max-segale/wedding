@@ -1,14 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import type { PhotoItem } from '@/data/gallery';
+import { photoCollections, type PhotoItem } from '@/data/photos';
 
 const { galleryItems, category } = Astro.props;
-const photoLookups = {
-  wedding: import.meta.glob<{ default: ImageMetadata }>('/src/assets/wedding/*'),
-};
-const images = photoLookups[category as keyof typeof photoLookups];
-const firstImage = Object.keys(images)[0];
+const imageFiles = photoCollections[category as keyof typeof photoCollections];
+const firstImage = Object.keys(imageFiles)[0];
 const imageDir = firstImage.substring(0, firstImage.lastIndexOf('/'));
 let itemIndex = -1;
 ---
@@ -16,7 +12,7 @@ let itemIndex = -1;
 <div id="gallery" class="gallery">
   <div class="grid">
     {galleryItems.map(({ file, caption, size }: PhotoItem) => {
-      const image = images[`${imageDir}/${file}`];
+      const image = imageFiles[`${imageDir}/${file}`];
       if (!image) {
         console.error(`${file} not found`);
         return;
