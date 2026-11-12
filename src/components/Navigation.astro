@@ -1,5 +1,5 @@
 ---
-import MenuButton from '@/components/MenuButton.astro';
+import Button from '@/components/Button.astro';
 import { navItems, type NavItem } from '@/data/navigation';
 
 const { isMain } = Astro.props;
@@ -10,7 +10,7 @@ const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
 <nav id={navId} class:list={[{ header: isMain }]} aria-label={navLabel}>
   {isMain && (
     <div class="menu-btn">
-      <MenuButton class="nav" label="Toggle navigation menu" controls={navId} expanded="false" />
+      <Button class="nav" iconClass="nav" label="Toggle navigation menu" controls={navId} expanded="false" />
     </div>
   )}
   <div class="menu">

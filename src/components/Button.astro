@@ -1,65 +1,49 @@
 ---
-const { class: className, type = 'button', label, controls, expanded, disabled = false } = Astro.props;
+const { class: className, type = 'button', iconClass, label, controls, expanded, disabled } = Astro.props;
 ---
 
 <button class={className} {type} aria-label={label} aria-controls={controls} aria-expanded={expanded} {disabled}>
-  <span class="line top"></span>
-  {['nav', 'play'].includes(className) && (<span class="line middle"></span>)}
-  <span class="line bottom"></span>
+  {iconClass && (
+    <span class:list={['icon', iconClass]}>
+      <span class="line top"></span>
+      {['nav', 'play'].includes(iconClass) && (<span class="line middle"></span>)}
+      <span class="line bottom"></span>
+    </span>
+  )}
+  <slot />
 </button>
 
 <style>
   button {
-    display: grid;
-    grid-template-columns: 1fr;
-    place-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     flex-shrink: 0;
     background: rgb(255 255 255 / .5);
     border: 0;
     border-radius: .75rem;
     padding: .5rem;
-    cursor: pointer;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
     transition: transform .1s linear;
-    --line-width: .25rem;
 
-    .line {
-      display: block;
-      width: 100%;
-      height: var(--line-width);
-      margin: 0 auto;
-      border-radius: calc(var(--line-width) / 2);
-      background: rgb(0 0 0 / .8);
-      transform-origin: 50% 50%;
+    &:active {
+      transform: scale(.9);
     }
 
-    &.nav,
-    &.close,
-    &.play {
-      .line {
-        grid-column: 1;
-        grid-row: 1;
-      }
-    }
-
-    &.nav {
+    &.dark {
       background: rgb(0 0 0 / .5);
 
       .line {
         background: rgb(255 255 255 / .8);
-        transition: transform .5s ease, width 500ms ease;
       }
+    }
 
-      .top {
-        transform: translateY(-250%);
-      }
-
-      .bottom {
-        transform: translateY(250%);
-      }
-
-      &.open {
+    &.open {
+      .icon.nav {
         .middle {
           width: 0;
         }
@@ -71,6 +55,56 @@ const { class: className, type = 'button', label, controls, expanded, disabled =
         .bottom {
           transform: rotate(-45deg);
         }
+      }
+    }
+
+    &.playing {
+      .icon.play {
+        .top {
+          transform: translateX(-100%);
+        }
+
+        .middle {
+          height: 0;
+          margin-top: calc(var(--line-width) / 2);
+          transform: translateX(-100%);
+        }
+
+        .bottom {
+          transform: translateX(100%);
+        }
+      }
+    }
+  }
+
+  .icon {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    --line-width: .25rem;
+
+    &.nav,
+    &.close,
+    &.play {
+      .line {
+        grid-column: 1;
+        grid-row: 1;
+      }
+    }
+
+    &.nav {
+      .line {
+        transition: transform .5s ease, width 500ms ease;
+      }
+
+      .top {
+        transform: translateY(-250%);
+      }
+
+      .bottom {
+        transform: translateY(250%);
       }
     }
 
@@ -121,7 +155,7 @@ const { class: className, type = 'button', label, controls, expanded, disabled =
       .line {
         height: 100%;
         width: var(--line-width);;
-        transition: transform .5s ease, height 500ms ease;
+        transition: transform .5s ease, height 500ms ease, margin-top 500ms ease;
       }
 
       .top {
@@ -130,6 +164,7 @@ const { class: className, type = 'button', label, controls, expanded, disabled =
       }
 
       .middle {
+        margin-top: 0;
         transform: translateX(-200%);
       }
 
@@ -137,25 +172,16 @@ const { class: className, type = 'button', label, controls, expanded, disabled =
         transform: translate(-200%, 0) rotate(60deg);
         transform-origin: 50% calc(100% - calc(var(--line-width) / 2));
       }
-
-      &.playing {
-        .top {
-          transform: translateX(-100%);
-        }
-
-        .middle {
-          height: 0;
-          transform: translateX(-100%);
-        }
-
-        .bottom {
-          transform: translateX(100%);
-        }
-      }
     }
+  }
 
-    &:active {
-      transform: scale(.9);
-    }
+  .line {
+    display: block;
+    width: 100%;
+    height: var(--line-width);
+    margin: 0 auto;
+    border-radius: calc(var(--line-width) / 2);
+    background: rgb(0 0 0 / .8);
+    transform-origin: 50% 50%;
   }
 </style>

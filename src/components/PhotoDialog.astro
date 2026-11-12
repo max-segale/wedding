@@ -1,5 +1,5 @@
 ---
-import MenuButton from '@/components/MenuButton.astro';
+import Button from '@/components/Button.astro';
 ---
 
 <dialog class="dialog">
@@ -9,13 +9,13 @@ import MenuButton from '@/components/MenuButton.astro';
       <img class="dialog-image" src="data:," alt="" />
     </div>
     <div class="close-btn">
-      <MenuButton class="close" label="Close image" />
+      <Button class="close-photo" iconClass="close" label="Close image" />
     </div>
     <div class="next-btn">
-      <MenuButton class="next" label="Next image" />
+      <Button class="next-photo" iconClass="next" label="Next image" />
     </div>
     <div class="prev-btn">
-      <MenuButton class="prev" label="Previous image" />
+      <Button class="prev-photo" iconClass="prev" label="Previous image" />
     </div>
   </figure>
 </dialog>
@@ -102,11 +102,13 @@ import MenuButton from '@/components/MenuButton.astro';
 
 <script>
   const dialogPhoto = document.querySelector('.dialog') as HTMLDialogElement;
-  const btnClose = dialogPhoto.querySelector('button.close') as HTMLButtonElement;
-  const btnPrev = dialogPhoto.querySelector('button.prev') as HTMLButtonElement;
-  const btnNext = dialogPhoto.querySelector('button.next') as HTMLButtonElement;
+  const btnClose = dialogPhoto.querySelector('button.close-photo') as HTMLButtonElement;
+  const btnPrev = dialogPhoto.querySelector('button.prev-photo') as HTMLButtonElement;
+  const btnNext = dialogPhoto.querySelector('button.next-photo') as HTMLButtonElement;
   const dialogImage = dialogPhoto.querySelector('.dialog-image') as HTMLImageElement;
   const imageCaption = dialogPhoto.querySelector('.image-caption') as HTMLElement;
+
+
   const photoGallery = document.getElementById('gallery') as HTMLElement;
   const galleryItems = photoGallery.querySelectorAll('.gallery-item');
   let itemIndex = -1;
