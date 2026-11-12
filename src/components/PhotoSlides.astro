@@ -91,11 +91,13 @@ const images = await Promise.all(
 
 <script>
   class PhotoSlideshow extends HTMLElement {
-    activeIndex = 0;
-    slideDuation = 250;
+    activeIndex: number = 0;
+    slideDuation: number = 250;
     slideInterval: number | null = null;
-    slides!: NodeListOf<Element>;
-    playBtn!: HTMLButtonElement | null;
+    slides: HTMLElement[] = [];
+    playBtn: HTMLButtonElement | null = null;
+    connectionController: AbortController | null = null;
+    loggedImageFailures = new WeakSet<HTMLImageElement>();
 
     showSlide = (index: number) => {
       this.slides.forEach((slide, slideIndex) => {
@@ -125,7 +127,12 @@ const images = await Promise.all(
     }
 
     connectedCallback() {
-      this.slides = this.querySelectorAll('.slide');
+      this.connectionController?.abort();
+      const controller = new AbortController();
+      this.connectionController = controller;
+
+      const allSlides = [...this.querySelectorAll<HTMLElement>('.slide')];
+      this.slides = allSlides;
       this.playBtn = this.querySelector('button.play-slide');
       const images = this.querySelectorAll<HTMLImageElement>('.slide img');
       const prevButton = this.querySelector<HTMLButtonElement>('button.prev-slide');
@@ -135,12 +142,35 @@ const images = await Promise.all(
           return Promise.resolve(image.naturalWidth > 0);
         }
         return new Promise<boolean>(resolve => {
-          image.addEventListener('load', () => resolve(true), { once: true });
-          image.addEventListener('error', () => resolve(false), { once: true });
+          image.addEventListener('load', () => resolve(true), { once: true, signal: controller.signal });
+          image.addEventListener('error', () => resolve(false), { once: true, signal: controller.signal });
         });
       });
 
-      Promise.all(imageLoads).then(() => {
+      Promise.all(imageLoads).then(results => {
+        if (!this.isConnected || this.connectionController !== controller) return;
+
+        const loadedSlides: HTMLElement[] = [];
+        results.forEach((loaded, index) => {
+          const image = images[index];
+          const slide = allSlides[index];
+          if (loaded) {
+            loadedSlides.push(slide);
+            return;
+          }
+
+          slide.hidden = true;
+          slide.classList.remove('active');
+          slide.setAttribute('aria-hidden', 'true');
+          if (!this.loggedImageFailures.has(image)) {
+            console.error('Photo slideshow image failed to load:', image.currentSrc || image.src);
+            this.loggedImageFailures.add(image);
+          }
+        });
+
+        this.slides = loadedSlides;
+        if (this.slides.length === 0) return;
+        this.showSlide(0);
         this.startPlayback();
         if (this.playBtn) this.playBtn.disabled = false;
         if (prevButton) prevButton.disabled = false;
@@ -153,17 +183,23 @@ const images = await Promise.all(
           return;
         }
         this.startPlayback();
-      });
+      }, { signal: controller.signal });
 
       prevButton?.addEventListener('click', () => {
         this.stopPlayback();
         this.showSlide((this.activeIndex - 1 + this.slides.length) % this.slides.length);
-      });
+      }, { signal: controller.signal });
 
       nextButton?.addEventListener('click', () => {
         this.stopPlayback();
         this.showSlide((this.activeIndex + 1) % this.slides.length);
-      });
+      }, { signal: controller.signal });
+    }
+
+    disconnectedCallback() {
+      this.connectionController?.abort();
+      this.connectionController = null;
+      this.stopPlayback();
     }
   }
 
