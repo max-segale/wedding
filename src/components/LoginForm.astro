@@ -2,6 +2,7 @@
 import { actions } from 'astro:actions';
 import '@/styles/form.css';
 import Input from '@/components/Input.astro';
+import Button from '@/components/Button.astro';
 
 const url = new URL(Astro.request.url);
 const actionResult = Astro.getActionResult(actions.login);
@@ -15,7 +16,7 @@ const errorMsg = `Wrong password. Please try again.`;
   <input type="hidden" name="next" value={next} />
   {showError && <span id="password-error" class="error-msg full-width" role="alert">{errorMsg}</span>}
   <Input class="input-item full-width" name="password" type="password" label="Password" placeholder="Password" autocomplete="none" required autofocus {...showError && { 'aria-invalid': true, 'aria-describedby': 'password-error' }} />
-  <button type="submit">Continue</button>
+  <Button class="dark" type="submmit">Continue</Button>
 </form>
 
 <style>

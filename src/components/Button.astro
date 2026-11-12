@@ -28,14 +28,16 @@ const { class: className, type = 'button', iconClass, label, controls, expanded,
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
+    appearance: none;
     transition: transform .1s linear;
 
-    &:active {
+    &:active:not(:disabled) {
       transform: scale(.9);
     }
 
     &.dark {
       background: rgb(0 0 0 / .5);
+      color: #fff;
 
       .line {
         background: rgb(255 255 255 / .8);

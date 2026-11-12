@@ -4,6 +4,7 @@ import RsvpGuest from '@/components/RsvpGuest.astro';
 import RsvpAttend from '@/components/RsvpAttend.astro';
 import Input from '@/components/Input.astro';
 import Checkbox from '@/components/Checkbox.astro';
+import Button from '@/components/Button.astro';
 ---
 
 <form name="rsvp">
@@ -17,7 +18,7 @@ import Checkbox from '@/components/Checkbox.astro';
   <Input class="input-item" name="contact" type="email" label="Contact Info" placeholder="Email address" showLabel />
   <Checkbox class="full-width" name="preparty" label="I will also be attending the welcome party on Friday evening." />
   <Checkbox class="full-width" name="paddle" label="I am interested in the lazy river paddle board party on Friday afternoon." />
-  <button type="submit">Submit Response</button>
+  <Button type="submit">Submit Response</Button>
 </form>
 
 <script>

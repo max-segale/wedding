@@ -25,26 +25,10 @@ form {
 
   button {
     grid-column: 1 / -1;
-    display: block;
-    width: auto;
-    max-width: 100%;
+    width: 100%;
+    max-width: 50%;
     min-height: 3rem;
     margin: 0 auto;
-    padding: 0 2rem;
-    border: 0;
-    border-radius: .5rem;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1;
-    background: #94ffb9;
-    background: rgb(0 0 0 / .5);
-    color: #fff;
-    appearance: none;
-    transition: transform .1s linear;
-
-    &:active:not(:disabled) {
-      transform: scale(.9);
-    }
   }
 
   .input-item {
