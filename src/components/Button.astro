@@ -1,8 +1,9 @@
 ---
-const { class: className, type = 'button', iconClass, label, controls, expanded, disabled } = Astro.props;
+const { class: className, type = 'button', href, iconClass, label, controls, expanded, disabled } = Astro.props;
+const Element = href ? 'a' : 'button';
 ---
 
-<button class={className} {type} aria-label={label} aria-controls={controls} aria-expanded={expanded} {disabled}>
+<Element class:list={['btn', className]} {href} type={href ? null : type} aria-label={label} aria-controls={controls} aria-expanded={expanded} {disabled}>
   {iconClass && (
     <span class:list={['icon', iconClass]}>
       <span class="line top"></span>
@@ -11,10 +12,10 @@ const { class: className, type = 'button', iconClass, label, controls, expanded,
     </span>
   )}
   <slot />
-</button>
+</Element>
 
 <style>
-  button {
+  .btn {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -28,11 +29,16 @@ const { class: className, type = 'button', iconClass, label, controls, expanded,
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
+    text-decoration: none;
     appearance: none;
     transition: transform .1s linear;
 
     &:active:not(:disabled) {
       transform: scale(.9);
+    }
+
+    &.large {
+      padding: 1rem;
     }
 
     &.dark {

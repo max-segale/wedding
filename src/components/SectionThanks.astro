@@ -1,19 +1,29 @@
 ---
 import { Image } from 'astro:assets';
 import Section from '@/components/Section.astro';
+import Button from '@/components/Button.astro';
 import groupPhoto from '@/assets/wedding/group-stairs.jpg';
 ---
 
 <Section id="thanks" title="Thank You">
-  <p>Thank you for attending our wedding</p>
-  <a href="/photos">View Photos</a>
+  <p>Thank you to everyone who celebrted our wedding with us. It wouldn't have neen nearly as fun if we weren't able to share that special day with everyone we love. We added a photo gallery for anyone who would like to look back on the lovely time we had that day.</p>
+  <div class="btn-link">
+    <Button class="large dark" href="/photos">View Photos</Button>
+  </div>
   <div class="photo">
     <Image class="image" src={groupPhoto} alt="Group photo" />
   </div>
 </Section>
 
 <style>
+  .btn-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .photo {
+    margin: 1rem 0 2rem;
     width: 100%;
 
     img {
