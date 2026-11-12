@@ -81,7 +81,7 @@ const images = await Promise.all(
     align-items: flex-start;
     justify-content: space-between;
     gap: .5rem;
-    margin-top: .5rem;
+    margin: .5rem auto;
   }
 
   .play-btn {
@@ -91,90 +91,79 @@ const images = await Promise.all(
 
 <script>
   class PhotoSlideshow extends HTMLElement {
+    activeIndex = 0;
+    slideDuation = 250;
+    slideInterval: number | null = null;
+    slides!: NodeListOf<Element>;
+    playBtn!: HTMLButtonElement | null;
+
+    showSlide = (index: number) => {
+      this.slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === index;
+        slide.classList.toggle('active', isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+      });
+      this.activeIndex = index;
+    }
+
+    startPlayback = () => {
+      if (this.slideInterval) return;
+      this.slideInterval = window.setInterval(() => {
+        this.showSlide((this.activeIndex + 1) % this.slides.length);
+      }, this.slideDuation);
+      this.playBtn?.classList.add('playing');
+      this.playBtn?.setAttribute('aria-label', 'Pause photos');
+    }
+
+    stopPlayback = () => {
+      if (!this.slideInterval) return;
+
+      window.clearInterval(this.slideInterval);
+      this.slideInterval = null;
+      this.playBtn?.classList.remove('playing');
+      this.playBtn?.setAttribute('aria-label', 'Play photos');
+    }
+
     connectedCallback() {
-      const slides = this.querySelectorAll('.slide');
-      const images = this.querySelectorAll('.slide img');
-      const playButton = this.querySelector<HTMLButtonElement>('button.play-slide');
+      this.slides = this.querySelectorAll('.slide');
+      this.playBtn = this.querySelector('button.play-slide');
+      const images = this.querySelectorAll<HTMLImageElement>('.slide img');
       const prevButton = this.querySelector<HTMLButtonElement>('button.prev-slide');
       const nextButton = this.querySelector<HTMLButtonElement>('button.next-slide');
-      const slideInterval = 250;
-
-      if (slides && images && playButton && prevButton && nextButton) {
-        let activeIndex = 0;
-        let interval: number | undefined;
-
-        const showSlide = (index: number) => {
-          slides.forEach((slide, slideIndex) => {
-            const isActive = slideIndex === index;
-            slide.classList.toggle('active', isActive);
-            slide.setAttribute('aria-hidden', String(!isActive));
-          });
-          activeIndex = index;
-        };
-
-        const stopPlayback = () => {
-          if (interval === undefined) return;
-
-          window.clearInterval(interval);
-          interval = undefined;
-          playButton.classList.remove('playing');
-          playButton.setAttribute('aria-label', 'Play photos');
-        };
-
-        const startPlayback = () => {
-          if (interval !== undefined) return;
-
-          interval = window.setInterval(() => {
-            showSlide((activeIndex + 1) % slides.length);
-          }, slideInterval);
-          playButton.classList.add('playing');
-          playButton.setAttribute('aria-label', 'Pause photos');
-        };
-
-        const imageLoads = [...images].map((image) => {
-          if (image.complete) {
-            return Promise.resolve(image.naturalWidth > 0);
-          }
-
-          return new Promise<boolean>((resolve) => {
-            image.addEventListener('load', () => resolve(true), { once: true });
-            image.addEventListener('error', () => resolve(false), { once: true });
-          });
+      const imageLoads = [...images].map(image => {
+        if (image.complete) {
+          return Promise.resolve(image.naturalWidth > 0);
+        }
+        return new Promise<boolean>(resolve => {
+          image.addEventListener('load', () => resolve(true), { once: true });
+          image.addEventListener('error', () => resolve(false), { once: true });
         });
+      });
 
-        Promise.all(imageLoads).then((loadedImages) => {
-          if (loadedImages.some((loaded) => !loaded)) {
-            console.error('Unable to load all photo slideshow images.');
-            playButton.setAttribute('aria-label', 'Photos unavailable');
-            return;
-          }
+      Promise.all(imageLoads).then(() => {
+        this.startPlayback();
+        if (this.playBtn) this.playBtn.disabled = false;
+        if (prevButton) prevButton.disabled = false;
+        if (nextButton) nextButton.disabled = false;
+      });
 
-          prevButton.disabled = slides.length < 2;
-          nextButton.disabled = slides.length < 2;
-          if (slides.length < 2) return;
-          playButton.disabled = false;
-          startPlayback();
-        });
+      this.playBtn?.addEventListener('click', () => {
+        if (this.slideInterval) {
+          this.stopPlayback();
+          return;
+        }
+        this.startPlayback();
+      });
 
-        playButton.addEventListener('click', () => {
-          if (interval !== undefined) {
-            stopPlayback();
-            return;
-          }
+      prevButton?.addEventListener('click', () => {
+        this.stopPlayback();
+        this.showSlide((this.activeIndex - 1 + this.slides.length) % this.slides.length);
+      });
 
-          startPlayback();
-        });
-
-        prevButton.addEventListener('click', () => {
-          stopPlayback();
-          showSlide((activeIndex - 1 + slides.length) % slides.length);
-        });
-
-        nextButton.addEventListener('click', () => {
-          stopPlayback();
-          showSlide((activeIndex + 1) % slides.length);
-        });
-      }
+      nextButton?.addEventListener('click', () => {
+        this.stopPlayback();
+        this.showSlide((this.activeIndex + 1) % this.slides.length);
+      });
     }
   }
 
