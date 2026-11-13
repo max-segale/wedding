@@ -10,7 +10,7 @@ const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
 <nav id={navId} class:list={[{ header: isMain }]} aria-label={navLabel}>
   {isMain && (
     <div class="menu-btn">
-      <Button class="nav" iconClass="nav" label="Toggle navigation menu" controls={navId} expanded="false" />
+      <Button class="nav dark" iconClass="nav" label="Toggle navigation menu" controls={navId} expanded="false" />
     </div>
   )}
   <div class="menu">

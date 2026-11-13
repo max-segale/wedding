@@ -164,8 +164,8 @@ import Button from '@/components/Button.astro';
   });
 
   dialogPhoto.addEventListener('click', ({ target }: MouseEvent) => {
-    const tag = (target as HTMLElement)?.tagName;
-    if (tag !== 'BUTTON' && tag !== 'IMG') {
+    const element = target as HTMLElement;
+    if (!element.closest('button') && element.tagName !== 'IMG') {
       closePhoto();
     }
   });

@@ -57,15 +57,11 @@ const images = await Promise.all(
     grid-column: 1;
     width: 100%;
     opacity: 0;
-    transition: opacity 100ms ease-in-out;
+    transition: opacity 250ms linear;
 
     &.active {
       z-index: 1;
       opacity: 1;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
     }
   }
 
@@ -92,7 +88,7 @@ const images = await Promise.all(
 <script>
   class PhotoSlideshow extends HTMLElement {
     activeIndex: number = 0;
-    slideDuation: number = 250;
+    slideDuation: number = 500;
     slideInterval: number | null = null;
     slides: HTMLElement[] = [];
     playBtn: HTMLButtonElement | null = null;
@@ -163,7 +159,7 @@ const images = await Promise.all(
           slide.classList.remove('active');
           slide.setAttribute('aria-hidden', 'true');
           if (!this.loggedImageFailures.has(image)) {
-            console.error('Photo slideshow image failed to load:', image.currentSrc || image.src);
+            console.error('Load Error', image.currentSrc || image.src);
             this.loggedImageFailures.add(image);
           }
         });

@@ -1,9 +1,9 @@
 ---
-const { class: className, type = 'button', href, iconClass, label, controls, expanded, disabled } = Astro.props;
+const { class: className, type = 'button', href, target, iconClass, label, controls, expanded, disabled } = Astro.props;
 const Element = href ? 'a' : 'button';
 ---
 
-<Element class:list={['btn', className]} {href} type={href ? null : type} aria-label={label} aria-controls={controls} aria-expanded={expanded} {disabled}>
+<Element class:list={['btn', className]} {href} {target} type={href ? null : type} aria-label={label} aria-controls={controls} aria-expanded={expanded} {disabled}>
   {iconClass && (
     <span class:list={['icon', iconClass]}>
       <span class="line top"></span>
@@ -38,7 +38,7 @@ const Element = href ? 'a' : 'button';
     }
 
     &.large {
-      padding: 1rem;
+      padding: 1rem 2rem;
     }
 
     &.dark {
