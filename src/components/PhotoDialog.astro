@@ -107,9 +107,7 @@ import Button from '@/components/Button.astro';
   const btnNext = dialogPhoto.querySelector('button.next-photo') as HTMLButtonElement;
   const dialogImage = dialogPhoto.querySelector('.dialog-image') as HTMLImageElement;
   const imageCaption = dialogPhoto.querySelector('.image-caption') as HTMLElement;
-
-
-  const photoGallery = document.getElementById('gallery') as HTMLElement;
+  const photoGallery = document.querySelector('.photo-gallery') as HTMLElement;
   const galleryItems = photoGallery.querySelectorAll('.gallery-item');
   let itemIndex = -1;
 
