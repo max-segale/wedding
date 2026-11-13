@@ -1,5 +1,4 @@
 ---
-import { IS_AFTER } from '@/data/constants';
 import MainLayout from '@/layouts/MainLayout.astro';
 import SectionWelcome from '@/components/SectionWelcome.astro';
 import SectionThanks from '@/components/SectionThanks.astro';
@@ -8,11 +7,12 @@ import SectionSchedule from '@/components/SectionSchedule.astro';
 import SectionLodging from '@/components/SectionLodging.astro';
 import SectionFaq from '@/components/SectionFaq.astro';
 import SectionRsvp from '@/components/SectionRsvp.astro';
+import { eventOver } from '@/data/status';
 ---
 
 <MainLayout>
   <SectionWelcome />
-  {IS_AFTER ? (
+  {eventOver ? (
     <SectionThanks />
   ) : (
     <SectionVenue />

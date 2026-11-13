@@ -22,7 +22,8 @@ const Element = href ? 'a' : 'button';
     justify-content: center;
     gap: .5rem;
     flex-shrink: 0;
-    background: rgb(255 255 255 / .5);
+    background: rgb(0 0 0 / .5);
+    color: #fff;
     border: 0;
     border-radius: .75rem;
     padding: .5rem;
@@ -41,12 +42,12 @@ const Element = href ? 'a' : 'button';
       padding: 1rem 2rem;
     }
 
-    &.dark {
-      background: rgb(0 0 0 / .5);
-      color: #fff;
+    &.light {
+      background: rgb(255 255 255 / .8);
+      color: #000;
 
       .line {
-        background: rgb(255 255 255 / .8);
+        background: rgb(0 0 0 / .8);
       }
     }
 
@@ -189,7 +190,7 @@ const Element = href ? 'a' : 'button';
     height: var(--line-width);
     margin: 0 auto;
     border-radius: calc(var(--line-width) / 2);
-    background: rgb(0 0 0 / .8);
+    background: rgb(255 255 255 / .8);
     transform-origin: 50% 50%;
   }
 </style>

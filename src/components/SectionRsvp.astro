@@ -2,10 +2,10 @@
 import Section from '@/components/Section.astro';
 import RsvpForm from '@/components/RsvpForm.astro';
 import RsvpThanks from '@/components/RsvpThanks.astro';
+import { rsvpOpen } from '@/data/status';
 
 const { primary } = Astro.props;
 const rsvpData = Astro.cookies.get('rsvp')?.value;
-const rsvpOpen = false;
 ---
 
 <Section id="rsvp" title="RSVP" {primary}>

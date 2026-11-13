@@ -1,4 +1,4 @@
-import { IS_AFTER } from '@/data/constants';
+import { eventOver } from '@/data/status';
 
 export interface NavItem {
   name: string;
@@ -6,7 +6,7 @@ export interface NavItem {
   external?: boolean;
 }
 
-export const navItems: NavItem[] = IS_AFTER ? [
+export const navItems: NavItem[] = eventOver ? [
   {
     name: 'Photos',
     link: '/photos',
