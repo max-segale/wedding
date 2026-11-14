@@ -4,12 +4,11 @@ import Section from '@/components/Section.astro';
 import PhotoGallery from '@/components/PhotoGallery.astro';
 import PhotoSlides from '@/components/PhotoSlides.astro';
 import PhotoDialog from '@/components/PhotoDialog.astro';
-import { weddingPhotos as galleryItems } from '@/data/photos';
 ---
 
 <MainLayout>
   <Section id="gallery" title="Wedding Photos" class="wide">
-    <PhotoGallery {galleryItems} category="wedding" />
+    <PhotoGallery category="wedding" />
     <PhotoSlides category="booth" />
   </Section>
 </MainLayout>

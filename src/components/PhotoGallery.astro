@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { photoCollections, type PhotoItem } from '@/data/photos';
 
-const { galleryItems, category } = Astro.props;
+const { category } = Astro.props;
 const imageFiles = photoCollections[category as keyof typeof photoCollections];
 const images = await Promise.all(
   Object.values(imageFiles).map(importFn => importFn().then(module => module.default))
@@ -12,8 +12,9 @@ const images = await Promise.all(
 <div class="photo-gallery">
   {
     images.map((image, index) => {
+      const size = image.width < image.height ? 'tall' : 'wide';
       return (
-        <button class:list={['gallery-item']} type="button" data-index={index} aria-label="View photo">
+        <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View photo">
           <Image class="photo" src={image} alt="" />
         </button>
       )
@@ -24,7 +25,7 @@ const images = await Promise.all(
 <style>
   .photo-gallery  {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-flow: dense;
 
     @media (width >= 48rem) {
@@ -60,29 +61,6 @@ const images = await Promise.all(
 
     &.tall {
       aspect-ratio: 1 / 2;
-    }
-
-    &.md-tall {
-      @media (width >= 48rem) {
-        grid-row: span 2;
-        aspect-ratio: 1 / 2;
-      }
-    }
-
-    &.row {
-      grid-column: span 3;
-      aspect-ratio: 3 / 1;
-
-      @media (width >= 48rem) {
-        grid-column: span 2;
-        aspect-ratio: 2 / 1;
-      }
-    }
-
-    &.top {
-      .photo {
-        object-position: 50% 0;
-      }
     }
   }
 
