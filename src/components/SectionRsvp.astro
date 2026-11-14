@@ -36,5 +36,8 @@ const rsvpData = Astro.cookies.get('rsvp')?.value;
     border-radius: 1rem;
     padding: 1rem;
     scroll-margin-top: calc(1rem + var(--headerHeight));
+    @media (height <= 48rem) and (orientation: landscape) {
+      scroll-margin-top: 0;
+    }
   }
 </style>

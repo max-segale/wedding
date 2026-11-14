@@ -20,6 +20,9 @@ const Heading = primary ? 'h1' : 'h2';
   section {
     padding: 0 1rem;
     scroll-margin-top: var(--headerHeight);
+    @media (height <= 48rem) and (orientation: landscape) {
+      scroll-margin-top: 0;
+    }
 
     &.hero {
       position: relative;
@@ -53,6 +56,9 @@ const Heading = primary ? 'h1' : 'h2';
 
     &:first-of-type {
       padding-top: var(--headerHeight);
+      @media (height <= 48rem) and (orientation: landscape) {
+        padding-top: 0;
+      }
     }
 
     &:last-of-type {
