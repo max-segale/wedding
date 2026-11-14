@@ -4,25 +4,21 @@ import { photoCollections, type PhotoItem } from '@/data/photos';
 
 const { galleryItems, category } = Astro.props;
 const imageFiles = photoCollections[category as keyof typeof photoCollections];
-const firstImage = Object.keys(imageFiles)[0];
-const imageDir = firstImage.substring(0, firstImage.lastIndexOf('/'));
-let itemIndex = -1;
+const images = await Promise.all(
+  Object.values(imageFiles).map(importFn => importFn().then(module => module.default))
+);
 ---
 
 <div class="photo-gallery">
-  {galleryItems.map(({ file, caption, size }: PhotoItem) => {
-    const image = imageFiles[`${imageDir}/${file}`];
-    if (!image) {
-      console.error(`${file} not found`);
-      return;
-    }
-    itemIndex++;
-    return (
-      <button class:list={['gallery-item', size]} type="button" data-index={itemIndex} aria-label="View image">
-        <Image class="photo" src={image()} alt={caption || ''} />
-      </button>
-    );
-  })}
+  {
+    images.map((image, index) => {
+      return (
+        <button class:list={['gallery-item']} type="button" data-index={index} aria-label="View photo">
+          <Image class="photo" src={image} alt="" />
+        </button>
+      )
+    })
+  }
 </div>
 
 <style>
