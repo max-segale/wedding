@@ -12,7 +12,10 @@ const images = await Promise.all(
 <div class="photo-gallery">
   {
     images.map((image, index) => {
-      const size = image.width < image.height ? 'tall' : 'wide';
+      let size = image.width < image.height ? 'tall' : 'wide';
+      if (index === images.length - 1) {
+        size = 'large';
+      }
       return (
         <button class:list={['gallery-item', size]} type="button" data-index={index} aria-label="View photo">
           <Image class="photo" src={image} alt="" />
