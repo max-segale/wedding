@@ -1,0 +1,11 @@
+@custom-media --landscape (aspect-ratio >= 13/9);
+
+@custom-media --mobile-landscape (height < 32rem) and (--landscape);
+
+@custom-media --mobile (width < 32rem);
+
+@custom-media --tablet (width >= 32rem);
+
+@custom-media --desktop (width >= 64rem);
+
+

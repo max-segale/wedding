@@ -1,12 +1,14 @@
 module.exports = {
   plugins: {
+    '@csstools/postcss-global-data': {
+      files: ['./src/styles/media-queries.css'],
+    },
     'postcss-preset-env': {
-      stage: 3, // Configures the spec stability stage (optional)
+      stage: 3,
       features: {
-        'nesting-rules': true, // Example of enabling specific features
+        'nesting-rules': true,
+        'custom-media-queries': true,
       },
     },
-    // Autoprefixer is included in postcss-preset-env by default,
-    // so you usually don't need to add it separately.
   },
 };

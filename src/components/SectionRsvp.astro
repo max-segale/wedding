@@ -17,27 +17,10 @@ const rsvpData = Astro.cookies.get('rsvp')?.value;
     )
   )}
   {rsvpData ? (
-    <div class="box">
-      <RsvpThanks />
-    </div>
+    <RsvpThanks />
   ) : (
     rsvpOpen && (
-      <div class="box">
-        <RsvpForm />
-      </div>
+      <RsvpForm />
     )
   )}
 </Section>
-
-<style>
-  .box {
-    margin: 1rem auto 0;
-    background: rgb(255 154 112 / .5);
-    border-radius: 1rem;
-    padding: 1rem;
-    scroll-margin-top: calc(1rem + var(--headerHeight));
-    @media (height <= 32rem) and (orientation: landscape) {
-      scroll-margin-top: 0;
-    }
-  }
-</style>

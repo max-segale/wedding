@@ -43,7 +43,7 @@ import shawneeRiverPhoto from '@/assets/shawnee-river.jpeg';
     gap: 1rem;
     margin-bottom: 1rem;
 
-    @media (width >= 48rem) {
+    @media (--tablet) {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -55,7 +55,7 @@ import shawneeRiverPhoto from '@/assets/shawnee-river.jpeg';
     object-fit: cover;
     object-position: center;
 
-    @media (width >= 64rem) {
+    @media (--desktop) {
       aspect-ratio: 2 / 1;
     }
   }

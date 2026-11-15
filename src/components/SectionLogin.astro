@@ -5,20 +5,5 @@ import LoginForm from '@/components/LoginForm.astro';
 
 <Section id="login" class="narrow" title="Password Required" primary>
   <p>Please enter the password to continue.</p>
-  <div class="box">
-    <LoginForm />
-  </div>
+  <LoginForm />
 </Section>
-
-<style>
-  .box {
-    margin: 1rem auto 0;
-    background: rgb(255 154 112 / .5);
-    border-radius: 1rem;
-    padding: 1rem;
-    scroll-margin-top: calc(1rem + var(--headerHeight));
-    @media (height <= 32rem) and (orientation: landscape) {
-      scroll-margin-top: 0;
-    }
-  }
-</style>

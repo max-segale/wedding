@@ -66,7 +66,7 @@ const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
       }
     }
 
-    @media (width < 48rem) {
+    @media (--mobile) {
       .menu {
         position: absolute;
         right: 0;
@@ -103,7 +103,7 @@ const navLabel = `${isMain ? 'Main' : 'Footer'} navigation`;
       }
     }
 
-    @media (width >= 48rem) {
+    @media (--tablet) {
       .menu-btn {
         display: none;
       }

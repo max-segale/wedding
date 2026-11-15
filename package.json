@@ -19,6 +19,7 @@
 		"resend": "^6.10.0"
 	},
 	"devDependencies": {
+		"@csstools/postcss-global-data": "^4.0.0",
 		"@grafana/faro-rollup-plugin": "^0.11.0",
 		"@types/node": "^25.0.9",
 		"postcss-preset-env": "^11.1.1",

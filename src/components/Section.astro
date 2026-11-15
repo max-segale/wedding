@@ -19,10 +19,7 @@ const Heading = primary ? 'h1' : 'h2';
 <style>
   section {
     padding: 0 1rem;
-    scroll-margin-top: var(--headerHeight);
-    @media (height <= 32rem) and (orientation: landscape) {
-      scroll-margin-top: 0;
-    }
+    scroll-margin-top: var(--scroll-offset);
 
     &.hero {
       position: relative;
@@ -55,10 +52,7 @@ const Heading = primary ? 'h1' : 'h2';
     }
 
     &:first-of-type {
-      padding-top: var(--headerHeight);
-      @media (height <= 32rem) and (orientation: landscape) {
-        padding-top: 0;
-      }
+      padding-top: var(--scroll-offset);
     }
 
     &:last-of-type {
@@ -103,11 +97,11 @@ const Heading = primary ? 'h1' : 'h2';
       url('@/assets/flowers-right.png') no-repeat 100% 50%/auto 100%;
     transition: width 1s ease-out;
 
-    @media (width >= 48rem) {
+    @media (--tablet) {
       width: 175%;
     }
 
-    @media (width >= 64rem) {
+    @media (--desktop) {
       width: 150%;
       height: 125%;
     }

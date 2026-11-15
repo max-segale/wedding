@@ -1,8 +1,13 @@
 :root {
   --headerHeight: 4.5rem;
   --containerWidth: 48rem;
+  --scroll-offset: var(--headerHeight);
 
-  @media (width >= 64rem) {
+  @media (--mobile-landscape) {
+    --scroll-offset: 0;
+  }
+
+  @media (--desktop) {
     --containerWidth: 62rem;
   }
 }

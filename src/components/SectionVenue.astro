@@ -33,7 +33,7 @@ const url = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
     display: grid;
     gap: 1rem;
 
-    @media (width >= 48rem) {
+    @media (--tablet) {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -45,7 +45,7 @@ const url = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
     object-fit: cover;
     object-position: 100% 50%;
 
-    @media (width >= 64rem) {
+    @media (--desktop) {
       aspect-ratio: 2 / 1;
     }
   }
