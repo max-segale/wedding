@@ -60,21 +60,47 @@ import Button from '@/components/Button.astro';
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
+    position: relative;
     overflow: hidden;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 0;
+      left: 50%;
+      top: 50%;
+      width: 3rem;
+      height: 3rem;
+      background: url('@/assets/icons/spinner.svg') center / contain no-repeat;
+      opacity: .5;
+      transform: translate(-50%, -50%) rotate(0deg);
+      animation: image-spinner .5s linear infinite;
+      transition: opacity .5s linear;
+    }
+
+    &.is-loaded {
+      &::before {
+        opacity: 0;
+        animation-play-state: paused;
+      }
+
+      .dialog-image {
+        opacity: 1;
+      }
+    }
   }
 
   .dialog-image {
     display: block;
+    position: relative;
+    z-index: 1;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     object-position: center;
     opacity: 0;
     transition: opacity .25s linear;
-
-    &.is-loaded {
-      opacity: 1;
-    }
   }
 
   .controls {
@@ -97,42 +123,43 @@ import Button from '@/components/Button.astro';
       margin: 0 0 auto;
     }
   }
+
+  @keyframes image-spinner {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
 </style>
 
 <script>
-  const dialogPhoto = document.querySelector('.dialog') as HTMLDialogElement;
-  const btnClose = dialogPhoto.querySelector('button.close-photo') as HTMLButtonElement;
-  const btnPrev = dialogPhoto.querySelector('button.prev-photo') as HTMLButtonElement;
-  const btnNext = dialogPhoto.querySelector('button.next-photo') as HTMLButtonElement;
-  const dialogImage = dialogPhoto.querySelector('.dialog-image') as HTMLImageElement;
+  const photoDialog = document.querySelector('.dialog') as HTMLDialogElement;
+  const dialogView = photoDialog.querySelector('.dialog-view') as HTMLElement;
+  const dialogImage = photoDialog.querySelector('.dialog-image') as HTMLImageElement;
+  const btnClose = photoDialog.querySelector('button.close-photo') as HTMLButtonElement;
+  const btnPrev = photoDialog.querySelector('button.prev-photo') as HTMLButtonElement;
+  const btnNext = photoDialog.querySelector('button.next-photo') as HTMLButtonElement;
   const photoGallery = document.querySelector('.photo-gallery') as HTMLElement;
   const photoLinks = photoGallery.querySelectorAll<HTMLAnchorElement>('a');
   let itemIndex = -1;
 
-  const showPhoto = (callback?: () => void) => {
+  const showPhoto = () => {
     const { href } = photoLinks[itemIndex];
-    if (dialogImage.src === href) {
-      callback?.();
-      return;
-    };
-    dialogImage.onload = callback || null;
+    if (dialogImage.src === href) return;
+    dialogView.classList.remove('is-loaded');
     dialogImage.src = href;
   }
 
   const selectPhoto = () => {
-    showPhoto(() => {
-      dialogImage.classList.add('is-loaded');
-    });
-    dialogPhoto.showModal();
+    showPhoto();
+    photoDialog.showModal();
     requestAnimationFrame(() => {
-      dialogPhoto.classList.add('is-open');
+      photoDialog.classList.add('is-open');
     });
   };
 
   const closePhoto = () => {
-    dialogPhoto.classList.remove('is-open');
-    dialogImage.classList.remove('is-loaded');
-    dialogPhoto.close();
+    photoDialog.classList.remove('is-open');
+    photoDialog.close();
   };
 
   const nextItem = () => {
@@ -145,18 +172,26 @@ import Button from '@/components/Button.astro';
     showPhoto();
   };
 
+  dialogImage.addEventListener('load', () => {
+    dialogView.classList.add('is-loaded');
+  });
+
+  dialogImage.addEventListener('error', () => {
+    nextItem();
+  });
+
   btnClose.addEventListener('click', closePhoto);
 
   btnNext.addEventListener('click', nextItem);
 
   btnPrev.addEventListener('click', prevItem);
 
-  dialogPhoto.addEventListener('keydown', ({ key }: KeyboardEvent) => {
+  photoDialog.addEventListener('keydown', ({ key }: KeyboardEvent) => {
     if (key === 'ArrowRight') nextItem();
     if (key === 'ArrowLeft') prevItem();
   });
 
-  dialogPhoto.addEventListener('click', ({ target }: MouseEvent) => {
+  photoDialog.addEventListener('click', ({ target }: MouseEvent) => {
     const element = target as HTMLElement;
     if (!element.closest('button') && element.tagName !== 'IMG') {
       closePhoto();
@@ -165,8 +200,8 @@ import Button from '@/components/Button.astro';
 
   photoGallery.addEventListener('click', (event: MouseEvent) => {
     event.preventDefault();
-    const target = event.target as HTMLElement | null;
-    const item = target?.closest('a') as HTMLElement | null;
+    const target = event.target as HTMLElement;
+    const item = target?.closest('a') as HTMLElement;
     if (!item) return;
     itemIndex = Number(item.dataset.index || 0);
     selectPhoto();

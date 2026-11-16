@@ -6,7 +6,7 @@ const fullImage = await getImage({ src, width: fullWidth });
 ---
 
 <a href={fullImage.src} role="button" data-index={galleryIndex} aria-label="View photo">
-  <Image class="thumb" {src} alt="" width={thumbWidth} loading={galleryIndex < 5 ? 'eager' : null} />
+  <Image class="thumb" {src} alt="" width={thumbWidth} />
 </a>
 
 <style>
