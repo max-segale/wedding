@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from 'astro:assets';
 
-const { src, galleryIndex, fullWidth = 1920 } = Astro.props;
+const { src, galleryIndex, fullWidth = 1600 } = Astro.props;
 const fullImage = await getImage({
   src,
   width: fullWidth,
