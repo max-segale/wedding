@@ -1,0 +1,26 @@
+<span class="loading-spinner" aria-hidden="true"></span>
+
+<style>
+  .loading-spinner {
+    display: block;
+    position: absolute;
+    z-index: var(--loading-spinner-z-index, 2);
+    left: 50%;
+    top: 50%;
+    width: 3rem;
+    height: 3rem;
+    background: url('@/assets/icons/spinner.svg') center / contain no-repeat;
+    opacity: var(--loading-spinner-opacity, .5);
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: loading-spinner-rotate .5s linear infinite;
+    animation-play-state: var(--loading-spinner-play-state, running);
+    transition: opacity .5s linear;
+  }
+
+  @keyframes loading-spinner-rotate {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+</style>

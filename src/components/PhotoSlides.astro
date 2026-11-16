@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Button from '@/components/Button.astro';
+import LoadingSpinner from '@/components/LoadingSpinner.astro';
 import { photoCollections } from '@/data/photos';
 
 const { category } = Astro.props;
@@ -12,6 +13,7 @@ const images = await Promise.all(
 
 <photo-slideshow>
   <div class="photos">
+    <LoadingSpinner />
     {
       images.map((src, index) => (
         <div class:list={['slide', { active: index === 0 }]} aria-hidden={index !== 0}>
@@ -42,9 +44,16 @@ const images = await Promise.all(
 
   .photos {
     display: grid;
+    position: relative;
     width: 100%;
     background: rgb(129, 26, 33);
     overflow: hidden;
+    --loading-spinner-z-index: 2;
+
+    &.is-ready {
+      --loading-spinner-opacity: 0;
+      --loading-spinner-play-state: paused;
+    }
   }
 
   .slide {
@@ -101,6 +110,7 @@ const images = await Promise.all(
 
     startPlayback = () => {
       if (this.slideInterval) return;
+      this.querySelector('.photos')?.classList.add('is-ready');
       this.slideInterval = window.setInterval(() => {
         this.showSlide((this.activeIndex + 1) % this.slides.length);
       }, this.slideDuation);
