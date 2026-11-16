@@ -16,7 +16,7 @@ const images = await Promise.all(
     <LoadingSpinner />
     {
       images.map((src, index) => (
-        <div class:list={['slide', { active: index === 0 }]} aria-hidden={index !== 0}>
+        <div class="slide" aria-hidden="true">
           <Image {src} alt="" width={768} />
         </div>
       ))
@@ -48,19 +48,19 @@ const images = await Promise.all(
     width: 100%;
     background: rgb(129, 26, 33);
     overflow: hidden;
-    --loading-spinner-z-index: 2;
 
     &.is-ready {
-      --loading-spinner-opacity: 0;
-      --loading-spinner-play-state: paused;
+      --loading-spinner-display: none;
     }
   }
 
   .slide {
+    position: relative;
     grid-row: 1;
     grid-column: 1;
     width: 100%;
     opacity: 0;
+    z-index: 0;
     transition: opacity 250ms linear;
 
     &.active {
@@ -100,12 +100,15 @@ const images = await Promise.all(
     loggedImageFailures = new WeakSet<HTMLImageElement>();
 
     showSlide = (index: number) => {
-      this.slides.forEach((slide, slideIndex) => {
-        const isActive = slideIndex === index;
-        slide.classList.toggle('active', isActive);
-        slide.setAttribute('aria-hidden', String(!isActive));
-      });
+      if (this.activeIndex >= 0) {
+        const prevSlide = this.slides[this.activeIndex];
+        prevSlide.classList.remove('active');
+        prevSlide.setAttribute('aria-hidden', 'true');
+      }
       this.activeIndex = index;
+      const nextSlide = this.slides[this.activeIndex];
+      nextSlide.classList.add('active');
+      nextSlide.setAttribute('aria-hidden', 'false');
     }
 
     startPlayback = () => {
@@ -160,9 +163,6 @@ const images = await Promise.all(
             return;
           }
 
-          slide.hidden = true;
-          slide.classList.remove('active');
-          slide.setAttribute('aria-hidden', 'true');
           if (!this.loggedImageFailures.has(image)) {
             console.error('Load Error', image.currentSrc || image.src);
             this.loggedImageFailures.add(image);

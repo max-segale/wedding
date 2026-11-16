@@ -64,11 +64,9 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     flex: 1 1 auto;
     position: relative;
     overflow: hidden;
-    --loading-spinner-z-index: 0;
 
     &.is-loaded {
-      --loading-spinner-opacity: 0;
-      --loading-spinner-play-state: paused;
+      --loading-spinner-display: none;
 
       .dialog-image {
         opacity: 1;
@@ -123,9 +121,16 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
   let itemIndex = -1;
 
   const showPhoto = () => {
-    const { href } = photoLinks[itemIndex];
+    const { href, dataset } = photoLinks[itemIndex];
     if (dialogImage.src === href) return;
     dialogView.classList.remove('is-loaded');
+    if (dataset.srcset) {
+      dialogImage.sizes = dataset.sizes || '100vw';
+      dialogImage.srcset = dataset.srcset;
+    } else {
+      dialogImage.removeAttribute('sizes');
+      dialogImage.removeAttribute('srcset');
+    }
     dialogImage.src = href;
   }
 
