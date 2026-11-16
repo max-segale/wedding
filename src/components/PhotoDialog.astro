@@ -106,19 +106,17 @@ import Button from '@/components/Button.astro';
   const btnNext = dialogPhoto.querySelector('button.next-photo') as HTMLButtonElement;
   const dialogImage = dialogPhoto.querySelector('.dialog-image') as HTMLImageElement;
   const photoGallery = document.querySelector('.photo-gallery') as HTMLElement;
-  const galleryItems = photoGallery.querySelectorAll('.gallery-item');
+  const photoLinks = photoGallery.querySelectorAll<HTMLAnchorElement>('a');
   let itemIndex = -1;
 
   const showPhoto = (callback?: () => void) => {
-    const selectedItem = galleryItems[itemIndex] as HTMLElement;
-    const { src, alt } = selectedItem.querySelector('img') as HTMLImageElement;
-    if (dialogImage.src === src) {
+    const { href } = photoLinks[itemIndex];
+    if (dialogImage.src === href) {
       callback?.();
       return;
     };
     dialogImage.onload = callback || null;
-    dialogImage.src = src;
-    dialogImage.alt = alt;
+    dialogImage.src = href;
   }
 
   const selectPhoto = () => {
@@ -138,12 +136,12 @@ import Button from '@/components/Button.astro';
   };
 
   const nextItem = () => {
-    itemIndex = (itemIndex + 1) % galleryItems.length;
+    itemIndex = (itemIndex + 1) % photoLinks.length;
     showPhoto();
   };
 
   const prevItem = () => {
-    itemIndex = (itemIndex - 1 + galleryItems.length) % galleryItems.length;
+    itemIndex = (itemIndex - 1 + photoLinks.length) % photoLinks.length;
     showPhoto();
   };
 
@@ -165,8 +163,10 @@ import Button from '@/components/Button.astro';
     }
   });
 
-  photoGallery.addEventListener('click', ({ target }: MouseEvent) => {
-    const item = (target as HTMLElement).closest('.gallery-item') as HTMLElement;
+  photoGallery.addEventListener('click', (event: MouseEvent) => {
+    event.preventDefault();
+    const target = event.target as HTMLElement | null;
+    const item = target?.closest('a') as HTMLElement | null;
     if (!item) return;
     itemIndex = Number(item.dataset.index || 0);
     selectPhoto();

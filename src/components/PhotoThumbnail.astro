@@ -1,0 +1,26 @@
+---
+import { Image, getImage } from 'astro:assets';
+
+const { src, galleryIndex, thumbWidth = 768, fullWidth = 1920 } = Astro.props;
+const fullImage = await getImage({ src, width: fullWidth });
+---
+
+<a href={fullImage.src} role="button" data-index={galleryIndex} aria-label="View photo">
+  <Image class="thumb" {src} alt="" width={thumbWidth} loading={galleryIndex < 5 ? 'eager' : null} />
+</a>
+
+<style>
+  a,
+  .thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .thumb {
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+  }
+</style>

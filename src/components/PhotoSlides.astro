@@ -13,9 +13,9 @@ const images = await Promise.all(
 <photo-slideshow>
   <div class="photos">
     {
-      images.map((img, index) => (
+      images.map((src, index) => (
         <div class:list={['slide', { active: index === 0 }]} aria-hidden={index !== 0}>
-          <Image src={img} alt={`Booth ${index + 1}`} width={768} loading="eager" />
+          <Image {src} alt="" width={768} />
         </div>
       ))
     }
