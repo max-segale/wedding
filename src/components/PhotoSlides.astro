@@ -17,7 +17,7 @@ const images = await Promise.all(
     {
       images.map((src, index) => (
         <div class="slide" aria-hidden="true">
-          <Image {src} alt="" width={768} />
+          <Image {src} alt="" width={768} fetchpriority="low" />
         </div>
       ))
     }
