@@ -15,9 +15,15 @@ const images = await Promise.all(
   <div class="photos">
     <LoadingSpinner />
     {
-      images.map((src, index) => (
+      images.map(image => (
         <div class="slide" aria-hidden="true">
-          <Image {src} alt="" width={768} fetchpriority="low" />
+          <Image
+            src={image}
+            alt=""
+            widths={[440, 640, 768]}
+            sizes="(max-width: 512px) 100vw, (max-width: 1024px) 50vw, 768px"
+            fetchpriority="low"
+          />
         </div>
       ))
     }
