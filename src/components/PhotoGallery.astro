@@ -19,7 +19,7 @@ const images = await Promise.all(
       }
       return (
         <div class:list={['gallery-item', size]}>
-          <PhotoThumbnail src={image} galleryIndex={index} />
+          <PhotoThumbnail src={image} galleryIndex={index} {size} />
         </div>
       )
     })

@@ -1,11 +1,14 @@
 ---
 import { Image, getImage } from 'astro:assets';
 
-const { src, galleryIndex, fullWidth = 1600 } = Astro.props;
+const { src, galleryIndex, fullWidth = 1600, size = 'tall' } = Astro.props;
+const thumbSizes = size === 'wide' || size === 'large'
+  ? '(max-width: 31.999rem) calc(100vw - 32px), (max-width: 63.999rem) calc(50vw - 20px), calc(33.3333vw - 16px)'
+  : '(max-width: 31.999rem) calc(50vw - 20px), (max-width: 63.999rem) calc(25vw - 14px), calc(16.6667vw - 12px)';
 const fullImage = await getImage({
   src,
   width: fullWidth,
-  widths: [440, 768, 1280, fullWidth],
+  widths: [440, 880, 1280, fullWidth],
   sizes: '100vw',
 });
 ---
@@ -22,8 +25,8 @@ const fullImage = await getImage({
     class="thumb"
     {src}
     alt=""
-    widths={[440, 640, 768]}
-    sizes="(max-width: 512px) 100vw, (max-width: 1024px) 50vw, 768px"
+    widths={[408, 728, 816, 870]}
+    sizes={thumbSizes}
     fetchpriority="low"
   />
 </a>
