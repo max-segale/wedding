@@ -20,8 +20,8 @@ const images = await Promise.all(
           <Image
             src={image}
             alt=""
-            widths={[440, 640, 768]}
-            sizes="(max-width: 512px) 100vw, (max-width: 1024px) 50vw, 768px"
+            widths={[408, 768, 816, 1536]}
+            sizes="(max-width: 800px) calc(100vw - 2rem), 768px"
             fetchpriority="low"
           />
         </div>
@@ -103,6 +103,7 @@ const images = await Promise.all(
     slides: HTMLElement[] = [];
     playBtn: HTMLButtonElement | null = null;
     connectionController: AbortController | null = null;
+    visibilityObserver: IntersectionObserver | null = null;
     loggedImageFailures = new WeakSet<HTMLImageElement>();
 
     showSlide = (index: number) => {
@@ -138,8 +139,25 @@ const images = await Promise.all(
 
     connectedCallback() {
       this.connectionController?.abort();
+      this.visibilityObserver?.disconnect();
       const controller = new AbortController();
       this.connectionController = controller;
+
+      const photos = this.querySelector<HTMLElement>('.photos');
+      let isVisible = false;
+      let imagesLoaded = false;
+      const maybeStartPlayback = () => {
+        if (!isVisible || !imagesLoaded || !this.isConnected || this.connectionController !== controller) return;
+        this.visibilityObserver?.disconnect();
+        this.visibilityObserver = null;
+        this.startPlayback();
+      };
+      this.visibilityObserver = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= 0.5)) return;
+        isVisible = true;
+        maybeStartPlayback();
+      }, { threshold: 0.5 });
+      if (photos) this.visibilityObserver.observe(photos);
 
       const allSlides = [...this.querySelectorAll<HTMLElement>('.slide')];
       this.slides = allSlides;
@@ -152,8 +170,12 @@ const images = await Promise.all(
           return Promise.resolve(image.naturalWidth > 0);
         }
         return new Promise<boolean>(resolve => {
-          image.addEventListener('load', () => resolve(true), { once: true, signal: controller.signal });
-          image.addEventListener('error', () => resolve(false), { once: true, signal: controller.signal });
+          image.addEventListener('load', () => {
+            resolve(true);
+          }, { once: true, signal: controller.signal });
+          image.addEventListener('error', () => {
+            resolve(false);
+          }, { once: true, signal: controller.signal });
         });
       });
 
@@ -176,9 +198,14 @@ const images = await Promise.all(
         });
 
         this.slides = loadedSlides;
-        if (this.slides.length === 0) return;
+        if (this.slides.length === 0) {
+          this.visibilityObserver?.disconnect();
+          this.visibilityObserver = null;
+          return;
+        }
         this.showSlide(0);
-        this.startPlayback();
+        imagesLoaded = true;
+        maybeStartPlayback();
         if (this.playBtn) this.playBtn.disabled = false;
         if (prevButton) prevButton.disabled = false;
         if (nextButton) nextButton.disabled = false;
@@ -206,6 +233,8 @@ const images = await Promise.all(
     disconnectedCallback() {
       this.connectionController?.abort();
       this.connectionController = null;
+      this.visibilityObserver?.disconnect();
+      this.visibilityObserver = null;
       this.stopPlayback();
     }
   }
