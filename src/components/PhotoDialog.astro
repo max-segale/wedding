@@ -124,14 +124,11 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     const { href, dataset } = photoLinks[itemIndex];
     if (dialogImage.src === href) return;
     dialogView.classList.remove('is-loaded');
-    if (dataset.srcset) {
-      dialogImage.sizes = dataset.sizes || '100vw';
-      dialogImage.srcset = dataset.srcset;
-    } else {
-      dialogImage.removeAttribute('sizes');
-      dialogImage.removeAttribute('srcset');
-    }
-    dialogImage.src = href;
+    requestAnimationFrame(() => {
+      dialogImage.sizes = dataset.sizes || '';
+      dialogImage.srcset = dataset.srcset || '';
+      dialogImage.src = href || '';
+    });
   }
 
   const selectPhoto = () => {
