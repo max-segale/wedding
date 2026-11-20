@@ -22,9 +22,9 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
 <style>
   .dialog {
     width: 100vw;
+    width: 100lvw;
     height: 100vh;
-    max-width: 100dvw;
-    max-height: 100dvh;
+    height: 100lvh;
     margin: 0;
     border: 0;
     padding: 0;
@@ -33,6 +33,10 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     &::backdrop {
       position: fixed;
       inset: 0;
+      width: 100vw;
+      width: 100lvw;
+      height: 100vh;
+      height: 100lvh;
       background: rgb(0 0 0 / 0);
       backdrop-filter: blur(0);
       transition: background-color .25s linear, backdrop-filter .5s linear;
@@ -53,6 +57,8 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     justify-content: space-between;
     width: 100%;
     height: 100%;
+    max-width: 100dvw;
+    max-height: 100dvh;
     @media (--landscape) {
       flex-direction: row;
     }
@@ -81,11 +87,17 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
     object-position: center;
     opacity: 0;
     transition: opacity .25s linear;
+    @media (--landscape) {
+      width: auto;
+      height: 100%;
+    }
   }
 
   .controls {
