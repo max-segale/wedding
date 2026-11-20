@@ -22,9 +22,9 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
 <style>
   .dialog {
     width: 100vw;
-    width: 100lvw;
     height: 100vh;
-    height: 100lvh;
+    max-width: 100vw;
+    max-height: 100vh;
     margin: 0;
     border: 0;
     padding: 0;
@@ -33,10 +33,6 @@ import LoadingSpinner from '@/components/LoadingSpinner.astro';
     &::backdrop {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      width: 100lvw;
-      height: 100vh;
-      height: 100lvh;
       background: rgb(0 0 0 / 0);
       backdrop-filter: blur(0);
       transition: background-color .25s linear, backdrop-filter .5s linear;
