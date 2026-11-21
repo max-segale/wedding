@@ -1,0 +1,23 @@
+@keyframes loading-spinner-rotate {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes welcome-scale-in {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes welcome-scale-out {
+  0% {
+    transform: scale(5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

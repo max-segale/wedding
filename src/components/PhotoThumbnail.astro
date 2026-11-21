@@ -39,6 +39,15 @@ const fullImage = await getImage({
     height: 100%;
   }
 
+  a {
+    background: rgb(255 255 255 / .5);
+    transition: transform .1s ease-out;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
   .thumb {
     object-fit: cover;
     object-position: center;

@@ -49,30 +49,12 @@ import engagementPhoto from '@/assets/alex-max-engagement.jpeg';
     border-radius: 50%;
     margin: 2rem auto 0;
     overflow: hidden;
-    animation: scaleIn 1s ease-out;
+    animation: welcome-scale-in 1s ease-out;
   }
 
   .image {
     width: auto;
     height: 100%;
-    animation: scaleOut 1s ease-out;
-  }
-
-  @keyframes scaleIn {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes scaleOut {
-    0% {
-      transform: scale(5);
-    }
-    100% {
-      transform: scale(1);
-    }
+    animation: welcome-scale-out 1s ease-out;
   }
 </style>

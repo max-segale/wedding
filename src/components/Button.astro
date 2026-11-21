@@ -32,7 +32,7 @@ const Element = href ? 'a' : 'button';
     white-space: nowrap;
     text-decoration: none;
     appearance: none;
-    transition: transform .1s linear;
+    transition: transform .1s ease-out;
 
     &:active:not(:disabled) {
       transform: scale(.9);
@@ -105,7 +105,7 @@ const Element = href ? 'a' : 'button';
 
     &.nav {
       .line {
-        transition: transform .5s ease, width 500ms ease;
+        transition: transform .5s, width .5s;
       }
 
       .top {
@@ -164,7 +164,7 @@ const Element = href ? 'a' : 'button';
       .line {
         height: 100%;
         width: var(--line-width);;
-        transition: transform .5s ease, height 500ms ease, margin-top 500ms ease;
+        transition: transform .5s, height .5s, margin-top .5s;
       }
 
       .top {
