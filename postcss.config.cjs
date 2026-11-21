@@ -3,6 +3,7 @@ module.exports = {
     '@csstools/postcss-global-data': {
       files: ['./src/styles/media-queries.css'],
     },
+    'postcss-viewport-unit-fallback': {},
     'postcss-preset-env': {
       stage: 3,
       features: {
