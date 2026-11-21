@@ -13,10 +13,7 @@ const images = await Promise.all(
 <div class="photo-gallery">
   {
     images.map((image, index) => {
-      let size = image.width < image.height ? 'tall' : 'wide';
-      if (index === images.length - 1) {
-        size = 'large';
-      }
+      const size = image.width < image.height ? 'tall' : 'wide';
       return (
         <div class:list={['gallery-item', size]}>
           <PhotoThumbnail src={image} galleryIndex={index} {size} />
